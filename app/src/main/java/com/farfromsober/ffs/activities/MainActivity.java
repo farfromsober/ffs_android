@@ -1,9 +1,11 @@
-package com.farfromsober.ffs;
+package com.farfromsober.ffs.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.farfromsober.ffs.R;
 
 public class MainActivity extends AppCompatActivity {
 
