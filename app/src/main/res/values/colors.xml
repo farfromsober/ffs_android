@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Navigation Drawer styles -->
+    <color name="color_primary_dark">#ff444444</color> <!-- Status bar -->
+    <color name="color_primary">#ffaaaaaa</color> <!-- Navigation bar -->
+    <color name="color_accent">#ff777777</color> <!-- Similar al Tint de iOS -->
+    <!-- ======================== -->
+
     <color name="navigation_bar_background_color">#ffdddddd</color>
+
+    <color name="nav_drawer_background_color">#ff999999</color>
+    <color name="nav_drawer_inset_foreground">#44000000</color>
+    <color name="nav_drawer_item_background_off">#ffffffff</color>
+    <color name="nav_drawer_item_background_on">#ff75BE62</color>
+    <color name="nav_drawer_item_title_off">#ff084000</color>
+    <color name="nav_drawer_item_title_on">#ffffffff</color>
+    <color name="nav_drawer_header_background_color">#ff4E4E4E</color>
+    <color name="nav_drawer_header_text_color">#ffD9D9D9</color>
 
 </resources>

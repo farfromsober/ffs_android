@@ -2,4 +2,36 @@
     <string name="app_name">ffs</string>
 
     <string name="action_settings">Settings</string>
+
+    <string-array name="DrawerMenuTitles">
+        <item>Productos</item>
+        <item>Mapas</item>
+        <item>Notificaciones</item>
+        <item>Perfil</item>
+    </string-array>
+
+    <string-array name="DrawerMenuIconsOff">
+        <item>drawer_products_item_icon_off</item>
+        <item>drawer_map_item_icon_off</item>
+        <item>drawer_notifications_item_icon_off</item>
+        <item>drawer_profile_item_icon_off</item>
+    </string-array>
+
+    <string-array name="DrawerMenuIconsOn">
+        <item>drawer_products_item_icon_on</item>
+        <item>drawer_map_item_icon_on</item>
+        <item>drawer_notifications_item_icon_on</item>
+        <item>drawer_profile_item_icon_on</item>
+    </string-array>
+
+    <string name="products_fragment">Productos fragment</string>
+    <string name="map_fragment">Mapa fragment</string>
+    <string name="notifications_fragment">Notificaciones fragment</string>
+    <string name="profile_fragment">Perfil fragment</string>
+    <string name="openDrawer">Drawer opened</string>
+    <string name="closeDrawer">Drawer closed</string>
+    <string name="navigation_drawer_item_icon_content_description">Drawer Menu Icon</string>
+    <string name="drawer_item_example_text">Navigation drawer item</string>
+    <string name="drawer_number_of_transactions_format">%1$s compras | %2$s ventas</string>
+
 </resources>
