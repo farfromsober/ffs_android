@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">ffs</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string-array name="DrawerMenuTitles">
+        <item>Products</item>
+        <item>Maps</item>
+        <item>Notifications</item>
+        <item>Profile</item>
+    </string-array>
+
+    <string name="products_fragment">Products fragment</string>
+    <string name="map_fragment">Map fragment</string>
+    <string name="notifications_fragment">Notifications fragment</string>
+    <string name="profile_fragment">Profile fragment</string>
+    <string name="openDrawer">Drawer opened</string>
+    <string name="closeDrawer">Drawer closed</string>
+    <string name="navigation_drawer_item_icon_content_description">Drawer Menu Icon</string>
+    <string name="drawer_item_example_text">Navigation drawer item</string>
+    <string name="drawer_number_of_transactions_format">%1$s buys | %2$s sales</string>
+
+</resources>
