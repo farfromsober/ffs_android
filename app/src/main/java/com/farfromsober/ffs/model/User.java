@@ -2,8 +2,6 @@ package com.farfromsober.ffs.model;
 
 import org.json.JSONObject;
 
-import java.net.URL;
-
 public class User {
 
     private static final String ID_KEY = "_id";
@@ -17,58 +15,54 @@ public class User {
     private static final String CITY_KEY = "city";
     private static final String STATE_KEY = "state";
     private static final String SALES_KEY = "sales";
-    private static final String IS_ACTIVE_KEY = "is_active";
 
-    private String mId;
+    private String mUserId;
     private String mFirstName;
     private String mLastName;
     private String mEmail;
     private String mUsername;
     private String mLatitude;
     private String mLongitude;
-    private String mAvatar;
+    private String mAvatarURL;
     private String mCity;
     private String mState;
     private double mSales;
-    private boolean mIsActive;
 
-    public User(String id, String firstName, String lastName, String email, String username, String latitude,
-                String longitude, String avatar, String city, String state, double sales, boolean isActive) {
-        mId = id;
+    public User(String userId, String firstName, String lastName, String email, String username, String latitude,
+                String longitude, String avatarURL, String city, String state, double sales) {
+        mUserId = userId;
         mFirstName = firstName;
         mLastName = lastName;
         mEmail = email;
         mUsername = username;
         mLatitude = latitude;
         mLongitude = longitude;
-        mAvatar = avatar;
+        mAvatarURL = avatarURL;
         mCity = city;
         mState = state;
         mSales = sales;
-        mIsActive = isActive;
     }
 
     public User(JSONObject json) {
-        mId = json.optString(ID_KEY);
+        mUserId = json.optString(ID_KEY);
         mFirstName = json.optString(FIRST_NAME_KEY);
         mLastName = json.optString(LAST_NAME_KEY);
         mEmail = json.optString(EMAIL_KEY);
         mUsername = json.optString(USERNAME_KEY);
         mLatitude = json.optString(LATITUDE_KEY);
         mLongitude = json.optString(LONGITUDE_KEY);
-        mAvatar = json.optString(AVATAR_KEY);
+        mAvatarURL = json.optString(AVATAR_KEY);
         mCity = json.optString(CITY_KEY);
         mState = json.optString(STATE_KEY);
         mSales = json.optDouble(SALES_KEY);
-        mIsActive = json.optBoolean(IS_ACTIVE_KEY);
     }
 
-    public String getId() {
-        return mId;
+    public String getUserId() {
+        return mUserId;
     }
 
-    public void setId(String id) {
-        mId = id;
+    public void setUserId(String userId) {
+        mUserId = userId;
     }
 
     public String getFirstName() {
@@ -119,12 +113,12 @@ public class User {
         mLongitude = longitude;
     }
 
-    public String getAvatar() {
-        return mAvatar;
+    public String getAvatarURL() {
+        return mAvatarURL;
     }
 
-    public void setAvatar(String avatar) {
-        mAvatar = avatar;
+    public void setAvatarURL(String avatarURL) {
+        mAvatarURL = avatarURL;
     }
 
     public String getCity() {
@@ -151,29 +145,20 @@ public class User {
         mSales = sales;
     }
 
-    public boolean isActive() {
-        return mIsActive;
-    }
-
-    public void setIsActive(boolean isActive) {
-        mIsActive = isActive;
-    }
-
     @Override
     public String toString() {
         return "User{" +
-                "mId='" + mId + '\'' +
+                "mUserId='" + mUserId + '\'' +
                 ", mFirstName='" + mFirstName + '\'' +
                 ", mLastName='" + mLastName + '\'' +
                 ", mEmail='" + mEmail + '\'' +
                 ", mUsername='" + mUsername + '\'' +
                 ", mLatitude='" + mLatitude + '\'' +
                 ", mLongitude='" + mLongitude + '\'' +
-                ", mAvatar='" + mAvatar + '\'' +
+                ", mAvatarURL='" + mAvatarURL + '\'' +
                 ", mCity='" + mCity + '\'' +
                 ", mState='" + mState + '\'' +
                 ", mSales=" + mSales +
-                ", mIsActive=" + mIsActive +
                 '}';
     }
 }

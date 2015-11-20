@@ -12,7 +12,6 @@ import java.util.Date;
 
 public class Product {
 
-    private static final String ID_KEY = "_id";
     private static final String NAME_KEY = "name";
     private static final String DESCRIPTION_KEY = "description";
     private static final String PUBLISH_DATE_KEY = "publish_date";
@@ -23,23 +22,21 @@ public class Product {
     private static final String CATEGORY_KEY = "category";
     private static final String IMAGES_KEY = "images";
 
-    private String mId;
     private String mName;
-    private String mDescription;
-    private Date mPublishedDate;
-    private boolean mSelling;
+    private String mDetail;
+    private Date mPublished;
+    private boolean mIsSelling;
     private String mPrice;
     private User mSeller;
     private Category mCategory;
     private ArrayList<Image> mImages;
 
-    public Product(String id, String name, String description, Date publishedDate, boolean selling,
+    public Product(String name, String detail, Date published, boolean isSelling,
                    String price, User seller, Category category, ArrayList<Image> images) {
-        mId = id;
         mName = name;
-        mDescription = description;
-        mPublishedDate = publishedDate;
-        mSelling = selling;
+        mDetail = detail;
+        mPublished = published;
+        mIsSelling = isSelling;
         mPrice = price;
         mSeller = seller;
         mCategory = category;
@@ -47,11 +44,10 @@ public class Product {
     }
 
     public Product(JSONObject json) throws JSONException, ParseException {
-        mId = json.optString(ID_KEY);
         mName = json.optString(NAME_KEY);
-        mDescription = json.optString(DESCRIPTION_KEY);
-        mPublishedDate = DateManager.dateFromString(json.optString(PUBLISH_DATE_KEY), DATE_FORMAT);
-        mSelling = json.optBoolean(SELLING_KEY);
+        mDetail = json.optString(DESCRIPTION_KEY);
+        mPublished = DateManager.dateFromString(json.optString(PUBLISH_DATE_KEY), DATE_FORMAT);
+        mIsSelling = json.optBoolean(SELLING_KEY);
         mPrice = json.optString(PRICE_KEY);
         mSeller = new User((JSONObject) json.opt(SELLER_KEY));
         mCategory = new Category((JSONObject) json.opt(CATEGORY_KEY));
@@ -64,14 +60,6 @@ public class Product {
         }
     }
 
-    public String getId() {
-        return mId;
-    }
-
-    public void setId(String id) {
-        mId = id;
-    }
-
     public String getName() {
         return mName;
     }
@@ -80,28 +68,28 @@ public class Product {
         mName = name;
     }
 
-    public String getDescription() {
-        return mDescription;
+    public String getDetail() {
+        return mDetail;
     }
 
-    public void setDescription(String description) {
-        mDescription = description;
+    public void setDetail(String detail) {
+        mDetail = detail;
     }
 
-    public Date getPublishedDate() {
-        return mPublishedDate;
+    public Date getPublished() {
+        return mPublished;
     }
 
-    public void setPublishedDate(Date publishedDate) {
-        mPublishedDate = publishedDate;
+    public void setPublished(Date published) {
+        mPublished = published;
     }
 
     public boolean isSelling() {
-        return mSelling;
+        return mIsSelling;
     }
 
     public void setSelling(boolean selling) {
-        mSelling = selling;
+        mIsSelling = selling;
     }
 
     public String getPrice() {
@@ -139,11 +127,10 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "mId='" + mId + '\'' +
-                ", mName='" + mName + '\'' +
-                ", mDescription='" + mDescription + '\'' +
-                ", mPublishedDate=" + mPublishedDate +
-                ", mSelling=" + mSelling +
+                "mName='" + mName + '\'' +
+                ", mDetail='" + mDetail + '\'' +
+                ", mPublished=" + mPublished +
+                ", mIsSelling=" + mIsSelling +
                 ", mPrice='" + mPrice + '\'' +
                 ", mSeller=" + mSeller +
                 ", mCategory=" + mCategory +

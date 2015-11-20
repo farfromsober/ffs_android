@@ -4,36 +4,24 @@ import org.json.JSONObject;
 
 public class SavedSearch {
 
-    private static final String ID_KEY = "_id";
     private static final String QUERY_KEY = "query";
     private static final String USER_KEY = "user";
     private static final String CATEGORY_KEY = "category";
 
-    private String mId;
     private String mQuery;
     private User mUser;
     private Category mCategory;
 
-    public SavedSearch(String id, String query, User user, Category category) {
-        mId = id;
+    public SavedSearch(String query, User user, Category category) {
         mQuery = query;
         mUser = user;
         mCategory = category;
     }
 
     public SavedSearch(JSONObject json) {
-        mId = json.optString(ID_KEY);
         mQuery = json.optString(QUERY_KEY);
         mUser = new User((JSONObject) json.opt(USER_KEY));
         mCategory = new Category((JSONObject) json.opt(CATEGORY_KEY));
-    }
-
-    public String getId() {
-        return mId;
-    }
-
-    public void setId(String id) {
-        mId = id;
     }
 
     public String getQuery() {
@@ -63,8 +51,7 @@ public class SavedSearch {
     @Override
     public String toString() {
         return "SavedSearch{" +
-                "mId='" + mId + '\'' +
-                ", mQuery='" + mQuery + '\'' +
+                "mQuery='" + mQuery + '\'' +
                 ", mUser=" + mUser +
                 ", mCategory=" + mCategory +
                 '}';

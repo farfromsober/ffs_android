@@ -10,14 +10,14 @@
     android:background="@color/nav_drawer_header_background_color">
 
     <LinearLayout
-        android:id="@+id/drawer_profile_image_group"
+        android:userId="@+userId/drawer_profile_image_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="@dimen/activity_horizontal_margin">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/drawer_profile_image"
+            android:userId="@+userId/drawer_profile_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/no_user"
@@ -25,7 +25,7 @@
             app:civ_border_color="#FF000000"/>
 
         <LinearLayout
-            android:id="@+id/drawer_user_name_group"
+            android:userId="@+userId/drawer_user_name_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -33,14 +33,14 @@
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
             <com.farfromsober.customviews.CustomFontTextView
-                android:id="@+id/drawer_user_name"
+                android:userId="@+userId/drawer_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 ffs:fontName="Raleway-Bold.ttf"
                 tools:text="Javier Alzueta"
                 style="@style/navigation_header_main_text_style"/>
             <com.farfromsober.customviews.CustomFontTextView
-                android:id="@+id/drawer_user_location"
+                android:userId="@+userId/drawer_user_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 ffs:fontName="Raleway-Regular.ttf"
@@ -51,12 +51,12 @@
     </LinearLayout>
 
     <com.farfromsober.customviews.CustomFontTextView
-        android:id="@+id/drawer_user_number_of_transactions"
+        android:userId="@+userId/drawer_user_number_of_transactions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@id/drawer_profile_image_group"
-        android:layout_alignStart="@id/drawer_profile_image_group"
+        android:layout_alignLeft="@userId/drawer_profile_image_group"
+        android:layout_alignStart="@userId/drawer_profile_image_group"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         ffs:fontName="Raleway-Regular.ttf"
         tools:text="999 compras | 999 ventas"

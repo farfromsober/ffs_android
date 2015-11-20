@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 public class Category {
 
-    private static final String INDEX_KEY = "_id";
+    private static final String INDEX_KEY = "index";
     private static final String NAME_KEY = "azure_id";
 
     private String mName;
