@@ -2,7 +2,7 @@ package com.farfromsober.network;
 
 import android.os.AsyncTask;
 
-import com.farfromsober.network.interfaces.NetworkUtils;
+import com.farfromsober.network.interfaces.OnDataParsedCallback;
 import com.farfromsober.network.interfaces.OnResponseReceivedCallback;
 
 import java.io.BufferedReader;
@@ -28,14 +28,18 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
     private HashMap<String, String> mHeaders;
     private HashMap<String, Object> mPostDataParams;
     private WeakReference<OnResponseReceivedCallback> mOnResponseReceivedCallbackWeakReference;
+    private WeakReference<OnDataParsedCallback> mOnDataParsedCallbackWeakReference;
+    private Class mModelClass;
 
     public APIAsyncTask(String urlString, boolean isPostRequest, HashMap<String, String> headers, HashMap<String, Object> postDataParams,
-                        OnResponseReceivedCallback onResponseReceivedCallback) {
+                        OnResponseReceivedCallback onResponseReceivedCallback, OnDataParsedCallback onDataParsedCallback, Class<?> modelClass) {
         mUrlString = urlString;
         mIsPostRequest = isPostRequest;
         mHeaders = headers;
         mPostDataParams = postDataParams;
         mOnResponseReceivedCallbackWeakReference = new WeakReference<>(onResponseReceivedCallback);
+        mOnDataParsedCallbackWeakReference = new WeakReference<>(onDataParsedCallback);
+        mModelClass = modelClass;
     }
 
     @Override
@@ -100,7 +104,7 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
         String response = (String) values.get(RESPONSE_KEY);
 
         if (mOnResponseReceivedCallbackWeakReference != null && mOnResponseReceivedCallbackWeakReference.get() != null) {
-            mOnResponseReceivedCallbackWeakReference.get().onResponseReceived(responseCode, response);
+            mOnResponseReceivedCallbackWeakReference.get().onResponseReceived(responseCode, response, mModelClass, mOnDataParsedCallbackWeakReference);
         }
         super.onPostExecute(values);
     }

@@ -1,15 +1,28 @@
-package com.farfromsober.network.interfaces;
+package com.farfromsober.network;
 
 import android.support.annotation.NonNull;
 
+import com.farfromsober.network.interfaces.OnDataParsedCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class NetworkUtils {
 
@@ -66,5 +79,35 @@ public class NetworkUtils {
         }
         result.append("}");
         return result.toString();
+    }
+    public static void parseObjects(int responseCode, String response, Class<?> modelClass, WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {
+        if (responseCode == HttpsURLConnection.HTTP_OK) {
+            Object json;
+            try {
+                json = new JSONTokener(response).nextValue();
+                if (json instanceof JSONObject) {
+
+                    Constructor<?> ctor = modelClass.getConstructor(JSONObject.class);
+                    Object object = ctor.newInstance((JSONObject) json);
+
+                    if (onDataParsedCallbackWeakReference != null && onDataParsedCallbackWeakReference.get() != null) {
+                        onDataParsedCallbackWeakReference.get().onDataParsed(object);
+                    }
+                }
+                else if (json instanceof JSONArray) {
+                    ArrayList<Object> objects = new ArrayList<>();
+                    JSONArray objectsArray = new JSONArray(response);
+                    for (int i = 0; i < objectsArray.length(); i++) {
+                        JSONObject jsonObject = objectsArray.getJSONObject(i);
+                        Constructor<?> constructor = modelClass.getConstructor(JSONObject.class);
+                        Object object = constructor.newInstance(jsonObject);
+                        objects.add(object);
+                    }
+                    onDataParsedCallbackWeakReference.get().onDataParsed(objects);
+                }
+            } catch (JSONException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

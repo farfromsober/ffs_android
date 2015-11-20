@@ -3,17 +3,22 @@ package com.farfromsober.ffs.fragments;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.farfromsober.ffs.R;
+import com.farfromsober.network.interfaces.OnDataParsedCallback;
+import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.network.APIManager;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProductsFragment extends Fragment {
+public class ProductsFragment extends Fragment implements OnDataParsedCallback<Product>{
 
     private APIManager apiManager;
 
@@ -36,6 +41,16 @@ public class ProductsFragment extends Fragment {
     }
 
     private void askServerForProducts() {
-        apiManager.allProducts(getActivity());
+        apiManager.allProducts(this);
+    }
+
+    @Override
+    public void onDataParsed(ArrayList<Product> data) {
+        Log.i("ffs", data.toString());
+    }
+
+    @Override
+    public void onDataParsed(Product data) {
+        Log.i("ffs", data.toString());
     }
 }

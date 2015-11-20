@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 public class Product {
 
+    private static final String ID_KEY = "_id";
     private static final String NAME_KEY = "name";
     private static final String DESCRIPTION_KEY = "description";
     private static final String PUBLISHED_DATE_KEY = "published_date";
@@ -23,6 +24,7 @@ public class Product {
     private static final String CATEGORY_KEY = "category";
     private static final String IMAGES_KEY = "images";
 
+    private String mId;
     private String mName;
     private String mDetail;
     private Date mPublished;
@@ -32,8 +34,9 @@ public class Product {
     private Category mCategory;
     private ArrayList<String> mImages;
 
-    public Product(String name, String detail, Date published, boolean isSelling,
+    public Product(String id, String name, String detail, Date published, boolean isSelling,
                    String price, User seller, Category category, ArrayList<String> images) {
+        mId = id;
         mName = name;
         mDetail = detail;
         mPublished = published;
@@ -45,6 +48,7 @@ public class Product {
     }
 
     public Product(JSONObject json) throws JSONException, ParseException {
+        mId = json.optString(ID_KEY);
         mName = json.optString(NAME_KEY);
         mDetail = json.optString(DESCRIPTION_KEY);
         mPublished = DateManager.dateFromString(json.optString(PUBLISHED_DATE_KEY), DATE_FORMAT);
@@ -58,6 +62,14 @@ public class Product {
         for (int i = 0; i < objectsArray.length(); i++) {
             mImages.add(objectsArray.getString(i));
         }
+    }
+
+    public String getId() {
+        return mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
     }
 
     public String getName() {
@@ -127,7 +139,8 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "mName='" + mName + '\'' +
+                "miD='" + mId + '\'' +
+                ", mName='" + mName + '\'' +
                 ", mDetail='" + mDetail + '\'' +
                 ", mPublished=" + mPublished +
                 ", mIsSelling=" + mIsSelling +
@@ -140,6 +153,7 @@ public class Product {
 
     public HashMap<String, Object> toHashMap() {
         HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(ID_KEY, getId());
         hashMap.put(NAME_KEY, getName());
         hashMap.put(DESCRIPTION_KEY, getDetail());
         hashMap.put(PUBLISHED_DATE_KEY, DateManager.stringFromDate(getPublished(), DATE_FORMAT));
