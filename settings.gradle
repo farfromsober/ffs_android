@@ -1,1 +1,1 @@
-include ':app', ':custom_views', 'general_utils'
+include ':app', ':custom_views', ':network', 'general_utils'

@@ -1,11 +1,10 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.farfromsober.ffs"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
@@ -20,12 +19,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile project(':general_utils')
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.makeramen:roundedimageview:2.2.1'
-    compile 'de.hdodenhof:circleimageview:2.0.0'
-    compile project(':custom_views')
-    compile project(':network')
 }
