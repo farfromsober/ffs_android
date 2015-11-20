@@ -5,7 +5,7 @@
 
     <string-array name="DrawerMenuTitles">
         <item>Productos</item>
-        <item>Mapas</item>
+        <item>Mapa</item>
         <item>Notificaciones</item>
         <item>Perfil</item>
     </string-array>
