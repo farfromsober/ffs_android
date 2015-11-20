@@ -30,10 +30,10 @@ public class Product {
     private String mPrice;
     private User mSeller;
     private Category mCategory;
-    private ArrayList<Image> mImages;
+    private ArrayList<String> mImages;
 
     public Product(String name, String detail, Date published, boolean isSelling,
-                   String price, User seller, Category category, ArrayList<Image> images) {
+                   String price, User seller, Category category, ArrayList<String> images) {
         mName = name;
         mDetail = detail;
         mPublished = published;
@@ -56,8 +56,7 @@ public class Product {
         mImages = new ArrayList<>();
         JSONArray objectsArray = json.optJSONArray(IMAGES_KEY);
         for (int i = 0; i < objectsArray.length(); i++) {
-            JSONObject object = objectsArray.getJSONObject(i);
-            mImages.add(new Image(object));
+            mImages.add(objectsArray.getString(i));
         }
     }
 
@@ -117,11 +116,11 @@ public class Product {
         mCategory = category;
     }
 
-    public ArrayList<Image> getImages() {
+    public ArrayList<String> getImages() {
         return mImages;
     }
 
-    public void setImages(ArrayList<Image> images) {
+    public void setImages(ArrayList<String> images) {
         mImages = images;
     }
 
