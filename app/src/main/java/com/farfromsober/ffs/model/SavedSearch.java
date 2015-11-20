@@ -2,6 +2,8 @@ package com.farfromsober.ffs.model;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 public class SavedSearch {
 
     private static final String QUERY_KEY = "query";
@@ -55,5 +57,13 @@ public class SavedSearch {
                 ", mUser=" + mUser +
                 ", mCategory=" + mCategory +
                 '}';
+    }
+    public HashMap<String, Object> toHashMap() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(QUERY_KEY, getQuery());
+        hashMap.put(USER_KEY, getUser().toHashMap());
+        hashMap.put(CATEGORY_KEY, getCategory().toHashMap());
+
+        return hashMap;
     }
 }

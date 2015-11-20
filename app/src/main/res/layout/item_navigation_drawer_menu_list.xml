@@ -10,7 +10,7 @@
 
     <ImageView
         android:duplicateParentState="true"
-        android:userId="@+userId/menu_item_icon"
+        android:id="@+id/menu_item_icon"
         android:layout_width="@dimen/drawer_menu_icon_width"
         android:layout_height="@dimen/drawer_menu_icon_height"
         android:layout_alignParentLeft="true"
@@ -24,12 +24,12 @@
 
     <com.farfromsober.customviews.CustomFontTextView
         android:duplicateParentState="true"
-        android:userId="@+userId/menu_item_title"
+        android:id="@+id/menu_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@userId/menu_item_icon"
-        android:layout_toRightOf="@userId/menu_item_icon"
+        android:layout_toEndOf="@id/menu_item_icon"
+        android:layout_toRightOf="@id/menu_item_icon"
         ffs:fontName="Raleway-Regular.ttf"
         tools:text="@string/drawer_item_example_text"
         style="@style/drawer_item_text_style"/>

@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
 
 import static com.farfromsober.ffs.model.Product.DATE_FORMAT;
 
@@ -15,7 +16,6 @@ public class Transaction {
     private static final String PRODUCT_KEY = "product";
     private static final String BUYER_KEY = "buyer";
     private static final String DATE_KEY = "date";
-    private static final String IMAGES_KEY = "images";
 
     private Product mProduct;
     private User mSeller;
@@ -77,5 +77,14 @@ public class Transaction {
                 ", mBuyer=" + mBuyer +
                 ", mDate=" + mDate +
                 '}';
+    }
+
+    public HashMap<String, Object> toHashMap() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(PRODUCT_KEY, getProduct().toHashMap());
+        hashMap.put(BUYER_KEY, getBuyer().toHashMap());
+        hashMap.put(DATE_KEY, DateManager.stringFromDate(getDate(), DATE_FORMAT));
+
+        return hashMap;
     }
 }

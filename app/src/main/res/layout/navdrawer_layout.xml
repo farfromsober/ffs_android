@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:userId="@+userId/scrimInsetsFrameLayout"
+    android:id="@+id/scrimInsetsFrameLayout"
     android:layout_width="300dp"
     android:layout_height="match_parent"
     android:layout_gravity="start"
@@ -23,7 +23,7 @@
         <include layout="@layout/navdrawer_header_layout" />
 
         <ListView
-            android:userId="@+userId/nav_drawer_menu_list"
+            android:id="@+id/nav_drawer_menu_list"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:divider="@null"

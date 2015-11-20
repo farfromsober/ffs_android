@@ -2,10 +2,12 @@ package com.farfromsober.ffs.model;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 public class Category {
 
     private static final String INDEX_KEY = "index";
-    private static final String NAME_KEY = "azure_id";
+    private static final String NAME_KEY = "name";
 
     private String mName;
     private double mIndex;
@@ -42,5 +44,13 @@ public class Category {
                 "mName='" + mName + '\'' +
                 ", mIndex=" + mIndex +
                 '}';
+    }
+
+    public HashMap<String, Object> toHashMap() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(NAME_KEY, getName());
+        hashMap.put(INDEX_KEY, getIndex());
+
+        return hashMap;
     }
 }

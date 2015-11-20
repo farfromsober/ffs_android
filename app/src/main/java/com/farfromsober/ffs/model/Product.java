@@ -9,12 +9,13 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Product {
 
     private static final String NAME_KEY = "name";
     private static final String DESCRIPTION_KEY = "description";
-    private static final String PUBLISH_DATE_KEY = "publish_date";
+    private static final String PUBLISHED_DATE_KEY = "published_date";
     public static final String DATE_FORMAT = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"; // "2015-11-02T14:16:29+00:00";
     private static final String SELLING_KEY = "selling";
     private static final String PRICE_KEY = "price";
@@ -46,7 +47,7 @@ public class Product {
     public Product(JSONObject json) throws JSONException, ParseException {
         mName = json.optString(NAME_KEY);
         mDetail = json.optString(DESCRIPTION_KEY);
-        mPublished = DateManager.dateFromString(json.optString(PUBLISH_DATE_KEY), DATE_FORMAT);
+        mPublished = DateManager.dateFromString(json.optString(PUBLISHED_DATE_KEY), DATE_FORMAT);
         mIsSelling = json.optBoolean(SELLING_KEY);
         mPrice = json.optString(PRICE_KEY);
         mSeller = new User((JSONObject) json.opt(SELLER_KEY));
@@ -84,12 +85,12 @@ public class Product {
         mPublished = published;
     }
 
-    public boolean isSelling() {
+    public boolean getIsSelling() {
         return mIsSelling;
     }
 
-    public void setSelling(boolean selling) {
-        mIsSelling = selling;
+    public void setIsSelling(boolean isSelling) {
+        mIsSelling = isSelling;
     }
 
     public String getPrice() {
@@ -136,5 +137,18 @@ public class Product {
                 ", mCategory=" + mCategory +
                 ", mImages=" + mImages +
                 '}';
+    }
+
+    public HashMap<String, Object> toHashMap() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(NAME_KEY, getName());
+        hashMap.put(DESCRIPTION_KEY, getDetail());
+        hashMap.put(PUBLISHED_DATE_KEY, DateManager.stringFromDate(getPublished(), DATE_FORMAT));
+        hashMap.put(SELLING_KEY, getIsSelling());
+        hashMap.put(PRICE_KEY, getPrice());
+        hashMap.put(SELLER_KEY, getSeller().toHashMap());
+        hashMap.put(CATEGORY_KEY, getCategory().toHashMap());
+
+        return hashMap;
     }
 }

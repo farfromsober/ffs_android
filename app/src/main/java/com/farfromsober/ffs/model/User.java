@@ -2,6 +2,8 @@ package com.farfromsober.ffs.model;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 public class User {
 
     private static final String ID_KEY = "_id";
@@ -160,5 +162,22 @@ public class User {
                 ", mState='" + mState + '\'' +
                 ", mSales=" + mSales +
                 '}';
+    }
+
+    public HashMap<String, Object> toHashMap() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(ID_KEY, getUserId());
+        hashMap.put(FIRST_NAME_KEY, getFirstName());
+        hashMap.put(LAST_NAME_KEY, getLastName());
+        hashMap.put(EMAIL_KEY, getEmail());
+        hashMap.put(USERNAME_KEY, getUsername());
+        hashMap.put(LATITUDE_KEY, getLatitude());
+        hashMap.put(LONGITUDE_KEY, getLongitude());
+        hashMap.put(AVATAR_KEY, getAvatarURL());
+        hashMap.put(CITY_KEY, getCity());
+        hashMap.put(STATE_KEY, getState());
+        hashMap.put(SALES_KEY, getSales());
+
+        return hashMap;
     }
 }
