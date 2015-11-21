@@ -8,6 +8,9 @@
     <!-- Contenido de la actividad -->
     <include layout="@layout/content_layout" />
 
+    <!-- Loading Alert Layout -->
+    <include layout="@layout/loading_alert"/>
+
     <!-- Navigation Drawer Layout -->
     <include layout="@layout/navdrawer_layout" />
 

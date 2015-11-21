@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="loading_alert_full_background">#66000000</color>
+    <color name="loading_alert_background">#ffffffff</color>
+    <color name="loading_alert_text">#ff75BE62</color>
+</resources>

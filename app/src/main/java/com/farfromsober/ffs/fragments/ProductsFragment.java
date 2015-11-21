@@ -1,6 +1,8 @@
 package com.farfromsober.ffs.fragments;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -12,7 +14,9 @@ import com.farfromsober.ffs.R;
 import com.farfromsober.network.interfaces.OnDataParsedCallback;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.network.APIManager;
+import com.farfromsober.network.interfaces.OnNetworkActivityCallback;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
@@ -21,6 +25,7 @@ import java.util.ArrayList;
 public class ProductsFragment extends Fragment implements OnDataParsedCallback<Product>{
 
     private APIManager apiManager;
+    private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
 
     public ProductsFragment() {
         // Required empty public constructor
@@ -40,17 +45,56 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         askServerForProducts();
     }
 
+
+    @Override
+    public void onAttach(Context context) {
+        setCallbacks(context);
+        super.onAttach(context);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onAttach(Activity activity) {
+        setCallbacks(activity);
+        super.onAttach(activity);
+    }
+
+    private void setCallbacks(Context context) {
+        try {
+            mOnNetworkActivityCallback = new WeakReference<>((OnNetworkActivityCallback) getActivity());
+        } catch (Exception e) {
+            throw new ClassCastException(context.toString()+" must implement OnNetworkActivityCallback in Activity");
+        }
+    }
+
     private void askServerForProducts() {
+        showPreloader(getActivity().getString(R.string.products_loading_message));
         apiManager.allProducts(this);
+    }
+
+    private void showPreloader(String message) {
+        if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
+            mOnNetworkActivityCallback.get().onNetworkActivityStarted(message);
+        }
     }
 
     @Override
     public void onDataParsed(ArrayList<Product> data) {
         Log.i("ffs", data.toString());
+
+        hidePreloader();
+    }
+
+    private void hidePreloader() {
+        if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
+            mOnNetworkActivityCallback.get().onNetworkActivityFinished();
+        }
     }
 
     @Override
     public void onDataParsed(Product data) {
         Log.i("ffs", data.toString());
+
+        hidePreloader();
     }
 }

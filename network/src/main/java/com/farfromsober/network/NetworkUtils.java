@@ -107,6 +107,7 @@ public class NetworkUtils {
                 }
             } catch (JSONException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
+                onDataParsedCallbackWeakReference.get().onDataParsed(null);
             }
         }
     }

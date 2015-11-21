@@ -34,4 +34,6 @@
     <string name="drawer_item_example_text">Navigation drawer item</string>
     <string name="drawer_number_of_transactions_format">%1$s compras | %2$s ventas</string>
 
+    <string name="products_loading_message">Descargando productos,\npor favor espere.</string>
+
 </resources>
