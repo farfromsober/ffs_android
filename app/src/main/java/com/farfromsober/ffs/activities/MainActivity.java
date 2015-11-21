@@ -10,8 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
@@ -21,14 +25,16 @@ import com.farfromsober.ffs.fragments.NotificationsFragment;
 import com.farfromsober.ffs.fragments.ProductsFragment;
 import com.farfromsober.ffs.fragments.ProfileFragment;
 import com.farfromsober.ffs.model.DrawerMenuItem;
+import com.farfromsober.network.interfaces.OnNetworkActivityCallback;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnNetworkActivityCallback{
 
     private static final int PRODUCTS_FRAGMENT_INDEX = 0;
     private static final int MAP_FRAGMENT_INDEX = 1;
@@ -46,9 +52,15 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.drawer_user_location) CustomFontTextView mDrawerUseLocation;
     @Bind(R.id.drawer_user_number_of_transactions) CustomFontTextView mDrawerUseNumberOfTransactions;
 
+    @Bind(R.id.loading_group) RelativeLayout mLoadingGroup;
+    @Bind(R.id.loading_icon) ImageView mLoadingIcon;
+    @Bind(R.id.loading_text) CustomFontTextView mLoadingText;
+
     private ActionBarDrawerToggle mDrawerToggle;
     private ArrayList<DrawerMenuItem> menuItems;
     private DrawerListAdapter mDrawerListAdapter;
+
+    public WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         initializeDrawerMenu();
         initializeDrawerLayout();
         initializeDrawerToggle();
+
+        mOnNetworkActivityCallback = new WeakReference<>((OnNetworkActivityCallback)this);
 
         selectMenuItem(INITIAL_FRAGMENT_INDEX);
         loadInitialFragment(INITIAL_FRAGMENT_INDEX);
@@ -191,5 +205,30 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+    @Override
+    public void onNetworkActivityStarted(String message) {
+        showPreloader(message);
+    }
+
+    @Override
+    public void onNetworkActivityFinished() {
+        hidePreloader();
+    }
+
+
+    public void showPreloader(String message) {
+        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotate_continuously);
+        rotation.setFillAfter(true);
+        mLoadingIcon.startAnimation(rotation);
+
+        mLoadingText.setText(message);
+        mLoadingGroup.setVisibility(View.VISIBLE);
+    }
+
+    public void hidePreloader() {
+        mLoadingIcon.clearAnimation();
+        mLoadingGroup.setVisibility(View.GONE);
     }
 }

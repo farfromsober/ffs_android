@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Network</string>
+    <string name="loading_mock_text">Loading data...</string>
+</resources>

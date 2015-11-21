@@ -13,6 +13,7 @@ public class Category {
     private double mIndex;
 
     public Category(String name, double index) {
+        super();
         mName = name;
         mIndex = index;
     }
