@@ -33,3 +33,17 @@ proguard/
 
 ### Android Patch ###
 gen-external-apklibs
+
+# Android Studio
+*.iml
+.idea
+# Android Studio / IntelliJ IDEA 
+*.iws
+.idea/libraries
+.idea/tasks.xml
+.idea/vcs.xml
+.idea/workspace.xml
+
+# Mac OS X clutter
+*.DS_Store
+
