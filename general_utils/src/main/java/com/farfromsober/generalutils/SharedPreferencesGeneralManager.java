@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.google.gson.Gson;
+
 public class SharedPreferencesGeneralManager {
 
     //region Save Preferences
@@ -61,4 +63,16 @@ public class SharedPreferencesGeneralManager {
     }
     //endregion
 
+
+    //region Save/Get custom objects in/from SharedPreferences (as a JSON String)
+    public static String objectToJSONString (Object myObject) {
+        Gson gson = new Gson();
+        return gson.toJson(myObject);
+    }
+
+    public static Object JSONStringToObject (String JSONString, Class<?> modelClass) {
+        Gson gson = new Gson();
+        return gson.fromJson(JSONString, modelClass);
+    }
+    //endregion
 }

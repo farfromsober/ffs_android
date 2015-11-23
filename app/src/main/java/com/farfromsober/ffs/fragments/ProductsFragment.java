@@ -11,10 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.farfromsober.ffs.R;
-import com.farfromsober.network.interfaces.OnDataParsedCallback;
+import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
+import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.network.APIManager;
-import com.farfromsober.network.interfaces.OnNetworkActivityCallback;
+import com.farfromsober.network.callbacks.OnNetworkActivityCallback;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -78,17 +79,21 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         }
     }
 
-    @Override
-    public void onDataParsed(ArrayList<Product> data) {
-        Log.i("ffs", data.toString());
-
-        hidePreloader();
-    }
-
     private void hidePreloader() {
         if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
             mOnNetworkActivityCallback.get().onNetworkActivityFinished();
         }
+    }
+
+    @Override
+    public void onDataParsed(ArrayList<Product> data) {
+        Log.i("ffs", data.toString());
+
+        //Save in SharedPreferences example
+        String json = SharedPreferencesGeneralManager.objectToJSONString(data.get(0));
+        Product product = (Product) SharedPreferencesGeneralManager.JSONStringToObject(json, Product.class);
+
+        hidePreloader();
     }
 
     @Override

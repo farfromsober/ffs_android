@@ -2,8 +2,8 @@ package com.farfromsober.network;
 
 import android.os.AsyncTask;
 
-import com.farfromsober.network.interfaces.OnDataParsedCallback;
-import com.farfromsober.network.interfaces.OnResponseReceivedCallback;
+import com.farfromsober.network.callbacks.OnDataParsedCallback;
+import com.farfromsober.network.callbacks.OnResponseReceivedCallback;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

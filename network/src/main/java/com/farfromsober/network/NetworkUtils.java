@@ -2,7 +2,7 @@ package com.farfromsober.network;
 
 import android.support.annotation.NonNull;
 
-import com.farfromsober.network.interfaces.OnDataParsedCallback;
+import com.farfromsober.network.callbacks.OnDataParsedCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;

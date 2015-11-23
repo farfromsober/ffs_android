@@ -4,8 +4,8 @@ import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.network.APIAsyncTask;
 import com.farfromsober.network.NetworkUtils;
-import com.farfromsober.network.interfaces.OnDataParsedCallback;
-import com.farfromsober.network.interfaces.OnResponseReceivedCallback;
+import com.farfromsober.network.callbacks.OnDataParsedCallback;
+import com.farfromsober.network.callbacks.OnResponseReceivedCallback;
 
 import java.lang.ref.WeakReference;
 
