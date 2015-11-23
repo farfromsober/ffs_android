@@ -1,4 +1,4 @@
-package com.farfromsober.network.interfaces;
+package com.farfromsober.network.callbacks;
 
 public interface OnNetworkActivityCallback {
     public void onNetworkActivityStarted(String message);

@@ -2,7 +2,7 @@
 <RelativeLayout
     android:id="@+id/loading_group"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:imq="http://schemas.android.com/apk/res-auto"
+    xmlns:ffs="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            imq:fontName="Raleway-Light.ttf"
+            ffs:fontName="Raleway-Light.ttf"
             android:textColor="@color/loading_alert_text"
             android:textSize="17sp"
             tools:text="@string/loading_mock_text"/>

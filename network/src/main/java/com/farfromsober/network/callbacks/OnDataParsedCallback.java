@@ -1,4 +1,4 @@
-package com.farfromsober.network.interfaces;
+package com.farfromsober.network.callbacks;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Network</string>
     <string name="loading_mock_text">Loading data...</string>
+    <string name="title_activity_network_preloader">NetworkPreloaderActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 </resources>

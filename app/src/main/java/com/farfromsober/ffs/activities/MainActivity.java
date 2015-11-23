@@ -6,16 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
@@ -25,7 +20,8 @@ import com.farfromsober.ffs.fragments.NotificationsFragment;
 import com.farfromsober.ffs.fragments.ProductsFragment;
 import com.farfromsober.ffs.fragments.ProfileFragment;
 import com.farfromsober.ffs.model.DrawerMenuItem;
-import com.farfromsober.network.interfaces.OnNetworkActivityCallback;
+import com.farfromsober.network.NetworkPreloaderActivity;
+import com.farfromsober.network.callbacks.OnNetworkActivityCallback;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -34,7 +30,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity implements OnNetworkActivityCallback{
+public class MainActivity extends NetworkPreloaderActivity {
 
     private static final int PRODUCTS_FRAGMENT_INDEX = 0;
     private static final int MAP_FRAGMENT_INDEX = 1;
@@ -51,10 +47,6 @@ public class MainActivity extends AppCompatActivity implements OnNetworkActivity
     @Bind(R.id.drawer_user_name) CustomFontTextView mDrawerUserName;
     @Bind(R.id.drawer_user_location) CustomFontTextView mDrawerUseLocation;
     @Bind(R.id.drawer_user_number_of_transactions) CustomFontTextView mDrawerUseNumberOfTransactions;
-
-    @Bind(R.id.loading_group) RelativeLayout mLoadingGroup;
-    @Bind(R.id.loading_icon) ImageView mLoadingIcon;
-    @Bind(R.id.loading_text) CustomFontTextView mLoadingText;
 
     private ActionBarDrawerToggle mDrawerToggle;
     private ArrayList<DrawerMenuItem> menuItems;
@@ -205,30 +197,5 @@ public class MainActivity extends AppCompatActivity implements OnNetworkActivity
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-    }
-
-    @Override
-    public void onNetworkActivityStarted(String message) {
-        showPreloader(message);
-    }
-
-    @Override
-    public void onNetworkActivityFinished() {
-        hidePreloader();
-    }
-
-
-    public void showPreloader(String message) {
-        Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotate_continuously);
-        rotation.setFillAfter(true);
-        mLoadingIcon.startAnimation(rotation);
-
-        mLoadingText.setText(message);
-        mLoadingGroup.setVisibility(View.VISIBLE);
-    }
-
-    public void hidePreloader() {
-        mLoadingIcon.clearAnimation();
-        mLoadingGroup.setVisibility(View.GONE);
     }
 }
