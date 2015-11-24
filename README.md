@@ -79,13 +79,13 @@ Generic asyncTask for API requests ('GET/POST').
 This is the constructor:
 
 ```
-public APIAsyncTask(String urlString, boolean isPostRequest, HashMap<String, String> headers, 
-                    HashMap<String, Object> postDataParams, OnResponseReceivedCallback onResponseReceivedCallback,
-                    OnDataParsedCallback onDataParsedCallback, Class<?> modelClass) {
+public APIAsyncTask(String urlString, ApiRequestType apiRequestType, HashMap<String, String> headers, HashMap<String, Object> urlDataParams, HashMap<String, Object> bodyDataParams,
+                    OnResponseReceivedCallback onResponseReceivedCallback, OnDataParsedCallback onDataParsedCallback, Class<?> modelClass) {
     mUrlString = urlString;
-    mIsPostRequest = isPostRequest;
+    mApiRequestType = apiRequestType;
     mHeaders = headers;
-    mPostDataParams = postDataParams;
+    mUrlDataParams = urlDataParams;
+    mBodyDataParams = bodyDataParams;
     mOnResponseReceivedCallbackWeakReference = new WeakReference<>(onResponseReceivedCallback);
     mOnDataParsedCallbackWeakReference = new WeakReference<>(onDataParsedCallback);
     mModelClass = modelClass;
@@ -93,9 +93,10 @@ public APIAsyncTask(String urlString, boolean isPostRequest, HashMap<String, Str
 ```
 
 * **`urlString`** (Sring): web service url.  
-* **`isPostRequest`** (boolean): set `true` if its a 'POST' request, `false` for a 'GET' request.
+* **`apiRequestType`** (ApiRequestType): set the API Request type (enum).
 * **`headers`** (HashMap): all header for the API request.
-* **`postDataParams`** (HashMap): all data to send in the body for for a 'POST' API request.
+* **`urlDataParams`** (HashMap): all data to send in the url for the API request.
+* **`bodyDataParams`** (HashMap): all data to send in the body for the API request.
 * **`onResponseReceivedCallback`** (OnResponseReceivedCallback): where to send back the received JSON String. In our case, the **APIManager** object.
 * **`onDataParsedCallback`** (OnDataParsedCallback): where the received parsed objects should be sent. Generally is the **Fragment/Activity** where we are going to use them to be shown or whatever.
 * **`modelClass`** (Class<?>): Class of model that should be used to parse the received data.
@@ -118,12 +119,12 @@ public void allProducts(OnDataParsedCallback<Product> onDataParsedCallback){
 ####`NetworkUtils.java`: 
 Methods to build url params for 'GET' requests, body params for 'POST', URL from a String, parse json into objects.
 
-* **`urlFromString`:  
+* **`urlFromString`**:  
 Method to convert an `String` into an `URL`.
 * **`getUrlDataString`**:  
-Method that formats an input `HashMap` with all the needed "pairs" to build a params URL `String` (usually for a 'GET' request).
+Method that formats an input `HashMap` with all the needed "pairs" to build a params URL `String` (usually for a 'GET, DELETE' request).
 * **`getBodyDataString`**:  
-Method that formats an input `HashMap` with all the needed "pairs" to build a body params `String` (usually for a 'POST' request).
+Method that formats an input `HashMap` with all the needed "pairs" to build a body params `String` (usually for a 'POST, PUT' request).
 * **`parseObjects`**:  
 Method that receives a responseCode (int), a JSON String and a Model Class to parse a JSON received data into objects/one object of class especified by the input model class.  
 Then, it sends via `OnDataParsedCallback` all parsed objects/one object to a callback (fragment/activity), received also as an input.

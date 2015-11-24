@@ -19,24 +19,33 @@ import java.util.Map;
 
 public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Object>> {
 
+    public enum ApiRequestType {
+        GET,
+        POST,
+        PUT,
+        DELETE
+    }
+
     private static final int NO_RESPONSE_CODE = 0;
     private static final String RESPONSE_CODE_KEY = "APIAsyncTask.RESPONSE_CODE_KEY";
     private static final String RESPONSE_KEY = "APIAsyncTask.RESPONSE_KEY";
 
     private String mUrlString;
-    private boolean mIsPostRequest;
+    private ApiRequestType mApiRequestType;
     private HashMap<String, String> mHeaders;
-    private HashMap<String, Object> mPostDataParams;
+    private HashMap<String, Object> mUrlDataParams;
+    private HashMap<String, Object> mBodyDataParams;
     private WeakReference<OnResponseReceivedCallback> mOnResponseReceivedCallbackWeakReference;
     private WeakReference<OnDataParsedCallback> mOnDataParsedCallbackWeakReference;
     private Class mModelClass;
 
-    public APIAsyncTask(String urlString, boolean isPostRequest, HashMap<String, String> headers, HashMap<String, Object> postDataParams,
+    public APIAsyncTask(String urlString, ApiRequestType apiRequestType, HashMap<String, String> headers, HashMap<String, Object> urlDataParams, HashMap<String, Object> bodyDataParams,
                         OnResponseReceivedCallback onResponseReceivedCallback, OnDataParsedCallback onDataParsedCallback, Class<?> modelClass) {
         mUrlString = urlString;
-        mIsPostRequest = isPostRequest;
+        mApiRequestType = apiRequestType;
         mHeaders = headers;
-        mPostDataParams = postDataParams;
+        mUrlDataParams = urlDataParams;
+        mBodyDataParams = bodyDataParams;
         mOnResponseReceivedCallbackWeakReference = new WeakReference<>(onResponseReceivedCallback);
         mOnDataParsedCallbackWeakReference = new WeakReference<>(onDataParsedCallback);
         mModelClass = modelClass;
@@ -49,7 +58,7 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
         String response = "";
 
         try {
-            URL url = NetworkUtils.urlFromString(mUrlString);
+            URL url = NetworkUtils.urlFromString(String.format("%s%s", mUrlString, NetworkUtils.getUrlDataString(mUrlDataParams)));
 
             HttpURLConnection conn = (HttpURLConnection) (url.openConnection());
             conn.setReadTimeout(10000);
@@ -64,21 +73,25 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
                 }
             }
 
-            if (mIsPostRequest) {
-                conn.setRequestMethod("POST");
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
-
-                OutputStream os = conn.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-                writer.write(NetworkUtils.getBodyDataString(mPostDataParams));
-
-                writer.flush();
-                writer.close();
-                os.close();
-            } else {
+            if (mApiRequestType == ApiRequestType.GET) {
                 conn.setRequestMethod("GET");
+            } else if (mApiRequestType == ApiRequestType.POST) {
+                conn.setRequestMethod("POST");
+            } else if (mApiRequestType == ApiRequestType.PUT) {
+                conn.setRequestMethod("PUT");
+            } else if (mApiRequestType == ApiRequestType.DELETE) {
+                conn.setRequestMethod("DELETE");
             }
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            writer.write(NetworkUtils.getBodyDataString(mBodyDataParams));
+
+            writer.flush();
+            writer.close();
+            os.close();
 
             responseCode = conn.getResponseCode();
 

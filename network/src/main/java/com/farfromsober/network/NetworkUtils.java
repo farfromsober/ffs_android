@@ -35,13 +35,19 @@ public class NetworkUtils {
         return url;
     }
     public static String getUrlDataString(HashMap<String, Object> params) throws UnsupportedEncodingException {
+        if (params == null) {
+            return "";
+        }
         StringBuilder result = new StringBuilder();
         boolean first = true;
         for (Map.Entry<String, Object> entry : params.entrySet()) {
-            if (first)
+            if (first){
                 first = false;
-            else
+                result.append("?");
+            }
+            else{
                 result.append("&");
+            }
 
             result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
             result.append("=");
