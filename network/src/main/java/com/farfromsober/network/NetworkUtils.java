@@ -115,6 +115,8 @@ public class NetworkUtils {
                 e.printStackTrace();
                 onDataParsedCallbackWeakReference.get().onDataParsed(null);
             }
+        } else {
+            onDataParsedCallbackWeakReference.get().onDataParsed(null);
         }
     }
 }

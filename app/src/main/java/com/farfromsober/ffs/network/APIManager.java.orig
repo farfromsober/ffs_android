@@ -9,10 +9,13 @@ import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.farfromsober.network.callbacks.OnResponseReceivedCallback;
 
 import java.lang.ref.WeakReference;
-import java.util.Date;
-import java.util.HashMap;
+<<<<<<< HEAD
 
 import static com.farfromsober.network.APIAsyncTask.ApiRequestType;
+=======
+import java.util.Date;
+import java.util.HashMap;
+>>>>>>> Launch Login Activity if there is not user logged in. Simulate login cnnection and in response Launched MainActivity
 
 public class APIManager implements OnResponseReceivedCallback{
     private static final String ALL_PRODUCTS_URL = "http://beta.json-generator.com/api/json/get/NyJpZWxQl";

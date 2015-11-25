@@ -1,33 +1,36 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                tools:context="com.farfromsober.ffs.activities.LoginActivity">
+    xmlns:ffs="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    tools:context="com.farfromsober.ffs.activities.LoginActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center_vertical">
-        <EditText
+        <com.farfromsober.customviews.CustomFontEditText
             android:id="@+id/login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_email_hint"
+            ffs:fontName="Raleway-Regular.ttf"
             android:gravity="center"
             android:textColor="@android:color/primary_text_light"
             android:textColorHint="@android:color/secondary_text_light"
             />
 
-        <EditText
+        <com.farfromsober.customviews.CustomFontEditText
             android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_password_hint"
+            ffs:fontName="Raleway-Regular.ttf"
             android:gravity="center"
             android:password="true"
             android:layout_below="@+id/login_email"
@@ -35,29 +38,32 @@
             android:textColorHint="@android:color/secondary_text_light"
             />
 
-        <Button
+        <com.farfromsober.customviews.CustomFontButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_signin_hint"
+            ffs:fontName="Raleway-Bold.ttf"
             android:id="@+id/button_login_signin"
             android:layout_below="@+id/login_password"
             android:layout_centerHorizontal="true"
             />
 
-        <Button
+        <com.farfromsober.customviews.CustomFontButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_register_hint"
+            ffs:fontName="Raleway-Regular.ttf"
             android:id="@+id/button_register"
             android:layout_below="@+id/button_login_signin"
             android:layout_centerHorizontal="true"
             style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
             />
 
-        <Button
+        <com.farfromsober.customviews.CustomFontButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_forgot_password_hint"
+            ffs:fontName="Raleway-Regular.ttf"
             android:id="@+id/button_fotgot_pass"
             android:layout_below="@+id/button_register"
             android:layout_centerHorizontal="true"
@@ -65,8 +71,6 @@
             />
 
     </RelativeLayout>
-
-
 
 </RelativeLayout>
 
