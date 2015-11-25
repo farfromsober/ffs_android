@@ -6,4 +6,5 @@
     <dimen name="action_bar_elevation">4dp</dimen>
     <dimen name="drawer_menu_icon_width">40dp</dimen>
     <dimen name="drawer_menu_icon_height">40dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

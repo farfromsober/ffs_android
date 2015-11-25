@@ -21,5 +21,9 @@
     <string name="drawer_number_of_transactions_format">%1$s buys | %2$s sales</string>
 
     <string name="products_loading_message">Downloading products, wait a moment please.</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Contraseña</string>
+    <string name="login_signin_hint">Entrar</string>
+    <string name="login_register_hint">Registrarse</string>
 
 </resources>

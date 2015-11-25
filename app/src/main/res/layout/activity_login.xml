@@ -1,0 +1,72 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                tools:context="com.farfromsober.ffs.activities.LoginActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_vertical">
+        <EditText
+            android:id="@+id/login_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_email_hint"
+            android:gravity="center"
+            android:textColor="@android:color/primary_text_light"
+            android:textColorHint="@android:color/secondary_text_light"
+            />
+
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_password_hint"
+            android:gravity="center"
+            android:password="true"
+            android:layout_below="@+id/login_email"
+            android:textColor="@android:color/primary_text_light"
+            android:textColorHint="@android:color/secondary_text_light"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_signin_hint"
+            android:id="@+id/button_login_signin"
+            android:layout_below="@+id/login_password"
+            android:layout_centerHorizontal="true"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_register_hint"
+            android:id="@+id/button_register"
+            android:layout_below="@+id/button_login_signin"
+            android:layout_centerHorizontal="true"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_forgot_password_hint"
+            android:id="@+id/button_fotgot_pass"
+            android:layout_below="@+id/button_register"
+            android:layout_centerHorizontal="true"
+            style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+            />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
+

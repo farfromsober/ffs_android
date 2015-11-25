@@ -29,5 +29,4 @@ dependencies {
     compile project(':custom_views')
     compile project(':network')
     compile project(':network_views')
-    compile 'com.android.support:design:23.0.1'
 }
