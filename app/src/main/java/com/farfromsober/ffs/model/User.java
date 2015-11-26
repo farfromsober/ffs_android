@@ -59,6 +59,8 @@ public class User {
         mCity = json.optString(CITY_KEY);
         mState = json.optString(STATE_KEY);
         mSales = json.optDouble(SALES_KEY);
+        if (Double.isNaN(mSales))
+            mSales = 0;
     }
 
     public String getUserId() {

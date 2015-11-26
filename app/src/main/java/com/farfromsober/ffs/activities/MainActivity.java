@@ -21,9 +21,13 @@ import com.farfromsober.ffs.fragments.NotificationsFragment;
 import com.farfromsober.ffs.fragments.ProductsFragment;
 import com.farfromsober.ffs.fragments.ProfileFragment;
 import com.farfromsober.ffs.model.DrawerMenuItem;
+import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.networkviews.NetworkPreloaderActivity;
 import com.farfromsober.networkviews.callbacks.OnNetworkActivity;
+import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
+import com.farfromsober.network.NetworkPreloaderActivity;
+import com.farfromsober.network.callbacks.OnNetworkActivityCallback;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -60,11 +64,13 @@ public class MainActivity extends NetworkPreloaderActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //SharedPreferencesManager.removePrefLoginUser(getApplicationContext());
-        String user = SharedPreferencesManager.getPrefLoginUser(getApplicationContext());
-        if(user == "")
+        String userJson = SharedPreferencesManager.getPrefLoginUser(getApplicationContext());
+        if(userJson == "")
             this.showLoginScreen();
-        else
+        else {
+            User user = (User) SharedPreferencesGeneralManager.JSONStringToObject(userJson, User.class);
             this.configureDrawer();
+        }
     }
 
     @Override

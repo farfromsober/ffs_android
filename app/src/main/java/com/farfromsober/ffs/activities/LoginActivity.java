@@ -11,6 +11,7 @@ import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.network.APIManager;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
+import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 import com.farfromsober.network.callbacks.OnDataParsedCallback;
 
 import java.lang.ref.WeakReference;
@@ -66,7 +67,8 @@ public class LoginActivity extends AppCompatActivity implements OnDataParsedCall
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent signupIntent = new Intent(getApplicationContext(), SignupActivity.class);
+                startActivity(signupIntent);
             }
         });
     }
@@ -75,15 +77,16 @@ public class LoginActivity extends AppCompatActivity implements OnDataParsedCall
     @Override
     public void onDataParsed(ArrayList data) {
         Log.i("ffs", data.toString());
-        //SharedPreferencesManager.savePrefLoginUser(getApplicationContext(), "");
-        //this.showMainActivity();
     }
 
     @Override
     public void onDataParsed(User data) {
         Log.i("ffs", data.toString());
-        SharedPreferencesManager.savePrefLoginUser(getApplicationContext(), data.getEmail());
-        this.showMainActivity();
+        if (data != null) {
+            String userJson = SharedPreferencesGeneralManager.objectToJSONString(data);
+            SharedPreferencesManager.savePrefLoginUser(getApplicationContext(), userJson);
+            this.showMainActivity();
+        }
     }
 
     private void showMainActivity() {
