@@ -20,17 +20,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.farfromsober.ffs.R;
+<<<<<<< HEAD
 import com.farfromsober.ffs.callbacks.OnInfoDialogCallback;
 import com.farfromsober.ffs.fragments.dialogs.InfoDialogFragment;
 import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 import com.farfromsober.network.callbacks.OnDataParsedCallback;
+=======
 import com.farfromsober.ffs.activities.EditProduct;
 import com.farfromsober.ffs.activities.SignupActivity;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
+>>>>>>> Login started. Recycler view with its viewholder and adapter.
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.Products;
 import com.farfromsober.ffs.network.APIManager;
+<<<<<<< HEAD
 import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
+=======
+import com.farfromsober.network.callbacks.OnDataParsedCallback;
+import com.farfromsober.network.callbacks.OnNetworkActivityCallback;
+>>>>>>> Login started. Recycler view with its viewholder and adapter.
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

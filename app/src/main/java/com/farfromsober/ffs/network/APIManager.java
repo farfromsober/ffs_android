@@ -2,6 +2,7 @@ package com.farfromsober.ffs.network;
 
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.User;
+import com.farfromsober.ffs.model.LoginData;
 import com.farfromsober.network.APIAsyncTask;
 import com.farfromsober.network.APIRequest;
 import com.farfromsober.network.NetworkUtils;
@@ -9,8 +10,6 @@ import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.farfromsober.network.callbacks.OnResponseReceivedCallback;
 
 import java.lang.ref.WeakReference;
-import java.util.Date;
-import java.util.HashMap;
 
 import static com.farfromsober.network.APIAsyncTask.ApiRequestType;
 
@@ -31,11 +30,8 @@ public class APIManager implements OnResponseReceivedCallback{
         allUsersAsyncTask.execute();
     }
 
-    public void login(String email, String password, OnDataParsedCallback<User> onDataParsedCallback) {
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("login", email);
-        params.put("password", password);
-        APIAsyncTask loginAsyncTask = new APIAsyncTask(LOGIN_URL, ApiRequestType.GET, null,  params, null, this, onDataParsedCallback, User.class);
+    public void login(LoginData loginData, OnDataParsedCallback<User> onDataParsedCallback) {
+        APIAsyncTask loginAsyncTask = new APIAsyncTask(LOGIN_URL, ApiRequestType.GET, null, loginData.toHashMap(), null, this, onDataParsedCallback, User.class);
         loginAsyncTask.execute();
     }
 

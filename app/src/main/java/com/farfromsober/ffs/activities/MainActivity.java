@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -64,11 +65,12 @@ public class MainActivity extends NetworkPreloaderActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //SharedPreferencesManager.removePrefLoginUser(getApplicationContext());
-        String userJson = SharedPreferencesManager.getPrefLoginUser(getApplicationContext());
-        if(userJson == "")
+        String loginDataJson = SharedPreferencesManager.getPrefLoginUser(getApplicationContext());
+
+        if(loginDataJson == "")
             this.showLoginScreen();
-        else {
-            User user = (User) SharedPreferencesGeneralManager.JSONStringToObject(userJson, User.class);
+        else
+        {
             this.configureDrawer();
         }
     }
@@ -80,6 +82,17 @@ public class MainActivity extends NetworkPreloaderActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+        /*
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+        */
     }
 
     @Override
@@ -121,13 +134,13 @@ public class MainActivity extends NetworkPreloaderActivity {
         loadInitialFragment(INITIAL_FRAGMENT_INDEX);
     }
 
-
     private void initializeDrawerHeader() {
-        //TODO: set User Data
-        mDrawerUserName.setText("Javier Alzueta");
-        mDrawerUseLocation.setText("Pamplona");
-        mDrawerUseNumberOfTransactions.setText(String.format(getResources().getString(R.string.drawer_number_of_transactions_format), "124", "14"));
-        mDrawerUseLocation.setText("Pamplona");
+        String UserJson =  SharedPreferencesManager.getPrefUserData(this);
+        User user = (User) SharedPreferencesGeneralManager.JSONStringToObject(UserJson, User.class);
+
+        mDrawerUserName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
+        mDrawerUseLocation.setText(user.getCity());
+        mDrawerUseNumberOfTransactions.setText(String.format(getResources().getString(R.string.drawer_number_of_transactions_format), (int) user.getSales()));
     }
 
     private void initializeDrawerMenu() {

@@ -1,5 +1,7 @@
 package com.farfromsober.ffs.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.model.User;
+import com.farfromsober.ffs.model.LoginData;
 import com.farfromsober.ffs.network.APIManager;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
@@ -24,6 +27,8 @@ public class LoginActivity extends AppCompatActivity implements OnDataParsedCall
 
     private APIManager apiManager;
     public WeakReference<OnDataParsedCallback> mOnDataParsedCallback;
+    private LoginData loginData;
+
 
     @Bind(R.id.login_email) EditText mLoginEmail;
     @Bind(R.id.login_password) EditText mLoginPassword;
@@ -53,7 +58,9 @@ public class LoginActivity extends AppCompatActivity implements OnDataParsedCall
             public void onClick(View v) {
                 String email = mLoginEmail.getText().toString();
                 String password = mLoginPassword.getText().toString();
-                apiManager.login(email, password, loginActivityWeakReference.get());
+
+                loginActivityWeakReference.get().loginData = new LoginData(email, password);
+                apiManager.login(loginActivityWeakReference.get().loginData, loginActivityWeakReference.get());
             }
         });
 
@@ -84,8 +91,14 @@ public class LoginActivity extends AppCompatActivity implements OnDataParsedCall
         Log.i("ffs", data.toString());
         if (data != null) {
             String userJson = SharedPreferencesGeneralManager.objectToJSONString(data);
-            SharedPreferencesManager.savePrefLoginUser(getApplicationContext(), userJson);
+            SharedPreferencesManager.savePrefUserData(getApplicationContext(), userJson);
+
+            String userLoginJson = SharedPreferencesGeneralManager.objectToJSONString(this.loginData);
+            SharedPreferencesManager.savePrefLoginUser(getApplicationContext(), userLoginJson);
+
             this.showMainActivity();
+        }else{
+            this.showErrorMessage();
         }
     }
 
@@ -93,5 +106,18 @@ public class LoginActivity extends AppCompatActivity implements OnDataParsedCall
         Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(mainIntent);
         this.finish();
+    }
+
+    private void showErrorMessage() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(getString(R.string.login_error_message_title));
+        alertDialog.setMessage(getString(R.string.login_error_message));
+        alertDialog.setButton(0, "OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            // here you can add functions
+            }
+        });
+        alertDialog.show();
+
     }
 }
