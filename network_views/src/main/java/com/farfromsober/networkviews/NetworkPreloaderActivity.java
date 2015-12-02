@@ -1,6 +1,5 @@
-package com.farfromsober.network;
+package com.farfromsober.networkviews;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.farfromsober.network.callbacks.OnNetworkActivityCallback;
+import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 
 import java.lang.ref.WeakReference;
 

@@ -47,22 +47,14 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
     private static final String RESPONSE_CODE_KEY = "APIAsyncTask.RESPONSE_CODE_KEY";
     private static final String RESPONSE_KEY = "APIAsyncTask.RESPONSE_KEY";
 
-    private String mUrlString;
-    private ApiRequestType mApiRequestType;
-    private HashMap<String, String> mHeaders;
-    private HashMap<String, Object> mUrlDataParams;
-    private HashMap<String, Object> mBodyDataParams;
+    private APIRequest mAPIRequest;
     private WeakReference<OnResponseReceivedCallback> mOnResponseReceivedCallbackWeakReference;
     private WeakReference<OnDataParsedCallback> mOnDataParsedCallbackWeakReference;
     private Class mModelClass;
 
-    public APIAsyncTask(String urlString, ApiRequestType apiRequestType, HashMap<String, String> headers, HashMap<String, Object> urlDataParams, HashMap<String, Object> bodyDataParams,
-                        OnResponseReceivedCallback onResponseReceivedCallback, OnDataParsedCallback onDataParsedCallback, Class<?> modelClass) {
-        mUrlString = urlString;
-        mApiRequestType = apiRequestType;
-        mHeaders = headers;
-        mUrlDataParams = urlDataParams;
-        mBodyDataParams = bodyDataParams;
+    public APIAsyncTask(APIRequest apiRequest, OnResponseReceivedCallback onResponseReceivedCallback,
+                        OnDataParsedCallback onDataParsedCallback, Class<?> modelClass) {
+        mAPIRequest = apiRequest;
         mOnResponseReceivedCallbackWeakReference = new WeakReference<>(onResponseReceivedCallback);
         mOnDataParsedCallbackWeakReference = new WeakReference<>(onDataParsedCallback);
         mModelClass = modelClass;
@@ -75,29 +67,29 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
         String response = "";
 
         try {
-            URL url = NetworkUtils.urlFromString(String.format("%s%s", mUrlString, NetworkUtils.getUrlDataString(mUrlDataParams)));
+            URL url = NetworkUtils.urlFromString(String.format("%s%s", mAPIRequest.getUrlString(), NetworkUtils.getUrlDataString(mAPIRequest.getUrlDataParams())));
 
             HttpURLConnection conn = (HttpURLConnection) (url.openConnection());
-            conn.setReadTimeout(10000);
-            conn.setConnectTimeout(10000);
+            conn.setReadTimeout(mAPIRequest.getReadTimeout());
+            conn.setConnectTimeout(mAPIRequest.getConnectTimeout());
 
             //add request header
-            if (mHeaders != null) {
-                Iterator it = mHeaders.entrySet().iterator();
+            if (mAPIRequest.getHeaders() != null) {
+                Iterator it = mAPIRequest.getHeaders().entrySet().iterator();
                 while (it.hasNext()) {
                     Map.Entry pair = (Map.Entry)it.next();
                     conn.setRequestProperty(pair.getKey().toString(), pair.getValue().toString());
                 }
             }
 
-            conn.setRequestMethod(mApiRequestType.toString());
+            conn.setRequestMethod(mAPIRequest.getApiRequestType().toString());
 
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
             OutputStream os = conn.getOutputStream();
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            writer.write(NetworkUtils.getBodyDataString(mBodyDataParams));
+            writer.write(NetworkUtils.getBodyDataString(mAPIRequest.getBodyDataParams()));
 
             writer.flush();
             writer.close();

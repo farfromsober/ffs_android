@@ -15,7 +15,7 @@ import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.network.APIManager;
-import com.farfromsober.network.callbacks.OnNetworkActivityCallback;
+import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
