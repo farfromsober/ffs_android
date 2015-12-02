@@ -104,6 +104,9 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
             }
         } catch (Exception e) {
             e.printStackTrace();
+            if (mOnResponseReceivedCallbackWeakReference != null && mOnResponseReceivedCallbackWeakReference.get() != null) {
+                mOnResponseReceivedCallbackWeakReference.get().onExceptionReceived(e, mOnDataParsedCallbackWeakReference);
+            }
         }
 
         HashMap<String, Object> values = new HashMap<>();

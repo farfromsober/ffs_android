@@ -32,4 +32,11 @@ public class APIManager implements OnResponseReceivedCallback{
     public void onResponseReceived(int responseCode, String response, Class<?> modelClass, WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {
         NetworkUtils.parseObjects(responseCode, response, modelClass, onDataParsedCallbackWeakReference);
     }
+
+    @Override
+    public void onExceptionReceived(Exception e, WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {
+        if (onDataParsedCallbackWeakReference != null && onDataParsedCallbackWeakReference.get() != null) {
+            onDataParsedCallbackWeakReference.get().onExceptionReceived(e);
+        }
+    }
 }

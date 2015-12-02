@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.farfromsober.ffs.R;
+import com.farfromsober.ffs.callbacks.OnInfoDialogCallback;
+import com.farfromsober.ffs.fragments.dialogs.InfoDialogFragment;
 import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.farfromsober.ffs.model.Product;
@@ -101,5 +103,13 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         Log.i("ffs", data.toString());
 
         hidePreloader();
+    }
+
+    @Override
+    public void onExceptionReceived(Exception e) {
+        //TODO: show info dialog to user
+        if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
+            mOnNetworkActivityCallback.get().onExceptionReceived(e);
+        }
     }
 }

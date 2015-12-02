@@ -5,4 +5,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="problems_with_request_dialog_title">Error de conexión</string>
+    <string name="problems_with_request_dialog_message">No se ha podido realizar la conexión, por favor vuélvalo a intentar</string>
+    <string name="problems_with_request_button_text">Aceptar</string>
 </resources>
