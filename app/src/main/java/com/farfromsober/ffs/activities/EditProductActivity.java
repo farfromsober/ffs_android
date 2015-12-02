@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.farfromsober.ffs.R;
 
-public class EditProduct extends AppCompatActivity {
+public class EditProductActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

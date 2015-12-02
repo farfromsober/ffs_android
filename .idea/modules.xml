@@ -5,9 +5,13 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/custom_views/custom_views.iml" filepath="$PROJECT_DIR$/custom_views/custom_views.iml" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/ffs.iml" filepath="$PROJECT_DIR$/ffs.iml" />
 =======
 >>>>>>> Started login activity
+=======
+      <module fileurl="file://$PROJECT_DIR$/ffs.iml" filepath="$PROJECT_DIR$/ffs.iml" />
+>>>>>>> Fixed: App crashed when loading ProductsFragment and when loading EditProductActivity (calling "getContext()" in a Fragment instead of "getActivity()" crashes)
       <module fileurl="file://$PROJECT_DIR$/ffs_android.iml" filepath="$PROJECT_DIR$/ffs_android.iml" />
       <module fileurl="file://$PROJECT_DIR$/general_utils/general_utils.iml" filepath="$PROJECT_DIR$/general_utils/general_utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/network/network.iml" filepath="$PROJECT_DIR$/network/network.iml" />

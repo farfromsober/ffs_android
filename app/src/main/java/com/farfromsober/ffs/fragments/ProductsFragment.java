@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +25,7 @@ import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.farfromsober.ffs.activities.EditProduct;
 import com.farfromsober.ffs.activities.SignupActivity;
+import com.farfromsober.ffs.activities.EditProductActivity;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.Products;
@@ -36,7 +36,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,7 +73,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         mAddProduct = (FloatingActionButton) root.findViewById(R.id.add_product_button);
         mAddProduct.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent editProductIntent = new Intent(getContext(), EditProduct.class);
+                Intent editProductIntent = new Intent(getActivity(), EditProductActivity.class);
                 startActivity(editProductIntent);
             }
         });
@@ -89,7 +88,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         apiManager = new APIManager();
         //askServerForProducts();
 
-        mProductsList.swapAdapter(new ProductsAdapter(Products.getInstance(getContext()).getProducts(), getActivity()), false);
+        mProductsList.swapAdapter(new ProductsAdapter(Products.getInstance(getActivity()).getProducts(), getActivity()), false);
 
     }
 
