@@ -20,10 +20,27 @@ import java.util.Map;
 public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Object>> {
 
     public enum ApiRequestType {
-        GET,
-        POST,
-        PUT,
-        DELETE
+        GET ("GET"),
+        POST ("POST"),
+        PUT ("PUT"),
+        DELETE ("DELETE");
+
+        private final String text;
+
+        /**
+         * @param text
+         */
+        private ApiRequestType(final String text) {
+            this.text = text;
+        }
+
+        /* (non-Javadoc)
+         * @see java.lang.Enum#toString()
+         */
+        @Override
+        public String toString() {
+            return text;
+        }
     }
 
     private static final int NO_RESPONSE_CODE = 0;
@@ -73,15 +90,8 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
                 }
             }
 
-            if (mApiRequestType == ApiRequestType.GET) {
-                conn.setRequestMethod("GET");
-            } else if (mApiRequestType == ApiRequestType.POST) {
-                conn.setRequestMethod("POST");
-            } else if (mApiRequestType == ApiRequestType.PUT) {
-                conn.setRequestMethod("PUT");
-            } else if (mApiRequestType == ApiRequestType.DELETE) {
-                conn.setRequestMethod("DELETE");
-            }
+            conn.setRequestMethod(mApiRequestType.toString());
+
             conn.setDoInput(true);
             conn.setDoOutput(true);
 
