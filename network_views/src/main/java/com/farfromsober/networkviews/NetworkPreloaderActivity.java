@@ -51,7 +51,7 @@ public class NetworkPreloaderActivity extends AppCompatActivity implements OnNet
 
     @Override
     public void onExceptionReceived(Exception e) {
-        showInfoDialogFragment(R.string.problems_with_request_dialog_title, R.string.problems_with_request_dialog_message, R.string.problems_with_request_button_text);
+        showConnectionErrorDialogFragment();
     }
 
     public void showPreloader(String message) {
@@ -79,6 +79,13 @@ public class NetworkPreloaderActivity extends AppCompatActivity implements OnNet
 
     protected void showInfoDialogFragment(int titleId, int messageId, int buttonTextId) {
         InfoDialogFragment dialog = InfoDialogFragment.newInstance(titleId, messageId, buttonTextId);
+        dialog.setOnInfoDialogCallback(this);
+        dialog.show(getFragmentManager(), null);
+    }
+
+    protected void showConnectionErrorDialogFragment() {
+        InfoDialogFragment dialog = InfoDialogFragment.newInstance(R.string.problems_with_request_dialog_title,
+                R.string.problems_with_request_dialog_message, R.string.problems_with_request_button_text);
         dialog.setOnInfoDialogCallback(this);
         dialog.show(getFragmentManager(), null);
     }

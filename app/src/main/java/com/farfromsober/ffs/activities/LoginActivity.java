@@ -4,18 +4,19 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import com.farfromsober.ffs.R;
-import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.model.LoginData;
+import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.network.APIManager;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 import com.farfromsober.network.callbacks.OnDataParsedCallback;
+import com.farfromsober.networkviews.NetworkPreloaderActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity implements OnDataParsedCallback<User> {
+public class LoginActivity extends NetworkPreloaderActivity implements OnDataParsedCallback<User> {
 
     private APIManager apiManager;
     public WeakReference<OnDataParsedCallback> mOnDataParsedCallback;

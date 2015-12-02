@@ -19,17 +19,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.farfromsober.ffs.R;
-import com.farfromsober.ffs.callbacks.OnInfoDialogCallback;
-import com.farfromsober.ffs.fragments.dialogs.InfoDialogFragment;
-import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
-import com.farfromsober.network.callbacks.OnDataParsedCallback;
-import com.farfromsober.ffs.activities.EditProduct;
-import com.farfromsober.ffs.activities.SignupActivity;
 import com.farfromsober.ffs.activities.EditProductActivity;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.Products;
 import com.farfromsober.ffs.network.APIManager;
+import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 
 import java.lang.ref.WeakReference;
@@ -162,7 +157,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     public void onDataParsed(ArrayList<Product> data) {
         Log.i("ffs", data.toString());
 
-        Products products = Products.getInstance(this.getContext());
+        Products products = Products.getInstance(getActivity());
 
         for (int i = 0; i < data.size(); i++) {
             Product product = data.get(i);
@@ -183,7 +178,6 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
 
     @Override
     public void onExceptionReceived(Exception e) {
-        //TODO: show info dialog to user
         if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
             mOnNetworkActivityCallback.get().onExceptionReceived(e);
         }

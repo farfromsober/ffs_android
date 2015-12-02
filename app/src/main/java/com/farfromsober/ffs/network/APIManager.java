@@ -31,7 +31,8 @@ public class APIManager implements OnResponseReceivedCallback{
     }
 
     public void login(LoginData loginData, OnDataParsedCallback<User> onDataParsedCallback) {
-        APIAsyncTask loginAsyncTask = new APIAsyncTask(LOGIN_URL, ApiRequestType.GET, null, loginData.toHashMap(), null, this, onDataParsedCallback, User.class);
+        APIRequest apiRequest = new APIRequest(LOGIN_URL, ApiRequestType.GET, null, loginData.toHashMap(), null, 10000, 10000);
+        APIAsyncTask loginAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, User.class);
         loginAsyncTask.execute();
     }
 
