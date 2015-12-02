@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.activities.EditProductActivity;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
+import com.farfromsober.ffs.callbacks.RecyclerViewClickListener;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.Products;
 import com.farfromsober.ffs.network.APIManager;
@@ -35,7 +36,7 @@ import butterknife.Bind;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProductsFragment extends Fragment implements OnDataParsedCallback<Product>{
+public class ProductsFragment extends Fragment implements OnDataParsedCallback<Product>, RecyclerViewClickListener {
 
     private APIManager apiManager;
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
@@ -82,9 +83,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
 
         apiManager = new APIManager();
         //askServerForProducts();
-
-        mProductsList.swapAdapter(new ProductsAdapter(Products.getInstance(getActivity()).getProducts(), getActivity()), false);
-
+        mProductsList.swapAdapter(new ProductsAdapter(Products.getInstance(getActivity()).getProducts(), getActivity(), this), false);
     }
 
     @Override
@@ -164,8 +163,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
             products.addProduct(product);
          }
         //Update Adapter
-        mProductsList.swapAdapter(new ProductsAdapter(products.getProducts(), getActivity()), false);
-
+        mProductsList.swapAdapter(new ProductsAdapter(products.getProducts(), getActivity(), this), false);
         hidePreloader();
     }
 
@@ -181,5 +179,10 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
             mOnNetworkActivityCallback.get().onExceptionReceived(e);
         }
+    }
+
+    @Override
+    public void recyclerViewListClicked(View v, int position) {
+
     }
 }
