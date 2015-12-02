@@ -20,8 +20,8 @@ import com.farfromsober.ffs.fragments.NotificationsFragment;
 import com.farfromsober.ffs.fragments.ProductsFragment;
 import com.farfromsober.ffs.fragments.ProfileFragment;
 import com.farfromsober.ffs.model.DrawerMenuItem;
-import com.farfromsober.network.NetworkPreloaderActivity;
-import com.farfromsober.network.callbacks.OnNetworkActivityCallback;
+import com.farfromsober.networkviews.NetworkPreloaderActivity;
+import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

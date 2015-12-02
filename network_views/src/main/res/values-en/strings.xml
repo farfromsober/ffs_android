@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="problems_with_request_dialog_title">Connection Error</string>
+    <string name="problems_with_request_dialog_message">Connection failed, please try again</string>
+    <string name="problems_with_request_button_text">Ok</string>
+
+</resources>

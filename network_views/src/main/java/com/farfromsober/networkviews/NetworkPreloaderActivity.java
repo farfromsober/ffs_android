@@ -1,6 +1,5 @@
-package com.farfromsober.network;
+package com.farfromsober.networkviews;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,11 +11,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.farfromsober.network.callbacks.OnNetworkActivityCallback;
+import com.farfromsober.networkviews.callbacks.OnInfoDialogCallback;
+import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
+import com.farfromsober.networkviews.dialogs.InfoDialogFragment;
 
 import java.lang.ref.WeakReference;
 
-public class NetworkPreloaderActivity extends AppCompatActivity implements OnNetworkActivityCallback {
+public class NetworkPreloaderActivity extends AppCompatActivity implements OnNetworkActivityCallback, OnInfoDialogCallback {
 
     public WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
 
@@ -48,6 +49,10 @@ public class NetworkPreloaderActivity extends AppCompatActivity implements OnNet
         hidePreloader();
     }
 
+    @Override
+    public void onExceptionReceived(Exception e) {
+        showInfoDialogFragment(R.string.problems_with_request_dialog_title, R.string.problems_with_request_dialog_message, R.string.problems_with_request_button_text);
+    }
 
     public void showPreloader(String message) {
         Animation rotation = AnimationUtils.loadAnimation(this, R.anim.rotate_continuously);
@@ -70,5 +75,19 @@ public class NetworkPreloaderActivity extends AppCompatActivity implements OnNet
         if (mLoadingGroup != null) {
             mLoadingGroup.setVisibility(View.GONE);
         }
+    }
+
+    protected void showInfoDialogFragment(int titleId, int messageId, int buttonTextId) {
+        InfoDialogFragment dialog = InfoDialogFragment.newInstance(titleId, messageId, buttonTextId);
+        dialog.setOnInfoDialogCallback(this);
+        dialog.show(getFragmentManager(), null);
+    }
+
+    @Override
+    public void onInfoDialogClosed(InfoDialogFragment dialog) {
+        if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
+            mOnNetworkActivityCallback.get().onNetworkActivityFinished();
+        }
+        dialog.dismiss();
     }
 }

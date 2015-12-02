@@ -100,6 +100,7 @@
     <orderEntry type="library" exported="" name="circleimageview-2.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
     <orderEntry type="module" module-name="network" exported="" />
+    <orderEntry type="module" module-name="network_views" exported="" />
     <orderEntry type="module" module-name="custom_views" exported="" />
     <orderEntry type="module" module-name="general_utils" exported="" />
   </component>

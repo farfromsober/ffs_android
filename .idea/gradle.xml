@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/custom_views" />
             <option value="$PROJECT_DIR$/general_utils" />
             <option value="$PROJECT_DIR$/network" />
+            <option value="$PROJECT_DIR$/network_views" />
           </set>
         </option>
       </GradleProjectSettings>
