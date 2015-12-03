@@ -20,7 +20,9 @@ import android.view.ViewGroup;
 
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.activities.EditProductActivity;
+import com.farfromsober.ffs.activities.ProductDetailActivity;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
+import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.callbacks.RecyclerViewClickListener;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.Products;
@@ -40,6 +42,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
 
     private APIManager apiManager;
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
+    public ProductsFragmentListener mListener;
 
     //private RecyclerView mProductsList;
     @Bind(R.id.products_list) RecyclerView mProductsList;
@@ -69,8 +72,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         mAddProduct = (FloatingActionButton) root.findViewById(R.id.add_product_button);
         mAddProduct.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent editProductIntent = new Intent(getActivity(), EditProductActivity.class);
-                startActivity(editProductIntent);
+               mListener.ProductsFragmentAddProductClicked();
             }
         });
 
@@ -183,6 +185,8 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
 
     @Override
     public void recyclerViewListClicked(View v, int position) {
-
+        Products products = Products.getInstance(getActivity());
+        Product product = products.getProducts().get(position);
+        mListener.ProductsFragmentProductClicked(product);
     }
 }

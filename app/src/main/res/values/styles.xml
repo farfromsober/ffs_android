@@ -27,4 +27,22 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <!-- Product detail -->
+    <style name="product_detail_username_text_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/product_detail_username_text_color</item>
+    </style>
+    <style name="product_detail_date_text_style">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/product_detail_date_text_color</item>
+    </style>
+    <style name="product_detail_price_text_style">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/product_detail_price_text_color</item>
+    </style>
+    <style name="product_detail_description_text_style">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/product_detail_description_text_color</item>
+    </style>
+
 </resources>

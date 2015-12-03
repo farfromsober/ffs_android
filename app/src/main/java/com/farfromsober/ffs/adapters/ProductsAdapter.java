@@ -67,7 +67,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         @Override
         public void onClick(View v) {
             mListener.recyclerViewListClicked(v, this.getLayoutPosition());
-
         }
     }
 }

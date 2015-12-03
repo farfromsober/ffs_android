@@ -16,11 +16,13 @@ import android.widget.ListView;
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.DrawerListAdapter;
+import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.fragments.MapFragment;
 import com.farfromsober.ffs.fragments.NotificationsFragment;
 import com.farfromsober.ffs.fragments.ProductsFragment;
 import com.farfromsober.ffs.fragments.ProfileFragment;
 import com.farfromsober.ffs.model.DrawerMenuItem;
+import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
@@ -34,7 +36,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends NetworkPreloaderActivity {
+public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener {
 
     private static final int PRODUCTS_FRAGMENT_INDEX = 0;
     private static final int MAP_FRAGMENT_INDEX = 1;
@@ -179,6 +181,7 @@ public class MainActivity extends NetworkPreloaderActivity {
         switch (position) {
             case PRODUCTS_FRAGMENT_INDEX:
                 fragment = new ProductsFragment();
+                ((ProductsFragment)fragment).mListener = this;
                 break;
             case MAP_FRAGMENT_INDEX:
                 fragment = new MapFragment();
@@ -233,4 +236,15 @@ public class MainActivity extends NetworkPreloaderActivity {
         }
     }
 
+    @Override
+    public void ProductsFragmentAddProductClicked() {
+        Intent editProductIntent = new Intent(this, EditProductActivity.class);
+        startActivity(editProductIntent);
+    }
+
+    @Override
+    public void ProductsFragmentProductClicked(Product product) {
+        Intent productDetailIntent = new Intent(this, ProductDetailActivity.class);
+        startActivity(productDetailIntent);
+    }
 }
