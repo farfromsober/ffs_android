@@ -4,7 +4,6 @@ package com.farfromsober.ffs.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,8 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.farfromsober.ffs.R;
-import com.farfromsober.ffs.activities.EditProductActivity;
-import com.farfromsober.ffs.activities.ProductDetailActivity;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.callbacks.RecyclerViewClickListener;

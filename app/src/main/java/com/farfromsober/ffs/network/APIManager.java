@@ -16,7 +16,7 @@ import static com.farfromsober.network.APIAsyncTask.ApiRequestType;
 public class APIManager implements OnResponseReceivedCallback{
     private static final String ALL_PRODUCTS_URL = "http://beta.json-generator.com/api/json/get/NyJpZWxQl";
     private static final String ALL_USERS_URL = "http://beta.json-generator.com/api/json/get/NJsNmZgQe";
-    private static final String LOGIN_URL = "http://www.json-generator.com/api/json/get/cqiwTpuSqa";
+    private static final String LOGIN_URL = "http://forsale.cloudapp.net/api/1.0/login/";
 
     public void allProducts(OnDataParsedCallback<Product> onDataParsedCallback){
         APIRequest apiRequest = new APIRequest(ALL_PRODUCTS_URL, ApiRequestType.GET, null, null, null, 10000, 10000);
@@ -31,7 +31,7 @@ public class APIManager implements OnResponseReceivedCallback{
     }
 
     public void login(LoginData loginData, OnDataParsedCallback<User> onDataParsedCallback) {
-        APIRequest apiRequest = new APIRequest(LOGIN_URL, ApiRequestType.GET, null, loginData.toHashMap(), null, 10000, 10000);
+        APIRequest apiRequest = new APIRequest(LOGIN_URL, ApiRequestType.POST, loginData.getHeaders(), null, loginData.toHashMap(), 10000, 10000);
         APIAsyncTask loginAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, User.class);
         loginAsyncTask.execute();
     }

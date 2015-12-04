@@ -1,5 +1,7 @@
 package com.farfromsober.ffs.model;
 
+import android.util.Base64;
+
 import java.util.HashMap;
 
 /**
@@ -7,7 +9,7 @@ import java.util.HashMap;
  */
 public class LoginData {
 
-    private static final String LOGIN_KEY = "login";
+    private static final String LOGIN_KEY = "user";
     private static final String PASSWORD_KEY = "password";
 
     private String mLogin;
@@ -20,6 +22,17 @@ public class LoginData {
         hashMap.put(PASSWORD_KEY, getPassword());
 
         return hashMap;
+    }
+
+    public HashMap<String, Object> getHeaders() {
+        String userPassword = getLogin()+":"+getPassword();
+        final String basicAuth = "Basic " + Base64.encodeToString(userPassword.getBytes(), Base64.NO_WRAP);
+        //Basic am9hbjpLZWVwQ29kaW5n
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("Authorization", basicAuth);
+        hashMap.put("Content-Type", "application/json");
+
+       return hashMap;
     }
 
     public LoginData(String login, String password) {

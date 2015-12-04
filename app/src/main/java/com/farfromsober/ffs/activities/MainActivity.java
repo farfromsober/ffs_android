@@ -63,7 +63,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //SharedPreferencesManager.removePrefLoginUser(getApplicationContext());
+        SharedPreferencesManager.removePrefLoginUser(getApplicationContext());
         String loginDataJson = SharedPreferencesManager.getPrefLoginUser(getApplicationContext());
 
         if(loginDataJson == "")
