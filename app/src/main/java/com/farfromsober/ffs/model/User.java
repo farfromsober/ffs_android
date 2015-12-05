@@ -6,9 +6,10 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class User {
+public class User implements Serializable {
 
     private static final String USER_KEY = "user";
     private static final String ID_KEY = "id";

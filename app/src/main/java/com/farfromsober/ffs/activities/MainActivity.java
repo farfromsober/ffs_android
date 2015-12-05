@@ -44,6 +44,8 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     private static final int PROFILE_FRAGMENT_INDEX = 3;
     private static final int INITIAL_FRAGMENT_INDEX = PRODUCTS_FRAGMENT_INDEX;
 
+    public static final String ARGS_PRODUCT = "com.farfromsober.ffs.activities.MainActivity.ARGS_PRODUCT";
+
     @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.scrimInsetsFrameLayout) ScrimInsetsFrameLayout mScrimInsetsFrameLayout;
     @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
@@ -245,6 +247,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     @Override
     public void ProductsFragmentProductClicked(Product product) {
         Intent productDetailIntent = new Intent(this, ProductDetailActivity.class);
+        productDetailIntent.putExtra(ARGS_PRODUCT, product);
         startActivity(productDetailIntent);
     }
 }
