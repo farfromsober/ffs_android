@@ -2,6 +2,7 @@ package com.farfromsober.ffs.utils;
 
 import android.content.Context;
 
+import com.farfromsober.ffs.model.LoginData;
 import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 
 public class SharedPreferencesManager {
@@ -15,12 +16,19 @@ public class SharedPreferencesManager {
 
 
     //LOGIN USER
-    public static void savePrefLoginUser(Context context, String value) {
-        SharedPreferencesGeneralManager.savePreferece(context, PREF_LOGIN_USER, value);
+    public static void savePrefLoginUser(Context context, LoginData value) {
+        String loginDataString = SharedPreferencesGeneralManager.objectToJSONString(value);
+        SharedPreferencesGeneralManager.savePreferece(context, PREF_LOGIN_USER, loginDataString);
     }
 
-    public static String getPrefLoginUser(Context context) {
-        return SharedPreferencesGeneralManager.getPreferenceString(context, PREF_LOGIN_USER);
+    //public static String getPrefLoginUserString(Context context) {
+    //    return SharedPreferencesGeneralManager.getPreferenceString(context, PREF_LOGIN_USER);
+    //}
+
+    public static LoginData getPrefLoginUser(Context context) {
+        String loginDataString = SharedPreferencesGeneralManager.getPreferenceString(context, PREF_LOGIN_USER);
+        LoginData loginData = (LoginData) SharedPreferencesGeneralManager.JSONStringToObject(loginDataString, LoginData.class);
+        return loginData;
     }
 
     public static void removePrefLoginUser(Context context) {

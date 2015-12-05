@@ -13,11 +13,11 @@ import java.util.HashMap;
 
 public class Product {
 
-    private static final String ID_KEY = "_id";
+    private static final String ID_KEY = "id";
     private static final String NAME_KEY = "name";
     private static final String DESCRIPTION_KEY = "description";
     private static final String PUBLISHED_DATE_KEY = "published_date";
-    public static final String DATE_FORMAT = "yyyy'-'MM'-'dd'T'HH':'mm':'ssZ"; // "2015-11-02T14:16:29+00:00";
+    public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"; // "2015-12-04T14:31:35.074948Z";
     private static final String SELLING_KEY = "selling";
     private static final String PRICE_KEY = "price";
     private static final String SELLER_KEY = "seller";

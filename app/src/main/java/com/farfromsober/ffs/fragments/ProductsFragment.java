@@ -80,9 +80,9 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        apiManager = new APIManager();
-        //askServerForProducts();
-        mProductsList.swapAdapter(new ProductsAdapter(Products.getInstance(getActivity()).getProducts(), getActivity(), this), false);
+        apiManager = new APIManager(getActivity());
+        askServerForProducts();
+        //mProductsList.swapAdapter(new ProductsAdapter(Products.getInstance(getActivity()).getProducts(), getActivity(), this), false);
     }
 
     @Override
@@ -153,17 +153,21 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
 
     @Override
     public void onDataParsed(ArrayList<Product> data) {
-        Log.i("ffs", data.toString());
+        if (data != null) {
+            Log.i("ffs", data.toString());
 
-        Products products = Products.getInstance(getActivity());
+            Products products = Products.getInstance(getActivity());
 
-        for (int i = 0; i < data.size(); i++) {
-            Product product = data.get(i);
-            products.addProduct(product);
-         }
-        //Update Adapter
-        mProductsList.swapAdapter(new ProductsAdapter(products.getProducts(), getActivity(), this), false);
-        hidePreloader();
+            for (int i = 0; i < data.size(); i++) {
+                Product product = data.get(i);
+                products.addProduct(product);
+            }
+            //Update Adapter
+            mProductsList.swapAdapter(new ProductsAdapter(products.getProducts(), getActivity(), this), false);
+            hidePreloader();
+        }else{
+
+        }
     }
 
     @Override

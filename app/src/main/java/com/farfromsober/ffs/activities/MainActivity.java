@@ -22,6 +22,7 @@ import com.farfromsober.ffs.fragments.NotificationsFragment;
 import com.farfromsober.ffs.fragments.ProductsFragment;
 import com.farfromsober.ffs.fragments.ProfileFragment;
 import com.farfromsober.ffs.model.DrawerMenuItem;
+import com.farfromsober.ffs.model.LoginData;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
@@ -64,9 +65,10 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //SharedPreferencesManager.removePrefLoginUser(getApplicationContext());
-        String loginDataJson = SharedPreferencesManager.getPrefLoginUser(getApplicationContext());
 
-        if(loginDataJson == "")
+        LoginData data = SharedPreferencesManager.getPrefLoginUser(getApplicationContext());
+
+        if(data == null)
             this.showLoginScreen();
         else
         {

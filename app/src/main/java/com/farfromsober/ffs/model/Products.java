@@ -27,7 +27,7 @@ public class Products {
         if (ourInstance == null || ourInstance.mContext.get() == null) {
             if (ourInstance == null) {
                 ourInstance = new Products(context);
-                ourInstance.fillDummyData();
+                //ourInstance.fillDummyData();
             } else if (ourInstance.mContext.get() == null) {
                 ourInstance.mContext = new WeakReference<Context>(context);
             }

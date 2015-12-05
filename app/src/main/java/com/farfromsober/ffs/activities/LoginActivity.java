@@ -45,7 +45,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
         ButterKnife.bind(this);
 
         mOnDataParsedCallback = new WeakReference<>((OnDataParsedCallback)this);
-        apiManager = new APIManager();
+        apiManager = new APIManager(this);
 
         initButtonsListeners();
     }
@@ -59,9 +59,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
             public void onClick(View v) {
                 String email = mLoginEmail.getText().toString();
                 String password = mLoginPassword.getText().toString();
-
-                loginActivityWeakReference.get().loginData = new LoginData(email, password);
-                apiManager.login(loginActivityWeakReference.get().loginData, loginActivityWeakReference.get());
+                apiManager.login(loginActivityWeakReference.get());
             }
         });
 
@@ -93,9 +91,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
         if (data != null) {
             String userJson = SharedPreferencesGeneralManager.objectToJSONString(data);
             SharedPreferencesManager.savePrefUserData(getApplicationContext(), userJson);
-
-            String userLoginJson = SharedPreferencesGeneralManager.objectToJSONString(this.loginData);
-            SharedPreferencesManager.savePrefLoginUser(getApplicationContext(), userLoginJson);
+            SharedPreferencesManager.savePrefLoginUser(getApplicationContext(), this.loginData);
 
             this.showMainActivity();
         }else{

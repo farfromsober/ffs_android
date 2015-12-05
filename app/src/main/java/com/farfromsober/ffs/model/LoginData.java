@@ -40,6 +40,7 @@ public class LoginData {
         this.mPassword = password;
     }
 
+
     public String getLogin() {
         return mLogin;
     }

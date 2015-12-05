@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.farfromsober.ffs.R;
-import com.farfromsober.network.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,15 +28,19 @@ public class ProductView extends LinearLayout {
     private String mProductImage;
     private String mProductName;
     private String  mProductPrice;
+    private Context  mContext;
+
 
     public ProductView(Context context) {
         this(context,null);
+        mContext = context;
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         setLayoutParams(params);
     }
 
     public ProductView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_product, this, true);
         ButterKnife.bind(this);
@@ -45,8 +49,12 @@ public class ProductView extends LinearLayout {
     public void setProductImage(String mProductImage) {
         this.mProductImage = mProductImage;
         //show Image
-        ImageLoader imageLoader = new ImageLoader(mProductImageView);
-        imageLoader.execute(this.mProductImage);
+        Picasso.with(mContext)
+                .load(this.mProductImage)
+                //.placeholder(R.drawable.user_placeholder)
+                .resize(1000, 1000)
+                .centerCrop()
+                .into(mProductImageView);
     }
 
     public void setProductName(String mProductName) {

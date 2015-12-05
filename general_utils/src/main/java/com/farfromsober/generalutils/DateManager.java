@@ -19,11 +19,19 @@ public class DateManager {
     }
 
     public static Date dateFromString(String string, String stringFormat) throws ParseException {
-        return new SimpleDateFormat(stringFormat).parse(string);
+        Date date = null;
+        SimpleDateFormat format = new SimpleDateFormat(stringFormat);
+        try {
+            date = format.parse(string);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
     public static String timestampFromDate(Date date) {
-        String format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss";
+        //String format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss";
+        String format = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'";
         return  stringFromDate(date, format);
     }
 
