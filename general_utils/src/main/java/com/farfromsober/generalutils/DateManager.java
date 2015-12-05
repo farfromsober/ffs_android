@@ -19,18 +19,10 @@ public class DateManager {
     }
 
     public static Date dateFromString(String string, String stringFormat) throws ParseException {
-        Date date = null;
-        SimpleDateFormat format = new SimpleDateFormat(stringFormat);
-        try {
-            date = format.parse(string);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return date;
+        return new SimpleDateFormat(stringFormat).parse(string);
     }
 
     public static String timestampFromDate(Date date) {
-        //String format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss";
         String format = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'";
         return  stringFromDate(date, format);
     }
