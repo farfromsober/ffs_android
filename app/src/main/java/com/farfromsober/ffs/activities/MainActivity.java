@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -176,7 +175,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         });
     }
 
-    @Nullable
     private Fragment getFragmentToNavigateTo(int position) {
         Fragment fragment = null;
 

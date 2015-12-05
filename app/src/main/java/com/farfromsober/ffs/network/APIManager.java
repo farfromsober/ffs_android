@@ -48,6 +48,13 @@ public class APIManager implements OnResponseReceivedCallback{
         loginAsyncTask.execute();
     }
 
+    public void login(String login, String password, OnDataParsedCallback<User> onDataParsedCallback) {
+        LoginData loginData = new LoginData(login, password);
+        APIRequest apiRequest = new APIRequest(LOGIN_URL, ApiRequestType.POST, loginData.getHeaders(), null, loginData.toHashMap(), 10000, 10000);
+        APIAsyncTask loginAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, User.class);
+        loginAsyncTask.execute();
+    }
+
     @Override
     public void onResponseReceived(int responseCode, String response, Class<?> modelClass, WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {
         NetworkUtils.parseObjects(responseCode, response, modelClass, onDataParsedCallbackWeakReference);

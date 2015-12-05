@@ -59,7 +59,8 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
             public void onClick(View v) {
                 String email = mLoginEmail.getText().toString();
                 String password = mLoginPassword.getText().toString();
-                apiManager.login(loginActivityWeakReference.get());
+                loginData = new LoginData(email, password);
+                apiManager.login(email, password, loginActivityWeakReference.get());
             }
         });
 
@@ -82,13 +83,15 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
 
     @Override
     public void onDataParsed(ArrayList data) {
-        Log.i("ffs", data.toString());
+        if (data != null) {
+            Log.i("ffs", data.toString());
+        }
     }
 
     @Override
     public void onDataParsed(User data) {
-        Log.i("ffs", data.toString());
         if (data != null) {
+            Log.i("ffs", data.toString());
             String userJson = SharedPreferencesGeneralManager.objectToJSONString(data);
             SharedPreferencesManager.savePrefUserData(getApplicationContext(), userJson);
             SharedPreferencesManager.savePrefLoginUser(getApplicationContext(), this.loginData);
@@ -102,7 +105,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
     private void showMainActivity() {
         Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(mainIntent);
-        this.finish();
+        //this.finish();
     }
 
     private void showErrorMessage() {
