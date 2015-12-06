@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:id="@+id/relativeLayout">
         <com.farfromsober.customviews.CustomFontEditText
             android:id="@+id/login_email"
             android:layout_width="match_parent"
@@ -75,6 +76,16 @@
             />
 
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_above="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/forsale"
+        android:layout_marginBottom="40dp"
+        />
 
 </RelativeLayout>
 

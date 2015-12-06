@@ -61,7 +61,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
             if (product.getImages().size() > 0)
                 mProductView.setProductImage(product.getImages().get(0));
             else
-                mProductView.setProductImage("http://www.macdevcenter.com/2005/05/06/graphics/Default.png");
+                mProductView.setProductImage(null);
         }
 
         @Override

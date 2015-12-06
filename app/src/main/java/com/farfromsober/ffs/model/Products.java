@@ -52,6 +52,10 @@ public class Products {
         return mProducts;
     }
 
+    public void deleteProducts() {
+        mProducts = new ArrayList<>();
+    }
+
     public void fillDummyData() {
         User user = new User("userId","Name", "LastName", "email@email.com", "username", "1.0000", "1.0000", "avatar", "city", "Active", 1);
         Category category = new Category("category", 1);

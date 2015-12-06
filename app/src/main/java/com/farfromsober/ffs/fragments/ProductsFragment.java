@@ -157,6 +157,8 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
             Log.i("ffs", data.toString());
 
             Products products = Products.getInstance(getActivity());
+            if (data.size() > 0)
+                products.deleteProducts();
 
             for (int i = 0; i < data.size(); i++) {
                 Product product = data.get(i);

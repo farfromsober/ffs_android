@@ -59,4 +59,7 @@
         <item name="android:textColor">@color/app_light_text</item>
     </style>
 
+
+
+
 </resources>
