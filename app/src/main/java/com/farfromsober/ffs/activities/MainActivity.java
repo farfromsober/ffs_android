@@ -62,6 +62,8 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     private ArrayList<DrawerMenuItem> menuItems;
     private DrawerListAdapter mDrawerListAdapter;
 
+    private Fragment mCurrentFragment;
+
     public WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
 
     @Override
@@ -104,6 +106,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
+            mCurrentFragment.setHasOptionsMenu(true);
         } else {
             super.onBackPressed();
         }
@@ -183,24 +186,24 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     private Fragment getFragmentToNavigateTo(int position) {
-        Fragment fragment = null;
+        mCurrentFragment= null;
 
         switch (position) {
             case PRODUCTS_FRAGMENT_INDEX:
-                fragment = new ProductsFragment();
-                ((ProductsFragment)fragment).mListener = this;
+                mCurrentFragment = new ProductsFragment();
+                ((ProductsFragment)mCurrentFragment).mListener = this;
                 break;
             case MAP_FRAGMENT_INDEX:
-                fragment = new MapFragment();
+                mCurrentFragment = new MapFragment();
                 break;
             case NOTIFICATIONS_FRAGMENT_INDEX:
-                fragment = new NotificationsFragment();
+                mCurrentFragment = new NotificationsFragment();
                 break;
             case PROFILE_FRAGMENT_INDEX:
-                fragment = new ProfileFragment();
+                mCurrentFragment = new ProfileFragment();
                 break;
         }
-        return fragment;
+        return mCurrentFragment;
     }
 
     private void initializeDrawerLayout() {
@@ -251,6 +254,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
     @Override
     public void onProductsFragmentProductClicked(Product product) {
+        mCurrentFragment.setHasOptionsMenu(false);
         ProductDetailFragment fragment = ProductDetailFragment.newInstance(product);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
