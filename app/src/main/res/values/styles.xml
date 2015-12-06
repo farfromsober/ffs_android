@@ -28,11 +28,11 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="product_list_name">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/app_grey</item>
     </style>
     <style name="product_list_price">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/app_grey</item>
     </style>
 

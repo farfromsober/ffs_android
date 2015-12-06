@@ -34,7 +34,7 @@
                 android:textAlignment="textStart"
                 android:layout_gravity="start"
                 android:text="example"
-                app:layout_widthPercent="60%"
+                app:layout_widthPercent="55%"
                 style="@style/product_list_name"/>
             <com.farfromsober.customviews.CustomFontTextView
                 android:id="@+id/product_price"
@@ -43,7 +43,7 @@
                 android:layout_gravity="end"
                 android:text="00.00"
                 android:layout_toRightOf="@+id/product_name"
-                app:layout_widthPercent="40%"
+                app:layout_widthPercent="45%"
                 style="@style/product_list_price"/>
         </android.support.percent.PercentRelativeLayout>
     </LinearLayout>
