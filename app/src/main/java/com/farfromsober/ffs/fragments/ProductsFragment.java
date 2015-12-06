@@ -69,7 +69,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         mAddProduct = (FloatingActionButton) root.findViewById(R.id.add_product_button);
         mAddProduct.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-               mListener.ProductsFragmentAddProductClicked();
+               mListener.onProductsFragmentAddProductClicked();
             }
         });
 
@@ -188,6 +188,6 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     public void recyclerViewListClicked(View v, int position) {
         Products products = Products.getInstance(getActivity());
         Product product = products.getProducts().get(position);
-        mListener.ProductsFragmentProductClicked(product);
+        mListener.onProductsFragmentProductClicked(product);
     }
 }
