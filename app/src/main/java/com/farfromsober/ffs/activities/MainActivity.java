@@ -142,12 +142,15 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         mDrawerUserName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
         mDrawerUseLocation.setText(user.getCity());
         mDrawerUseNumberOfTransactions.setText(String.format(getResources().getString(R.string.drawer_number_of_transactions_format), (int) user.getSales()));
-        Picasso.with(this)
-                .load(user.getAvatarURL())
-                .placeholder(R.drawable.no_user)
-                .resize(500, 500)
-                .centerCrop()
-                .into(mDrawerProfileImageView);
+
+        if (user.getAvatarURL() != null && user.getAvatarURL() != "") {
+            Picasso.with(this)
+                    .load(user.getAvatarURL())
+                    .placeholder(R.drawable.no_user)
+                    .resize(500, 500)
+                    .centerCrop()
+                    .into(mDrawerProfileImageView);
+        }
     }
 
     private void initializeDrawerMenu() {
