@@ -21,6 +21,7 @@
         android:layout_margin="10dp"
         app:layout_anchor="@id/products_list"
         app:layout_anchorGravity="bottom|right|end"
+        app:backgroundTint="@color/app_dark_orange"
         />
 
 </android.support.design.widget.CoordinatorLayout>

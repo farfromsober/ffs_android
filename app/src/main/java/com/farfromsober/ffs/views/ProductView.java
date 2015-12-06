@@ -47,14 +47,19 @@ public class ProductView extends LinearLayout {
     }
 
     public void setProductImage(String mProductImage) {
-        this.mProductImage = mProductImage;
-        //show Image
-        Picasso.with(mContext)
-                .load(this.mProductImage)
-                //.placeholder(R.drawable.user_placeholder)
-                .resize(1000, 1000)
-                .centerCrop()
-                .into(mProductImageView);
+        this.mProductImageView.setImageResource(R.drawable.photo_placeholder);
+        if (mProductImage != null) {
+            this.mProductImage = mProductImage;
+            //show Image
+            Picasso.with(mContext)
+                    .load(this.mProductImage)
+                            //.placeholder(R.drawable.user_placeholder)
+                    .resize(150, 150)
+                    .centerCrop()
+                    .into(mProductImageView);
+        }
+        this.mProductImageView.setAdjustViewBounds(true);
+
     }
 
     public void setProductName(String mProductName) {
@@ -64,6 +69,6 @@ public class ProductView extends LinearLayout {
 
     public void setProductPrice(String mProductPrice) {
         this.mProductPrice = mProductPrice;
-        this.mProductPriceTextView.setText(mProductPrice);
+        this.mProductPriceTextView.setText(mProductPrice + "€");
     }
 }
