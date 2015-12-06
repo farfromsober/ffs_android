@@ -23,4 +23,52 @@
         <item name="android:textColor">@color/drawer_menu_item_text_color_selector</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="product_list_name">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/app_grey</item>
+    </style>
+    <style name="product_list_price">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/app_grey</item>
+    </style>
+
+    <!-- Product detail -->
+    <style name="product_detail_username_text_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/product_detail_username_text_color</item>
+    </style>
+    <style name="product_detail_date_text_style">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/product_detail_date_text_color</item>
+    </style>
+    <style name="product_detail_price_text_style">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/product_detail_price_text_color</item>
+    </style>
+    <style name="product_detail_description_text_style">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/product_detail_description_text_color</item>
+    </style>
+
+    <style name="light_orange_background">
+        <item name="android:background">@color/app_light_orange</item>
+    </style>
+
+    <style name="app_edit_text">
+        <item name="android:textColorHint">@color/app_light_text</item>
+        <item name="android:textColor">@color/app_dark_text</item>
+    </style>
+
+    <style name="app_button">
+        <item name="android:background">@color/app_dark_orange</item>
+        <item name="android:textColor">@color/app_light_text</item>
+    </style>
+
+
+
+
 </resources>

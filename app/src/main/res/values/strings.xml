@@ -32,8 +32,17 @@
     <string name="closeDrawer">Drawer closed</string>
     <string name="navigation_drawer_item_icon_content_description">Drawer Menu Icon</string>
     <string name="drawer_item_example_text">Navigation drawer item</string>
-    <string name="drawer_number_of_transactions_format">%1$s compras | %2$s ventas</string>
+    <string name="drawer_number_of_transactions_format">%1$d ventas</string>
 
     <string name="products_loading_message">Descargando productos,\npor favor espere.</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Contraseña</string>
+    <string name="login_signin_hint">Entrar</string>
+    <string name="login_register_hint">Registrarse</string>
+    <string name="login_forgot_password_hint">Olvidé mi contraseña</string>
+    <string name="login_error_message_title">Error en el acceso</string>
+    <string name="login_error_message">Ha ocurrido un error al acceder. Por favor, revisa los datos introducidos.</string>
+    <string name="title_activity_edit_product">EditProduct</string>
 
 </resources>

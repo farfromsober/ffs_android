@@ -1,14 +1,17 @@
 package com.farfromsober.ffs.model;
 
+import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
 public class User {
 
-    private static final String ID_KEY = "_id";
+    private static final String USER_KEY = "user";
+    private static final String ID_KEY = "id";
     private static final String FIRST_NAME_KEY = "first_name";
     private static final String LAST_NAME_KEY = "last_name";
     private static final String EMAIL_KEY = "email";
@@ -49,16 +52,25 @@ public class User {
 
     public User(JSONObject json) {
         mUserId = json.optString(ID_KEY);
-        mFirstName = json.optString(FIRST_NAME_KEY);
-        mLastName = json.optString(LAST_NAME_KEY);
-        mEmail = json.optString(EMAIL_KEY);
-        mUsername = json.optString(USERNAME_KEY);
+        String userString = json.optString(USER_KEY);
+        JSONObject userJson = null;
+        try {
+            userJson = new JSONObject(userString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mFirstName = userJson.optString(FIRST_NAME_KEY);
+        mLastName = userJson.optString(LAST_NAME_KEY);
+        mEmail = userJson.optString(EMAIL_KEY);
+        mUsername = userJson.optString(USERNAME_KEY);
         mLatitude = json.optString(LATITUDE_KEY);
         mLongitude = json.optString(LONGITUDE_KEY);
         mAvatarURL = json.optString(AVATAR_KEY);
         mCity = json.optString(CITY_KEY);
         mState = json.optString(STATE_KEY);
         mSales = json.optDouble(SALES_KEY);
+        if (Double.isNaN(mSales))
+            mSales = 0;
     }
 
     public String getUserId() {

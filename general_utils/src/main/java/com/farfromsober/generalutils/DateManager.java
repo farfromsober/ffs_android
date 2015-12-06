@@ -23,7 +23,7 @@ public class DateManager {
     }
 
     public static String timestampFromDate(Date date) {
-        String format = "yyyy'-'MM'-'dd'T'HH':'mm':'ss";
+        String format = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'";
         return  stringFromDate(date, format);
     }
 

@@ -31,7 +31,6 @@ public class SharedPreferencesGeneralManager {
     //endregion
 
 
-
     //region Get Preferences
     public static String getPreferenceString(Context context, String key) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);

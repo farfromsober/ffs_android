@@ -1,9 +1,9 @@
 package com.farfromsober.ffs.activities;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -15,13 +15,20 @@ import android.widget.ListView;
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.DrawerListAdapter;
+import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.fragments.MapFragment;
 import com.farfromsober.ffs.fragments.NotificationsFragment;
 import com.farfromsober.ffs.fragments.ProductsFragment;
 import com.farfromsober.ffs.fragments.ProfileFragment;
 import com.farfromsober.ffs.model.DrawerMenuItem;
+import com.farfromsober.ffs.model.LoginData;
+import com.farfromsober.ffs.model.Product;
+import com.farfromsober.ffs.model.User;
+import com.farfromsober.ffs.utils.SharedPreferencesManager;
+import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 import com.farfromsober.networkviews.NetworkPreloaderActivity;
 import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
+import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -30,7 +37,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends NetworkPreloaderActivity {
+public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener {
 
     private static final int PRODUCTS_FRAGMENT_INDEX = 0;
     private static final int MAP_FRAGMENT_INDEX = 1;
@@ -57,8 +64,58 @@ public class MainActivity extends NetworkPreloaderActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //SharedPreferencesManager.removePrefLoginUser(getApplicationContext());
 
+        LoginData data = SharedPreferencesManager.getPrefLoginUser(getApplicationContext());
+
+        if(data == null)
+            this.showLoginScreen();
+        else
+        {
+            this.configureDrawer();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+        /*
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+        */
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    private void showLoginScreen() {
+        Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(loginIntent);
+        this.finish();
+    }
+
+    private void configureDrawer() {
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolbar);
@@ -78,51 +135,19 @@ public class MainActivity extends NetworkPreloaderActivity {
         loadInitialFragment(INITIAL_FRAGMENT_INDEX);
     }
 
-    private void loadInitialFragment(int position) {
-
-        Fragment fragment = getFragmentToNavigateTo(position);
-
-        getFragmentManager().beginTransaction()
-                .add(R.id.content_frame, fragment)
-                .commit();
-
-        getSupportActionBar().setTitle(menuItems.get(position).getTitle());
-    }
-
-    public void selectMenuItem(int position) {
-        if (mDrawerMenuListView != null) {
-            mDrawerMenuListView.setItemChecked(position, true);
-            mDrawerMenuListView.setSelection(position);
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
     private void initializeDrawerHeader() {
-        //TODO: set User Data
-        mDrawerUserName.setText("Javier Alzueta");
-        mDrawerUseLocation.setText("Pamplona");
-        mDrawerUseNumberOfTransactions.setText(String.format(getResources().getString(R.string.drawer_number_of_transactions_format), "124", "14"));
-        mDrawerUseLocation.setText("Pamplona");
+        String UserJson =  SharedPreferencesManager.getPrefUserData(this);
+        User user = (User) SharedPreferencesGeneralManager.JSONStringToObject(UserJson, User.class);
+
+        mDrawerUserName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
+        mDrawerUseLocation.setText(user.getCity());
+        mDrawerUseNumberOfTransactions.setText(String.format(getResources().getString(R.string.drawer_number_of_transactions_format), (int) user.getSales()));
+        Picasso.with(this)
+                .load(user.getAvatarURL())
+                .placeholder(R.drawable.no_user)
+                .resize(500, 500)
+                .centerCrop()
+                .into(mDrawerProfileImageView);
     }
 
     private void initializeDrawerMenu() {
@@ -157,13 +182,13 @@ public class MainActivity extends NetworkPreloaderActivity {
         });
     }
 
-    @Nullable
     private Fragment getFragmentToNavigateTo(int position) {
         Fragment fragment = null;
 
         switch (position) {
             case PRODUCTS_FRAGMENT_INDEX:
                 fragment = new ProductsFragment();
+                ((ProductsFragment)fragment).mListener = this;
                 break;
             case MAP_FRAGMENT_INDEX:
                 fragment = new MapFragment();
@@ -197,5 +222,36 @@ public class MainActivity extends NetworkPreloaderActivity {
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+
+    private void loadInitialFragment(int position) {
+
+        Fragment fragment = getFragmentToNavigateTo(position);
+
+        getFragmentManager().beginTransaction()
+                .add(R.id.content_frame, fragment)
+                .commit();
+
+        getSupportActionBar().setTitle(menuItems.get(position).getTitle());
+    }
+
+    public void selectMenuItem(int position) {
+        if (mDrawerMenuListView != null) {
+            mDrawerMenuListView.setItemChecked(position, true);
+            mDrawerMenuListView.setSelection(position);
+        }
+    }
+
+    @Override
+    public void ProductsFragmentAddProductClicked() {
+        Intent editProductIntent = new Intent(this, EditProductActivity.class);
+        startActivity(editProductIntent);
+    }
+
+    @Override
+    public void ProductsFragmentProductClicked(Product product) {
+        Intent productDetailIntent = new Intent(this, ProductDetailActivity.class);
+        startActivity(productDetailIntent);
     }
 }
