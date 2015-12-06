@@ -11,4 +11,9 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
+    <style name="app_edit_text">
+        <item name="android:textColorHint">@color/app_light_text</item>
+        <item name="android:textColor">@color/app_dark_text</item>
+        <item name="android:backgroundTint">@color/app_very_dark_orange</item>
+    </style>
 </resources>

@@ -18,6 +18,15 @@
     <color name="nav_drawer_header_background_color">#ff4E4E4E</color>
     <color name="nav_drawer_header_text_color">#ffD9D9D9</color>
 
+    <!-- General -->
+    <color name="app_light_orange">#fffcdaca</color>
+    <color name="app_dark_orange">#fffc7232</color>
+    <color name="app_very_dark_orange">#ffb83000</color>
+    <color name="app_grey">#ff747474</color>
+    <color name="app_light_text">#ffffffff</color>
+    <color name="app_dark_text">#fffc7232</color>
+    <color name="app_light">#ffffff</color>
+
     <!-- Product detail -->
     <color name="product_detail_username_text_color">#ffD9D9D9</color>
     <color name="product_detail_date_text_color">#ffD9D9D9</color>

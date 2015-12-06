@@ -45,4 +45,18 @@
         <item name="android:textColor">@color/product_detail_description_text_color</item>
     </style>
 
+    <style name="light_orange_background">
+        <item name="android:background">@color/app_light_orange</item>
+    </style>
+
+    <style name="app_edit_text">
+        <item name="android:textColorHint">@color/app_light_text</item>
+        <item name="android:textColor">@color/app_dark_text</item>
+    </style>
+
+    <style name="app_button">
+        <item name="android:background">@color/app_dark_orange</item>
+        <item name="android:textColor">@color/app_light_text</item>
+    </style>
+
 </resources>
