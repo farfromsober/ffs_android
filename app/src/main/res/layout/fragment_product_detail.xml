@@ -1,15 +1,85 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.farfromsober.ffs.fragments.ProductDetailFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ffs="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    tools:context="com.farfromsober.ffs.activities.ProductDetailActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/product_detail_fragment"
-        android:background="@android:color/white"/>
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/detail_viewpager"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/detail_profile_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="start"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/no_user"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="0dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/detail_user_name"
+                    style="@style/product_detail_username_text_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    ffs:fontName="Raleway-SemiBold.ttf"
+                    tools:text="Username Username"/>
+
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/detail_date"
+                    style="@style/product_detail_date_text_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    ffs:fontName="Raleway-Regular.ttf"
+                    tools:text="date"/>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <com.farfromsober.customviews.CustomFontTextView
+                android:id="@+id/detail_price"
+                style="@style/product_detail_price_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ffs:fontName="Raleway-SemiBold.ttf"
+                tools:text="99€"/>
+
+            <com.farfromsober.customviews.CustomFontTextView
+                android:id="@+id/detail_description"
+                style="@style/product_detail_description_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ffs:fontName="Raleway-Regular.ttf"
+                tools:text="This is a description text This is a description text This is a description text This is a description text"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
