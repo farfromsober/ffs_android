@@ -54,7 +54,7 @@ public class ProductView extends LinearLayout {
             Picasso.with(mContext)
                     .load(this.mProductImage)
                             //.placeholder(R.drawable.user_placeholder)
-                    .resize(500, 500)
+                    .resize(150, 150)
                     .centerCrop()
                     .into(mProductImageView);
         }
@@ -69,6 +69,6 @@ public class ProductView extends LinearLayout {
 
     public void setProductPrice(String mProductPrice) {
         this.mProductPrice = mProductPrice;
-        this.mProductPriceTextView.setText(mProductPrice);
+        this.mProductPriceTextView.setText(mProductPrice + "€");
     }
 }

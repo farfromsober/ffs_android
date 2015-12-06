@@ -84,7 +84,7 @@
         android:layout_above="@+id/relativeLayout"
         android:layout_centerHorizontal="true"
         android:src="@drawable/forsale"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="30dp"
         />
 
 </RelativeLayout>
