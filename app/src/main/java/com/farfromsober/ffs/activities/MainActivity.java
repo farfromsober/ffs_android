@@ -1,6 +1,8 @@
 package com.farfromsober.ffs.activities;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import com.farfromsober.ffs.adapters.DrawerListAdapter;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.fragments.MapFragment;
 import com.farfromsober.ffs.fragments.NotificationsFragment;
+import com.farfromsober.ffs.fragments.ProductDetailFragment;
 import com.farfromsober.ffs.fragments.ProductsFragment;
 import com.farfromsober.ffs.fragments.ProfileFragment;
 import com.farfromsober.ffs.model.DrawerMenuItem;
@@ -68,10 +71,10 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
         LoginData data = SharedPreferencesManager.getPrefLoginUser(getApplicationContext());
 
-        if(data == null)
+        if(data == null) {
             this.showLoginScreen();
-        else
-        {
+        }
+        else {
             this.configureDrawer();
         }
     }
@@ -83,17 +86,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
             return true;
         }
         return super.onOptionsItemSelected(item);
-        /*
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-        */
     }
 
     @Override
@@ -108,6 +100,15 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private void showLoginScreen() {
         Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(loginIntent);
@@ -119,10 +120,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);
-        }
 
         initializeDrawerHeader();
         initializeDrawerMenu();
@@ -247,14 +244,19 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     @Override
-    public void ProductsFragmentAddProductClicked() {
-        Intent editProductIntent = new Intent(this, EditProductActivity.class);
-        startActivity(editProductIntent);
+    public void onProductsFragmentAddProductClicked() {
+//        Intent editProductIntent = new Intent(this, EditProductActivity.class);
+//        startActivity(editProductIntent);
     }
 
     @Override
-    public void ProductsFragmentProductClicked(Product product) {
-        Intent productDetailIntent = new Intent(this, ProductDetailActivity.class);
-        startActivity(productDetailIntent);
+    public void onProductsFragmentProductClicked(Product product) {
+        ProductDetailFragment fragment = ProductDetailFragment.newInstance(product);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
+        fragmentTransaction.add(R.id.content_frame, fragment);
+        fragmentTransaction.addToBackStack("fragBack");
+        fragmentTransaction.commit();
     }
 }

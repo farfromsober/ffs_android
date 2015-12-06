@@ -45,4 +45,7 @@
     <string name="login_error_message">Ha ocurrido un error al acceder. Por favor, revisa los datos introducidos.</string>
     <string name="title_activity_edit_product">EditProduct</string>
 
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="product_detail_fragment">Product detail fragment</string>
+
 </resources>

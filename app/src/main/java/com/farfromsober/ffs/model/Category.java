@@ -2,9 +2,10 @@ package com.farfromsober.ffs.model;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Category {
+public class Category implements Serializable {
 
     private static final String INDEX_KEY = "index";
     private static final String NAME_KEY = "name";

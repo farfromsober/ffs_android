@@ -6,12 +6,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Product {
+public class Product implements Serializable {
 
     private static final String ID_KEY = "id";
     private static final String NAME_KEY = "name";
