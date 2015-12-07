@@ -3,13 +3,14 @@ package com.farfromsober.ffs.fragments;
 
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
+import com.farfromsober.ffs.adapters.ImagePagerAdapter;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
@@ -26,6 +27,7 @@ public class ProductDetailFragment extends Fragment {
     private Product mProduct;
 
 
+    @Bind(R.id.detail_images_viewpager) ViewPager mViewPager;
     @Bind(R.id.detail_product_number_of_photos) CustomFontTextView mNumberOfPhotos;
     @Bind(R.id.detail_product_for_sale) CustomFontTextView mForSale;
     @Bind(R.id.detail_seller_image) CircleImageView mSellerImageView;
@@ -69,15 +71,20 @@ public class ProductDetailFragment extends Fragment {
         ButterKnife.bind(this, root);
         setHasOptionsMenu(false);
 
+        loadViewPagerImages();
         populateFields();
 
         return root;
     }
 
+    private void loadViewPagerImages() {
+        ImagePagerAdapter imagePagerAdapter = new ImagePagerAdapter(getActivity(), mProduct);
+        mViewPager.setAdapter(imagePagerAdapter);
+    }
+
     private void populateFields() {
         mForSale.setText(mProduct.getIsSelling() ? getActivity().getResources().getString(R.string.selling) : getActivity().getResources().getString(R.string.sold));
         mNumberOfPhotos.setText(String.format("%d %s", mProduct.getImages().size(), getActivity().getResources().getString(R.string.photos)));
-
 
         User user = SharedPreferencesManager.getPrefUserData(getActivity());
         if (user.getAvatarURL() != null && user.getAvatarURL() != "") {
