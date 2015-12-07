@@ -177,6 +177,10 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     private void loadFragment(int position) {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+            mCurrentFragment.setHasOptionsMenu(true);
+        }
         Fragment fragment = getFragmentToNavigateTo(position);
 
         getFragmentManager().beginTransaction()
@@ -269,10 +273,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
     @Override
     public void onMenuSelected(int position) {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
-            mCurrentFragment.setHasOptionsMenu(true);
-        }
         loadFragment(position);
     }
 }
