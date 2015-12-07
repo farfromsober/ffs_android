@@ -32,5 +32,6 @@
     <string name="selling">For sale</string>
     <string name="sold">Sold</string>
     <string name="photos">photos</string>
+    <string name="purchase">Purchase</string>
 
 </resources>

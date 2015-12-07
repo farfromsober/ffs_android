@@ -4,20 +4,21 @@ package com.farfromsober.ffs.fragments;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.farfromsober.customviews.CustomFontButton;
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.ImagePagerAdapter;
+import com.farfromsober.ffs.callbacks.OnMenuSelectedCallback;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.MapUtils;
@@ -30,9 +31,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import java.lang.ref.WeakReference;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.farfromsober.ffs.activities.MainActivity.*;
 
 public class ProductDetailFragment extends Fragment {
 
@@ -49,10 +54,11 @@ public class ProductDetailFragment extends Fragment {
     @Bind(R.id.detail_product_price) CustomFontTextView mProductPrice;
     @Bind(R.id.detail_product_title) CustomFontTextView mProductTitle;
     @Bind(R.id.detail_product_description) CustomFontTextView mProductDescription;
+    @Bind(R.id.purchase_button) CustomFontButton mPurchaseButton;
 
     private MapFragment mMapFragment;
     private GoogleMap map;
-    private FragmentActivity mFragmentActivity;
+    private WeakReference<OnMenuSelectedCallback> mOnMenuSelectedCallback;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -90,36 +96,54 @@ public class ProductDetailFragment extends Fragment {
         loadViewPagerImages();
         populateFields();
         configureMap();
+        setButtonListeners();
         return root;
+    }
+
+    private void setButtonListeners() {
+        mPurchaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestPurchaseProduct();
+            }
+        });
     }
 
     @Override
     public void onAttach(Context context) {
-        mFragmentActivity = (FragmentActivity) context;
+        setCallbacks(context);
         super.onAttach(context);
     }
 
     @Override
     public void onAttach(Activity activity) {
-        mFragmentActivity = (FragmentActivity) activity;
+        setCallbacks(activity);
         super.onAttach(activity);
     }
 
-    /*@Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if(mMapFragment!=null) {
-            getFragmentManager().beginTransaction().remove(mMapFragment).commit();
+    private void setCallbacks(Context context) {
+        try {
+            mOnMenuSelectedCallback = new WeakReference<>((OnMenuSelectedCallback) getActivity());
+        } catch (Exception e) {
+            throw new ClassCastException(context.toString()+" must implement OnMenuSelectedCallback in Activity");
         }
-    }*/
+    }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void configureMap() {
 
-        mMapFragment =   ((MapFragment) getChildFragmentManager().findFragmentById(R.id.map));
+        mMapFragment =   ((MapFragment) getChildFragmentManager().findFragmentById(R.id.detail_product_map));
 
         if (mMapFragment != null) {
+
             map = mMapFragment.getMap();
+
+            map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    launchFullMapFragment();
+                }
+            });
 
             User user = SharedPreferencesManager.getPrefUserData(getActivity());
             LatLng center;
@@ -136,6 +160,12 @@ public class ProductDetailFragment extends Fragment {
         }
         if (map == null) {
             Toast.makeText(getActivity(), "Map died", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void launchFullMapFragment() {
+        if (mOnMenuSelectedCallback != null && mOnMenuSelectedCallback.get() != null) {
+            mOnMenuSelectedCallback.get().onMenuSelected(MAP_FRAGMENT_INDEX);
         }
     }
 
@@ -164,5 +194,9 @@ public class ProductDetailFragment extends Fragment {
         mProductPrice.setText(String.format("%s €", mProduct.getPrice()));
         mProductTitle.setText(mProduct.getName());
         mProductDescription.setText(mProduct.getDetail());
+    }
+
+    private void requestPurchaseProduct() {
+        Log.i("", "requestPurchaseProduct");
     }
 }

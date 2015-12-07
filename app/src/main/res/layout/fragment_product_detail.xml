@@ -174,25 +174,23 @@
                     android:text="@string/product_detail_location_label"/>
 
                 <fragment
-                    android:id="@+id/map"
+                    android:id="@+id/detail_product_map"
                     android:name="com.google.android.gms.maps.MapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_below="@id/detail_location_title"
                     android:layout_marginTop="10dp"
                     tools:layout="@android:layout/list_content"/>
-                
-                <!--<Button
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_alignBottom="@id/detail_product_map"
-                    android:layout_alignTop="@id/detail_product_map"
-                    android:layout_alignRight="@id/detail_product_map"
-                    android:layout_alignEnd="@id/detail_product_map"
-                    android:layout_alignLeft="@id/detail_product_map"
-                    android:layout_alignStart="@id/detail_product_map"
-                    android:background="@android:color/transparent"/>-->
+
             </RelativeLayout>
+
+            <com.farfromsober.customviews.CustomFontButton
+                android:id="@+id/purchase_button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                ffs:fontName="Raleway-Regular.ttf"
+                android:text="@string/purchase"/>
 
         </LinearLayout>
 

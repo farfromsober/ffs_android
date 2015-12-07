@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.DrawerListAdapter;
+import com.farfromsober.ffs.callbacks.OnMenuSelectedCallback;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.fragments.FullMapFragment;
 import com.farfromsober.ffs.fragments.NotificationsFragment;
@@ -39,12 +40,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener {
+public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback {
 
-    private static final int PRODUCTS_FRAGMENT_INDEX = 0;
-    private static final int MAP_FRAGMENT_INDEX = 1;
-    private static final int NOTIFICATIONS_FRAGMENT_INDEX = 2;
-    private static final int PROFILE_FRAGMENT_INDEX = 3;
+    public static final int PRODUCTS_FRAGMENT_INDEX = 0;
+    public static final int MAP_FRAGMENT_INDEX = 1;
+    public static final int NOTIFICATIONS_FRAGMENT_INDEX = 2;
+    public static final int PROFILE_FRAGMENT_INDEX = 3;
     private static final int INITIAL_FRAGMENT_INDEX = PRODUCTS_FRAGMENT_INDEX;
 
     @Bind(R.id.toolbar) Toolbar mToolbar;
@@ -168,19 +169,23 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         mDrawerMenuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Fragment fragment = getFragmentToNavigateTo(position);
-
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, fragment)
-                        .commit();
-
-                selectMenuItem(position);
-
-                getSupportActionBar().setTitle(menuItems.get(position).getTitle());
+                loadFragment(position);
 
                 mDrawerLayout.closeDrawer(mScrimInsetsFrameLayout);
             }
         });
+    }
+
+    private void loadFragment(int position) {
+        Fragment fragment = getFragmentToNavigateTo(position);
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
+
+        selectMenuItem(position);
+
+        getSupportActionBar().setTitle(menuItems.get(position).getTitle());
     }
 
     private Fragment getFragmentToNavigateTo(int position) {
@@ -260,5 +265,14 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         fragmentTransaction.add(R.id.content_frame, fragment);
         fragmentTransaction.addToBackStack("fragBack");
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onMenuSelected(int position) {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+            mCurrentFragment.setHasOptionsMenu(true);
+        }
+        loadFragment(position);
     }
 }
