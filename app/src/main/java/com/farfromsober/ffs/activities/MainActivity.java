@@ -17,8 +17,9 @@ import android.widget.ListView;
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.DrawerListAdapter;
+import com.farfromsober.ffs.callbacks.OnMenuSelectedCallback;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
-import com.farfromsober.ffs.fragments.MapFragment;
+import com.farfromsober.ffs.fragments.FullMapFragment;
 import com.farfromsober.ffs.fragments.NotificationsFragment;
 import com.farfromsober.ffs.fragments.ProductDetailFragment;
 import com.farfromsober.ffs.fragments.ProductsFragment;
@@ -28,7 +29,6 @@ import com.farfromsober.ffs.model.LoginData;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
-import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 import com.farfromsober.networkviews.NetworkPreloaderActivity;
 import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 import com.squareup.picasso.Picasso;
@@ -40,12 +40,12 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener {
+public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback {
 
-    private static final int PRODUCTS_FRAGMENT_INDEX = 0;
-    private static final int MAP_FRAGMENT_INDEX = 1;
-    private static final int NOTIFICATIONS_FRAGMENT_INDEX = 2;
-    private static final int PROFILE_FRAGMENT_INDEX = 3;
+    public static final int PRODUCTS_FRAGMENT_INDEX = 0;
+    public static final int MAP_FRAGMENT_INDEX = 1;
+    public static final int NOTIFICATIONS_FRAGMENT_INDEX = 2;
+    public static final int PROFILE_FRAGMENT_INDEX = 3;
     private static final int INITIAL_FRAGMENT_INDEX = PRODUCTS_FRAGMENT_INDEX;
 
     @Bind(R.id.toolbar) Toolbar mToolbar;
@@ -61,6 +61,8 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     private ActionBarDrawerToggle mDrawerToggle;
     private ArrayList<DrawerMenuItem> menuItems;
     private DrawerListAdapter mDrawerListAdapter;
+
+    private Fragment mCurrentFragment;
 
     public WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
 
@@ -104,6 +106,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
+            mCurrentFragment.setHasOptionsMenu(true);
         } else {
             super.onBackPressed();
         }
@@ -133,8 +136,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     private void initializeDrawerHeader() {
-        String UserJson =  SharedPreferencesManager.getPrefUserData(this);
-        User user = (User) SharedPreferencesGeneralManager.JSONStringToObject(UserJson, User.class);
+        User user = SharedPreferencesManager.getPrefUserData(this);
 
         mDrawerUserName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
         mDrawerUseLocation.setText(user.getCity());
@@ -167,40 +169,44 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         mDrawerMenuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Fragment fragment = getFragmentToNavigateTo(position);
-
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.content_frame, fragment)
-                        .commit();
-
-                selectMenuItem(position);
-
-                getSupportActionBar().setTitle(menuItems.get(position).getTitle());
+                loadFragment(position);
 
                 mDrawerLayout.closeDrawer(mScrimInsetsFrameLayout);
             }
         });
     }
 
+    private void loadFragment(int position) {
+        Fragment fragment = getFragmentToNavigateTo(position);
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .commit();
+
+        selectMenuItem(position);
+
+        getSupportActionBar().setTitle(menuItems.get(position).getTitle());
+    }
+
     private Fragment getFragmentToNavigateTo(int position) {
-        Fragment fragment = null;
+        mCurrentFragment= null;
 
         switch (position) {
             case PRODUCTS_FRAGMENT_INDEX:
-                fragment = new ProductsFragment();
-                ((ProductsFragment)fragment).mListener = this;
+                mCurrentFragment = new ProductsFragment();
+                ((ProductsFragment)mCurrentFragment).mListener = this;
                 break;
             case MAP_FRAGMENT_INDEX:
-                fragment = new MapFragment();
+                mCurrentFragment = new FullMapFragment();
                 break;
             case NOTIFICATIONS_FRAGMENT_INDEX:
-                fragment = new NotificationsFragment();
+                mCurrentFragment = new NotificationsFragment();
                 break;
             case PROFILE_FRAGMENT_INDEX:
-                fragment = new ProfileFragment();
+                mCurrentFragment = new ProfileFragment();
                 break;
         }
-        return fragment;
+        return mCurrentFragment;
     }
 
     private void initializeDrawerLayout() {
@@ -251,6 +257,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
     @Override
     public void onProductsFragmentProductClicked(Product product) {
+        mCurrentFragment.setHasOptionsMenu(false);
         ProductDetailFragment fragment = ProductDetailFragment.newInstance(product);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -258,5 +265,14 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         fragmentTransaction.add(R.id.content_frame, fragment);
         fragmentTransaction.addToBackStack("fragBack");
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onMenuSelected(int position) {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+            mCurrentFragment.setHasOptionsMenu(true);
+        }
+        loadFragment(position);
     }
 }

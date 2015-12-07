@@ -47,5 +47,15 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="product_detail_fragment">Product detail fragment</string>
+    <string name="product_detail_location_label">LOCALIZACIÓN</string>
+    <string name="published">publicado</string>
+    <string name="selling">En venta</string>
+    <string name="sold">Vendido</string>
+    <string name="photos">fotos</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="purchase">Comprar</string>
 
 </resources>
