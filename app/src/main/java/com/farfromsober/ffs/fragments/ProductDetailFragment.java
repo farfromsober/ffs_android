@@ -16,6 +16,7 @@ import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.generalutils.DateManager;
 import com.squareup.picasso.Picasso;
+import com.viewpagerindicator.CirclePageIndicator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,6 +29,7 @@ public class ProductDetailFragment extends Fragment {
 
 
     @Bind(R.id.detail_images_viewpager) ViewPager mViewPager;
+    @Bind(R.id.detail_images_viewpager_indicator) CirclePageIndicator mCirclePageIndicator;
     @Bind(R.id.detail_product_number_of_photos) CustomFontTextView mNumberOfPhotos;
     @Bind(R.id.detail_product_for_sale) CustomFontTextView mForSale;
     @Bind(R.id.detail_seller_image) CircleImageView mSellerImageView;
@@ -80,6 +82,7 @@ public class ProductDetailFragment extends Fragment {
     private void loadViewPagerImages() {
         ImagePagerAdapter imagePagerAdapter = new ImagePagerAdapter(getActivity(), mProduct);
         mViewPager.setAdapter(imagePagerAdapter);
+        mCirclePageIndicator.setViewPager(mViewPager, 0);
     }
 
     private void populateFields() {

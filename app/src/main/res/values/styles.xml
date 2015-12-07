@@ -7,6 +7,19 @@
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
+    <style name="StyledIndicators" parent="AppTheme">
+        <item name="vpiCirclePageIndicatorStyle">@style/CustomCirclePageIndicator</item>
+    </style>
+
+    <style name="CustomCirclePageIndicator">
+        <item name="fillColor">@color/paleOrange</item>
+        <item name="pageColor">@color/white</item>
+        <item name="strokeColor">@android:color/transparent</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="radius">5dp</item>
+        <item name="centered">true</item>
+    </style>
+
     <style name="navigation_header_main_text_style">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/nav_drawer_header_text_color</item>

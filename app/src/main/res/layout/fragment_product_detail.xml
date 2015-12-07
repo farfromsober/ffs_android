@@ -22,12 +22,34 @@
             <RelativeLayout
                 android:id="@+id/detail_images_group"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="300dp">
 
                 <android.support.v4.view.ViewPager
                     android:id="@+id/detail_images_viewpager"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/image_pager_item"/>
+
+                <com.viewpagerindicator.CirclePageIndicator
+                    android:id="@+id/detail_images_viewpager_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/detail_product_number_of_photos"
+                    android:layout_toEndOf="@+id/detail_product_number_of_photos"
+                    android:layout_toLeftOf="@+id/detail_product_for_sale"
+                    android:layout_toStartOf="@+id/detail_product_for_sale"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerHorizontal="true"
+                    app:radius="5dp"
+                    app:fillColor="@color/paleOrange"
+                    app:pageColor="@color/white"
+                    app:strokeColor="@android:color/transparent"
+                    app:strokeWidth="0dp" />
 
                 <com.farfromsober.customviews.CustomFontTextView
                     android:id="@+id/detail_product_number_of_photos"
