@@ -179,14 +179,17 @@ public class ProductDetailFragment extends Fragment {
         mForSale.setText(mProduct.getIsSelling() ? getActivity().getResources().getString(R.string.selling) : getActivity().getResources().getString(R.string.sold));
         mNumberOfPhotos.setText(String.format("%d %s", mProduct.getImages().size(), getActivity().getResources().getString(R.string.photos)));
 
-        User user = SharedPreferencesManager.getPrefUserData(getActivity());
-        if (user.getAvatarURL() != null && user.getAvatarURL() != "") {
+        //User user = SharedPreferencesManager.getPrefUserData(getActivity());
+        User user = mProduct.getSeller();
+        if (user.getAvatarURL() != null && user.getAvatarURL().length() > 0) {
             Picasso.with(getActivity())
                     .load(user.getAvatarURL())
                     .placeholder(R.drawable.no_user)
-                    .resize(500, 500)
+                    .resize(200, 200)
                     .centerCrop()
                     .into(mSellerImageView);
+        }else{
+            mSellerImageView.setImageResource(R.drawable.no_user);
         }
 
         mSellerName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));

@@ -61,7 +61,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
         mSigninButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPreloader(getString(R.string.login_accessing));
+                loginActivityWeakReference.get().showPreloader(getString(R.string.login_accessing));
 
                 String email = mLoginEmail.getText().toString();
                 String password = mLoginPassword.getText().toString();

@@ -39,13 +39,17 @@ public class ImagePagerAdapter extends PagerAdapter {
         View itemView = mLayoutInflater.inflate(R.layout.image_pager_item, container, false);
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
-        Picasso.with(mContext)
-                .load(mProduct.getImages().get(position))
-                .placeholder(R.drawable.photo_placeholder)
-                .resize(500, 500)
-                .centerCrop()
-                .into(imageView);
-
+        String imagePath = mProduct.getImages().get(position);
+        if ((imagePath != null) && (imagePath.length() > 0)) {
+            Picasso.with(mContext)
+                    .load(mProduct.getImages().get(position))
+                    .placeholder(R.drawable.photo_placeholder)
+                    .resize(500, 500)
+                    .centerCrop()
+                    .into(imageView);
+        } else {
+            imageView.setImageResource(R.drawable.photo_placeholder);
+        }
         container.addView(itemView);
 
         return itemView;
