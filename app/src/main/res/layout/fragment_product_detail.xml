@@ -29,6 +29,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/detail_product_number_of_photos"
+                    android:layout_width="75dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="10dp"
+                    tools:text="4 photos"
+                    style="@style/detail_product_rounded_button"/>
+
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/detail_product_for_sale"
+                    android:layout_width="75dp"
+                    android:layout_height="26dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    tools:text="For sale"
+                    style="@style/detail_product_rounded_button"/>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -43,8 +67,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/detail_seller_image"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="start"
                     android:src="@drawable/no_user"
                     app:civ_border_color="#FF000000"
@@ -58,9 +82,9 @@
                     android:layout_toEndOf="@id/detail_seller_image"
                     android:layout_toLeftOf="@+id/detail_product_price"
                     android:layout_toStartOf="@+id/detail_product_price"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     ffs:fontName="Raleway-SemiBold.ttf"
                     style="@style/product_detail_username_text_style"
                     tools:text="Username Username"/>
@@ -96,7 +120,7 @@
                     android:layout_below="@id/detail_seller_image"
                     android:layout_marginTop="20dp"
                     ffs:fontName="Raleway-SemiBold.ttf"
-                    style="@style/product_detail_description_text_style"
+                    style="@style/product_detail_title_text_style"
                     tools:text="Title of product"/>
 
                 <com.farfromsober.customviews.CustomFontTextView

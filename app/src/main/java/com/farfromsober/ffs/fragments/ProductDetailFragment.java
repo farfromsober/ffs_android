@@ -26,6 +26,8 @@ public class ProductDetailFragment extends Fragment {
     private Product mProduct;
 
 
+    @Bind(R.id.detail_product_number_of_photos) CustomFontTextView mNumberOfPhotos;
+    @Bind(R.id.detail_product_for_sale) CustomFontTextView mForSale;
     @Bind(R.id.detail_seller_image) CircleImageView mSellerImageView;
     @Bind(R.id.detail_seller_name) CustomFontTextView mSellerName;
     @Bind(R.id.detail_published_date) CustomFontTextView mPublishedDate;
@@ -73,6 +75,10 @@ public class ProductDetailFragment extends Fragment {
     }
 
     private void populateFields() {
+        mForSale.setText(mProduct.getIsSelling() ? getActivity().getResources().getString(R.string.selling) : getActivity().getResources().getString(R.string.sold));
+        mNumberOfPhotos.setText(String.format("%d %s", mProduct.getImages().size(), getActivity().getResources().getString(R.string.photos)));
+
+
         User user = SharedPreferencesManager.getPrefUserData(getActivity());
         if (user.getAvatarURL() != null && user.getAvatarURL() != "") {
             Picasso.with(getActivity())

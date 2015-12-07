@@ -38,16 +38,20 @@
 
     <!-- Product detail -->
     <style name="product_detail_username_text_style">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/product_detail_username_text_color</item>
     </style>
     <style name="product_detail_date_text_style">
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/product_detail_date_text_color</item>
     </style>
     <style name="product_detail_price_text_style">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/product_detail_price_text_color</item>
+    </style>
+    <style name="product_detail_title_text_style">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/product_detail_title_text_color</item>
     </style>
     <style name="product_detail_description_text_style">
         <item name="android:textSize">12sp</item>
@@ -68,7 +72,11 @@
         <item name="android:textColor">@color/app_light_text</item>
     </style>
 
-
+    <style name="detail_product_rounded_button">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/pale_orange_rounded_corners_view</item>
+    </style>
 
 
 </resources>

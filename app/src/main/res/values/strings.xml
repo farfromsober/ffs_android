@@ -49,5 +49,8 @@
     <string name="product_detail_fragment">Product detail fragment</string>
     <string name="product_detail_location_label">LOCALIZACIÓN</string>
     <string name="published">publicado</string>
+    <string name="selling">En venta</string>
+    <string name="sold">Vendido</string>
+    <string name="photos">fotos</string>
 
 </resources>

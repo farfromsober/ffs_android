@@ -28,11 +28,22 @@
     <color name="app_light">#ffffff</color>
 
     <!-- Product detail -->
-    <color name="product_detail_username_text_color">#ffD9D9D9</color>
-    <color name="product_detail_date_text_color">#ffD9D9D9</color>
-    <color name="product_detail_price_text_color">#ffF85B27</color>
-    <color name="product_detail_description_text_color">#ffD9D9D9</color>
+    <color name="product_detail_username_text_color">#ff4A4A4A</color>
+    <color name="product_detail_date_text_color">#ff4A4A4A</color>
+    <color name="product_detail_price_text_color">#ffFC7232</color>
+    <color name="product_detail_title_text_color">#ff292525</color>
+    <color name="product_detail_description_text_color">#ff292525</color>
 
+
+
+    <color name="veryLightPink">#fffcebe3</color>
+    <color name="lightPeach">#fffcdaca</color>
+    <color name="lightSalmon">#fffcb797</color>
+    <color name="paleOrange">#ffFC9565</color>
+    <color name="orangish">#fffc7232</color>
+    <color name="white">#ffffffff</color>
+    <color name="charcoalGrey">#ff292f33</color>
+    <color name="black">#ff292525</color>
 
 
 </resources>

@@ -29,5 +29,8 @@
     <string name="login_error_message">Access error occurred. Please, check data provided..</string>
     <string name="product_detail_location_label">LOCATION</string>
     <string name="published">published</string>
+    <string name="selling">For sale</string>
+    <string name="sold">Sold</string>
+    <string name="photos">photos</string>
 
 </resources>
