@@ -18,7 +18,7 @@ import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.DrawerListAdapter;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
-import com.farfromsober.ffs.fragments.MapFragment;
+import com.farfromsober.ffs.fragments.FullMapFragment;
 import com.farfromsober.ffs.fragments.NotificationsFragment;
 import com.farfromsober.ffs.fragments.ProductDetailFragment;
 import com.farfromsober.ffs.fragments.ProductsFragment;
@@ -28,7 +28,6 @@ import com.farfromsober.ffs.model.LoginData;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
-import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 import com.farfromsober.networkviews.NetworkPreloaderActivity;
 import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 import com.squareup.picasso.Picasso;
@@ -193,7 +192,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
                 ((ProductsFragment)mCurrentFragment).mListener = this;
                 break;
             case MAP_FRAGMENT_INDEX:
-                mCurrentFragment = new MapFragment();
+                mCurrentFragment = new FullMapFragment();
                 break;
             case NOTIFICATIONS_FRAGMENT_INDEX:
                 mCurrentFragment = new NotificationsFragment();

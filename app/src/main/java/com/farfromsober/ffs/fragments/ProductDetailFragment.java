@@ -1,20 +1,32 @@
 package com.farfromsober.ffs.fragments;
 
 
-import android.os.Bundle;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Context;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.ImagePagerAdapter;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.User;
+import com.farfromsober.ffs.utils.MapUtils;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.generalutils.DateManager;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -27,7 +39,6 @@ public class ProductDetailFragment extends Fragment {
     public static final String ARG_PRODUCT = "com.farfromsober.ffs.fragments.ProductDetailFragment.ARG_PRODUCT";
     private Product mProduct;
 
-
     @Bind(R.id.detail_images_viewpager) ViewPager mViewPager;
     @Bind(R.id.detail_images_viewpager_indicator) CirclePageIndicator mCirclePageIndicator;
     @Bind(R.id.detail_product_number_of_photos) CustomFontTextView mNumberOfPhotos;
@@ -38,6 +49,10 @@ public class ProductDetailFragment extends Fragment {
     @Bind(R.id.detail_product_price) CustomFontTextView mProductPrice;
     @Bind(R.id.detail_product_title) CustomFontTextView mProductTitle;
     @Bind(R.id.detail_product_description) CustomFontTextView mProductDescription;
+
+    private MapFragment mMapFragment;
+    private GoogleMap map;
+    private FragmentActivity mFragmentActivity;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -72,11 +87,56 @@ public class ProductDetailFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_product_detail, container, false);
         ButterKnife.bind(this, root);
         setHasOptionsMenu(false);
-
         loadViewPagerImages();
         populateFields();
-
+        configureMap();
         return root;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        mFragmentActivity = (FragmentActivity) context;
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        mFragmentActivity = (FragmentActivity) activity;
+        super.onAttach(activity);
+    }
+
+    /*@Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if(mMapFragment!=null) {
+            getFragmentManager().beginTransaction().remove(mMapFragment).commit();
+        }
+    }*/
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void configureMap() {
+
+        mMapFragment =   ((MapFragment) getChildFragmentManager().findFragmentById(R.id.map));
+
+        if (mMapFragment != null) {
+            map = mMapFragment.getMap();
+
+            User user = SharedPreferencesManager.getPrefUserData(getActivity());
+            LatLng center;
+            if (user.getLatitude() == "" || user.getLongitude() == "") {
+                center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", user.getCity(), user.getState()));
+            } else {
+                center = new LatLng(Double.parseDouble(user.getLatitude()), Double.parseDouble(user.getLongitude()));
+            }
+            MapUtils.centerMap(map, center.latitude, center.longitude, 12);
+            // create marker
+            MarkerOptions marker = new MarkerOptions().position(center);
+            // adding marker
+            map.addMarker(marker);
+        }
+        if (map == null) {
+            Toast.makeText(getActivity(), "Map died", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void loadViewPagerImages() {
