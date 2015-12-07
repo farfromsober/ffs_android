@@ -17,6 +17,7 @@ import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.farfromsober.networkviews.NetworkPreloaderActivity;
+import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
     @Bind(R.id.button_login_signin) Button mSigninButton;
     @Bind(R.id.button_fotgot_pass) Button mForgotPassButton;
     @Bind(R.id.button_register) Button mRegisterButton;
+    public WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
 
 
     @Override
@@ -45,6 +47,8 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
         ButterKnife.bind(this);
 
         mOnDataParsedCallback = new WeakReference<>((OnDataParsedCallback)this);
+        mOnNetworkActivityCallback = new WeakReference<>((OnNetworkActivityCallback)this);
+
         apiManager = new APIManager(this);
 
         initButtonsListeners();
@@ -60,6 +64,8 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
                 String email = mLoginEmail.getText().toString();
                 String password = mLoginPassword.getText().toString();
                 loginData = new LoginData(email, password);
+                showPreloader(getString(R.string.login_accessing));
+
                 apiManager.login(email, password, loginActivityWeakReference.get());
             }
         });
@@ -81,6 +87,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
     }
 
 
+
     @Override
     public void onDataParsed(ArrayList data) {
         if (data != null) {
@@ -90,6 +97,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
 
     @Override
     public void onDataParsed(User data) {
+        hidePreloader();
         if (data != null) {
             Log.i("ffs", data.toString());
             SharedPreferencesManager.savePrefUserData(getApplicationContext(), data);
@@ -100,6 +108,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
             this.showErrorMessage();
         }
     }
+
 
     private void showMainActivity() {
         Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);

@@ -33,5 +33,7 @@
     <string name="sold">Sold</string>
     <string name="photos">photos</string>
     <string name="purchase">Purchase</string>
+    <string name="login_accessing">Accessing</string>
+
 
 </resources>

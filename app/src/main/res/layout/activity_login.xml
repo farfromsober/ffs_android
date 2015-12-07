@@ -87,5 +87,10 @@
         android:layout_marginBottom="30dp"
         />
 
+    <!-- Loading Alert Layout -->
+
+    <include layout="@layout/loading_alert"/>
+
+
 </RelativeLayout>
 
