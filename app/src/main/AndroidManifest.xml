@@ -17,10 +17,10 @@
 
     <!-- Creates a custom permission so only this app can receive its messages. -->
     <permission
-        android:name="com.fillingapps.imq.permission.C2D_MESSAGE"
+        android:name="com.farfromsober.ffs.permission.C2D_MESSAGE"
         android:protectionLevel="signature"/>
 
-    <uses-permission android:name="com.fillingapps.permission.C2D_MESSAGE"/>
+    <uses-permission android:name="com.farfromsober.permission.C2D_MESSAGE"/>
 
     <!-- This app has permission to register and receive data message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
@@ -32,6 +32,11 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <!-- Required OpenGL ES 2.0. for Maps V2 -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <application
         android:allowBackup="true"

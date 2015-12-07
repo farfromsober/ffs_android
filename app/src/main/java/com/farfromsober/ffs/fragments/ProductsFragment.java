@@ -31,6 +31,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,13 +61,12 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_products, container, false);
-        mProductsList = (RecyclerView) root.findViewById(R.id.products_list);
+        ButterKnife.bind(this, root);
 
         mProductsList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mProductsList.setItemAnimator(new DefaultItemAnimator());
         setHasOptionsMenu(true);
 
-        mAddProduct = (FloatingActionButton) root.findViewById(R.id.add_product_button);
         mAddProduct.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                mListener.onProductsFragmentAddProductClicked();

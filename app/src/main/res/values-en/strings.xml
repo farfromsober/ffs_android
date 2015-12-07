@@ -27,5 +27,7 @@
     <string name="login_register_hint">Registrarse</string>
     <string name="login_error_message_title">Access error</string>
     <string name="login_error_message">Access error occurred. Please, check data provided..</string>
+    <string name="product_detail_location_label">LOCATION</string>
+    <string name="published">published</string>
 
 </resources>

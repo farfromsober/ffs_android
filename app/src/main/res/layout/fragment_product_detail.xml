@@ -17,66 +17,124 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/detail_viewpager"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+            <RelativeLayout
+                android:id="@+id/detail_images_group"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/detail_profile_image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="start"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/no_user"
-                app:civ_border_color="#FF000000"
-                app:civ_border_width="0dp"/>
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/detail_images_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/detail_info_group"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:paddingTop="10dp"
+                android:paddingLeft="15dp"
+                android:paddingStart="15dp"
+                android:paddingRight="15dp"
+                android:paddingEnd="15dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/detail_seller_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="start"
+                    android:src="@drawable/no_user"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="0dp"/>
 
                 <com.farfromsober.customviews.CustomFontTextView
-                    android:id="@+id/detail_user_name"
-                    style="@style/product_detail_username_text_style"
+                    android:id="@+id/detail_seller_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/detail_seller_image"
+                    android:layout_toEndOf="@id/detail_seller_image"
+                    android:layout_toLeftOf="@+id/detail_product_price"
+                    android:layout_toStartOf="@+id/detail_product_price"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
                     ffs:fontName="Raleway-SemiBold.ttf"
+                    style="@style/product_detail_username_text_style"
                     tools:text="Username Username"/>
 
                 <com.farfromsober.customviews.CustomFontTextView
-                    android:id="@+id/detail_date"
-                    style="@style/product_detail_date_text_style"
+                    android:id="@+id/detail_published_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/detail_seller_name"
+                    android:layout_alignLeft="@id/detail_seller_name"
+                    android:layout_alignStart="@id/detail_seller_name"
+                    android:layout_alignRight="@id/detail_seller_name"
+                    android:layout_alignEnd="@id/detail_seller_name"
                     ffs:fontName="Raleway-Regular.ttf"
-                    tools:text="date"/>
-            </LinearLayout>
+                    style="@style/product_detail_date_text_style"
+                    tools:text="published 15/11/2015"/>
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/detail_product_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/detail_seller_image"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    ffs:fontName="Raleway-SemiBold.ttf"
+                    style="@style/product_detail_price_text_style"
+                    tools:text="99€"/>
 
-            <com.farfromsober.customviews.CustomFontTextView
-                android:id="@+id/detail_price"
-                style="@style/product_detail_price_text_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                ffs:fontName="Raleway-SemiBold.ttf"
-                tools:text="99€"/>
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/detail_product_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detail_seller_image"
+                    android:layout_marginTop="20dp"
+                    ffs:fontName="Raleway-SemiBold.ttf"
+                    style="@style/product_detail_description_text_style"
+                    tools:text="Title of product"/>
 
-            <com.farfromsober.customviews.CustomFontTextView
-                android:id="@+id/detail_description"
-                style="@style/product_detail_description_text_style"
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/detail_product_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detail_product_title"
+                    android:layout_marginTop="5dp"
+                    ffs:fontName="Raleway-Regular.ttf"
+                    style="@style/product_detail_description_text_style"
+                    tools:text="This is a description text This is a description text This is a description text This is a description text"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/detail_map_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                ffs:fontName="Raleway-Regular.ttf"
-                tools:text="This is a description text This is a description text This is a description text This is a description text"/>
+                android:layout_marginTop="20dp" >
+
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/detail_location_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    ffs:fontName="Raleway-Regular.ttf"
+                    style="@style/product_detail_description_text_style"
+                    android:text="@string/product_detail_location_label"/>
+
+                <!--<fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:layout="@android:layout/list_content"/>-->
+
+            </RelativeLayout>
 
         </LinearLayout>
 

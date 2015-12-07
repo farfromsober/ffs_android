@@ -30,7 +30,7 @@
     <!-- Product detail -->
     <color name="product_detail_username_text_color">#ffD9D9D9</color>
     <color name="product_detail_date_text_color">#ffD9D9D9</color>
-    <color name="product_detail_price_text_color">#ffD9D9D9</color>
+    <color name="product_detail_price_text_color">#ffF85B27</color>
     <color name="product_detail_description_text_color">#ffD9D9D9</color>
 
 

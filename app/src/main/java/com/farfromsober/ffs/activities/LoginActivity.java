@@ -92,8 +92,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
     public void onDataParsed(User data) {
         if (data != null) {
             Log.i("ffs", data.toString());
-            String userJson = SharedPreferencesGeneralManager.objectToJSONString(data);
-            SharedPreferencesManager.savePrefUserData(getApplicationContext(), userJson);
+            SharedPreferencesManager.savePrefUserData(getApplicationContext(), data);
             SharedPreferencesManager.savePrefLoginUser(getApplicationContext(), this.loginData);
 
             this.showMainActivity();

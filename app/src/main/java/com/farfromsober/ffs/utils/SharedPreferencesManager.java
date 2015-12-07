@@ -3,6 +3,7 @@ package com.farfromsober.ffs.utils;
 import android.content.Context;
 
 import com.farfromsober.ffs.model.LoginData;
+import com.farfromsober.ffs.model.User;
 import com.farfromsober.generalutils.SharedPreferencesGeneralManager;
 
 public class SharedPreferencesManager {
@@ -36,12 +37,14 @@ public class SharedPreferencesManager {
     }
 
     //USER DATA
-    public static void savePrefUserData(Context context, String value) {
-        SharedPreferencesGeneralManager.savePreferece(context, PREF_USER_DATA, value);
+    public static void savePrefUserData(Context context, User user) {
+        String userJson = SharedPreferencesGeneralManager.objectToJSONString(user);
+        SharedPreferencesGeneralManager.savePreferece(context, PREF_USER_DATA, userJson);
     }
 
-    public static String getPrefUserData(Context context) {
-        return SharedPreferencesGeneralManager.getPreferenceString(context, PREF_USER_DATA);
+    public static User getPrefUserData(Context context) {
+        String UserJson =  SharedPreferencesGeneralManager.getPreferenceString(context, PREF_USER_DATA);
+        return (User) SharedPreferencesGeneralManager.JSONStringToObject(UserJson, User.class);
     }
 
     public static void removePrefUserData(Context context) {

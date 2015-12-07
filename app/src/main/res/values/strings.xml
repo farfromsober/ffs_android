@@ -47,5 +47,7 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="product_detail_fragment">Product detail fragment</string>
+    <string name="product_detail_location_label">LOCALIZACIÓN</string>
+    <string name="published">publicado</string>
 
 </resources>

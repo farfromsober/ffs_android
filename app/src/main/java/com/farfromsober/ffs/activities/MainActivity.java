@@ -136,8 +136,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     private void initializeDrawerHeader() {
-        String UserJson =  SharedPreferencesManager.getPrefUserData(this);
-        User user = (User) SharedPreferencesGeneralManager.JSONStringToObject(UserJson, User.class);
+        User user = SharedPreferencesManager.getPrefUserData(this);
 
         mDrawerUserName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
         mDrawerUseLocation.setText(user.getCity());
