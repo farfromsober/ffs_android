@@ -24,6 +24,13 @@
         <item>drawer_profile_item_icon_on</item>
     </string-array>
 
+    <string-array name="CategoryList">
+        <item>General</item>
+        <item>Deportes</item>
+        <item>Tecnología</item>
+        <item>Motor</item>
+    </string-array>
+
     <string name="products_fragment">Productos fragment</string>
     <string name="map_fragment">Mapa fragment</string>
     <string name="notifications_fragment">Notificaciones fragment</string>
@@ -45,15 +52,16 @@
     <string name="login_error_message">Ha ocurrido un error al acceder. Por favor, revisa los datos introducidos.</string>
     <string name="title_activity_edit_product">EditProduct</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="product_detail_fragment">Product detail fragment</string>
     <string name="product_detail_location_label">LOCALIZACIÓN</string>
     <string name="published">publicado</string>
     <string name="selling">En venta</string>
     <string name="sold">Vendido</string>
     <string name="photos">fotos</string>
+    <string name="filter_submit">Aceptar</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Mapa</string>
     <string name="purchase">Comprar</string>

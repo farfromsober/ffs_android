@@ -17,8 +17,10 @@ import android.widget.ListView;
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.DrawerListAdapter;
+import com.farfromsober.ffs.callbacks.FiltersFragmentListener;
 import com.farfromsober.ffs.callbacks.OnMenuSelectedCallback;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
+import com.farfromsober.ffs.fragments.CategoryFilterFragment;
 import com.farfromsober.ffs.fragments.FullMapFragment;
 import com.farfromsober.ffs.fragments.NotificationsFragment;
 import com.farfromsober.ffs.fragments.ProductDetailFragment;
@@ -40,13 +42,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback {
+public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback, FiltersFragmentListener {
 
     public static final int PRODUCTS_FRAGMENT_INDEX = 0;
     public static final int MAP_FRAGMENT_INDEX = 1;
     public static final int NOTIFICATIONS_FRAGMENT_INDEX = 2;
     public static final int PROFILE_FRAGMENT_INDEX = 3;
     private static final int INITIAL_FRAGMENT_INDEX = PRODUCTS_FRAGMENT_INDEX;
+    public static final int FILTER1_FRAGMENT_INDEX = 10;
+    public static final int FILTER2_FRAGMENT_INDEX = 10;
 
     @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.scrimInsetsFrameLayout) ScrimInsetsFrameLayout mScrimInsetsFrameLayout;
@@ -176,7 +180,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         });
     }
 
-    private void loadFragment(int position) {
+    public void loadFragment(int position) {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();
             mCurrentFragment.setHasOptionsMenu(true);
@@ -269,6 +273,13 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         fragmentTransaction.add(R.id.content_frame, fragment);
         fragmentTransaction.addToBackStack("fragBack");
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onProductFilter1Selected(ArrayList<String> selectedItems) {
+
+        ((ProductsFragment)mCurrentFragment).filterBycategory(selectedItems);
+
     }
 
     @Override

@@ -4,7 +4,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           tools:context=".ProductsFragment">
         <item android:id="@+id/action_filter"
-              android:title="Filtro 1"
+              android:title="Filtro Categorías"
               android:orderInCategory="100"
               app:showAsAction="never"/>
         <item android:id="@+id/action_filter2"

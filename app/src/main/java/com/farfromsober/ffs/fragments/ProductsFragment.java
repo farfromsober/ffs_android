@@ -3,6 +3,7 @@ package com.farfromsober.ffs.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
+import com.farfromsober.ffs.callbacks.FiltersFragmentListener;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.callbacks.RecyclerViewClickListener;
 import com.farfromsober.ffs.model.Product;
@@ -69,7 +71,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
 
         mAddProduct.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-               mListener.onProductsFragmentAddProductClicked();
+                mListener.onProductsFragmentAddProductClicked();
             }
         });
 
@@ -124,6 +126,12 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     }
 
 
+    public void filterBycategory(ArrayList<String> categories) {
+        showPreloader(getActivity().getString(R.string.products_loading_message));
+        apiManager.allProductsFilterByCategories(categories,this);
+
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu,MenuInflater inflater)
     {
@@ -133,20 +141,31 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        /*
+
         switch (item.getItemId()) {
 
-            case R.id.item_add_measurement:{
+            case R.id.action_filter:{
 
-                // Add a measurement
+                // Create fragment and give it an argument for the selected article
+                CategoryFilterFragment newFragment = new CategoryFilterFragment();
+                newFragment.mListener=(FiltersFragmentListener)mListener;
+
+                FragmentTransaction transaction = getActivity().getFragmentManager().beginTransaction();
+
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack so the user can navigate back
+                transaction.replace(R.id.content_frame, newFragment);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+                return true;
 
             }
             default:
                 return super.onOptionsItemSelected(item);
         }
-        */
-        return super.onOptionsItemSelected(item);
+
     }
 
 

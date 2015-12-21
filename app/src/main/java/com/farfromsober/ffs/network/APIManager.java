@@ -13,6 +13,7 @@ import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.farfromsober.network.callbacks.OnResponseReceivedCallback;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import static com.farfromsober.network.APIAsyncTask.ApiRequestType;
 
@@ -54,6 +55,19 @@ public class APIManager implements OnResponseReceivedCallback{
         APIAsyncTask loginAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, User.class);
         loginAsyncTask.execute();
     }
+
+    public void allProductsFilterByCategories(ArrayList<String> categoriesIds,OnDataParsedCallback<Product> onDataParsedCallback){
+        String filterURL=ALL_PRODUCTS_URL;
+        LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
+        if ((categoriesIds != null) && (categoriesIds.size()>=1)) {
+            filterURL = ALL_PRODUCTS_URL.concat("/?category=").concat(categoriesIds.get(0));
+        }
+        APIRequest apiRequest = new APIRequest(filterURL, ApiRequestType.GET, loginData.getHeaders(), null, null, 10000, 10000);
+        APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
+        allProductsAsyncTask.execute();
+    }
+
+
 
     @Override
     public void onResponseReceived(int responseCode, String response, Class<?> modelClass, WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {
