@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
 import com.farfromsober.ffs.callbacks.FiltersFragmentListener;
+import com.farfromsober.ffs.callbacks.OnOptionsFilterMenuSelected;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.callbacks.RecyclerViewClickListener;
 import com.farfromsober.ffs.model.Product;
@@ -43,6 +44,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     private APIManager apiManager;
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
     public ProductsFragmentListener mListener;
+    public OnOptionsFilterMenuSelected optionsListener;
 
     //private RecyclerView mProductsList;
     @Bind(R.id.products_list) RecyclerView mProductsList;
@@ -146,19 +148,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
 
             case R.id.action_filter:{
 
-                // Create fragment and give it an argument for the selected article
-                CategoryFilterFragment newFragment = new CategoryFilterFragment();
-                newFragment.mListener=(FiltersFragmentListener)mListener;
-
-                FragmentTransaction transaction = getActivity().getFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack so the user can navigate back
-                transaction.replace(R.id.content_frame, newFragment);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
+                optionsListener.onFilterMenuSelected(1);
                 return true;
 
             }

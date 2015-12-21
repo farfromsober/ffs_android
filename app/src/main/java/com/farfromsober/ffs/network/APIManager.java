@@ -14,6 +14,7 @@ import com.farfromsober.network.callbacks.OnResponseReceivedCallback;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.farfromsober.network.APIAsyncTask.ApiRequestType;
 
@@ -57,12 +58,14 @@ public class APIManager implements OnResponseReceivedCallback{
     }
 
     public void allProductsFilterByCategories(ArrayList<String> categoriesIds,OnDataParsedCallback<Product> onDataParsedCallback){
-        String filterURL=ALL_PRODUCTS_URL;
+        HashMap<String,Object> getParameters = null;
         LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
-        if ((categoriesIds != null) && (categoriesIds.size()>=1)) {
-            filterURL = ALL_PRODUCTS_URL.concat("/?category=").concat(categoriesIds.get(0));
+        // Crear hashmap con parametros del get
+        if (categoriesIds.size()>=1) {
+            getParameters = new HashMap<String, Object>();
+            getParameters.put("category", categoriesIds.get(0));
         }
-        APIRequest apiRequest = new APIRequest(filterURL, ApiRequestType.GET, loginData.getHeaders(), null, null, 10000, 10000);
+        APIRequest apiRequest = new APIRequest(ALL_PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(),getParameters, null, 10000, 10000);
         APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
         allProductsAsyncTask.execute();
     }

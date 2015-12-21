@@ -19,6 +19,7 @@ import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.DrawerListAdapter;
 import com.farfromsober.ffs.callbacks.FiltersFragmentListener;
 import com.farfromsober.ffs.callbacks.OnMenuSelectedCallback;
+import com.farfromsober.ffs.callbacks.OnOptionsFilterMenuSelected;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.fragments.CategoryFilterFragment;
 import com.farfromsober.ffs.fragments.FullMapFragment;
@@ -42,7 +43,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback, FiltersFragmentListener {
+public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback, OnOptionsFilterMenuSelected,FiltersFragmentListener {
 
     public static final int PRODUCTS_FRAGMENT_INDEX = 0;
     public static final int MAP_FRAGMENT_INDEX = 1;
@@ -203,6 +204,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
             case PRODUCTS_FRAGMENT_INDEX:
                 mCurrentFragment = new ProductsFragment();
                 ((ProductsFragment)mCurrentFragment).mListener = this;
+                ((ProductsFragment)mCurrentFragment).optionsListener = this;
                 break;
             case MAP_FRAGMENT_INDEX:
                 mCurrentFragment = new FullMapFragment();
@@ -276,8 +278,9 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     @Override
-    public void onProductFilter1Selected(ArrayList<String> selectedItems) {
+    public void onProductFilter1Selected(Fragment f,ArrayList<String> selectedItems) {
 
+        getFragmentManager().beginTransaction().remove(f).commit();
         ((ProductsFragment)mCurrentFragment).filterBycategory(selectedItems);
 
     }
@@ -285,5 +288,22 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     @Override
     public void onMenuSelected(int position) {
         loadFragment(position);
+    }
+
+    @Override
+    public void onFilterMenuSelected(int option) {
+
+        if (option == 1) {
+
+            // Create fragment and give it an argument for the selected article
+            CategoryFilterFragment newFragment = new CategoryFilterFragment();
+            newFragment.mListener = (FiltersFragmentListener) this;
+
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
+            transaction.add(R.id.content_frame, newFragment);
+            transaction.addToBackStack("fragBack");
+            transaction.commit();
+        }
     }
 }
