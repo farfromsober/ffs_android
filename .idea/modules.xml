@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/custom_views/custom_views.iml" filepath="$PROJECT_DIR$/custom_views/custom_views.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ffs.iml" filepath="$PROJECT_DIR$/ffs.iml" />
       <module fileurl="file://$PROJECT_DIR$/ffs_android.iml" filepath="$PROJECT_DIR$/ffs_android.iml" />
       <module fileurl="file://$PROJECT_DIR$/general_utils/general_utils.iml" filepath="$PROJECT_DIR$/general_utils/general_utils.iml" />
       <module fileurl="file://$PROJECT_DIR$/network/network.iml" filepath="$PROJECT_DIR$/network/network.iml" />
