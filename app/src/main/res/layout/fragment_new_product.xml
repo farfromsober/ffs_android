@@ -27,6 +27,7 @@
             <com.farfromsober.customviews.CustomFontEditText
                 android:id="@+id/new_product_description"
                 android:hint="@string/new_product_hint_description"
+                android:maxLength="140"
                 ffs:fontName="Raleway-Regular.ttf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -36,12 +37,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.farfromsober.customviews.CustomFontEditText
-                    android:id="@+id/new_product_category"
+                <Spinner
+                    android:id="@+id/new_product_category_spinner"
                     android:hint="@string/new_product_hint_category"
-                    ffs:fontName="Raleway-Regular.ttf"
                     android:layout_width="wrap_content"
-                    android:layout_weight="0.75"
+                    android:layout_weight="0.60"
                     android:layout_height="wrap_content"/>
 
                 <com.farfromsober.customviews.CustomFontEditText
