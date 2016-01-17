@@ -8,5 +8,6 @@ import java.util.ArrayList;
  */
 public interface ProductsFragmentListener {
     public void onProductsFragmentAddProductClicked();
+    public void onProductsFragmentNewProductCreated();
     public void onProductsFragmentProductClicked(Product product);
 }

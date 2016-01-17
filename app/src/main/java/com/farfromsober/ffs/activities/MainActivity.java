@@ -262,10 +262,9 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
     @Override
     public void onProductsFragmentAddProductClicked() {
-//        Intent editProductIntent = new Intent(this, EditProductActivity.class);
-//        startActivity(editProductIntent);
         mCurrentFragment.setHasOptionsMenu(false);
         NewProductFragment fragment = new NewProductFragment();
+        fragment.mListener = this;
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_bottom, R.anim.slide_out_top);
@@ -273,6 +272,12 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         fragmentTransaction.addToBackStack("fragBack");
         fragmentTransaction.commit();
 
+    }
+
+    @Override
+    public void onProductsFragmentNewProductCreated() {
+        onBackPressed();
+        ((ProductsFragment)mCurrentFragment).reloadProductsList();
     }
 
     @Override

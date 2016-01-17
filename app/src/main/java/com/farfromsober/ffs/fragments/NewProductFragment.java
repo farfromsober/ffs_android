@@ -4,27 +4,32 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.farfromsober.ffs.R;
+import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.network.APIManager;
 import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 
 import java.lang.ref.WeakReference;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class NewProductFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private APIManager apiManager;
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
+    public ProductsFragmentListener mListener;
+
+    @Bind(R.id.new_product_category_spinner) Spinner mCategorySpinner;
+    @Bind(R.id.new_product_sell_button) Button mSellButton;
 
     public NewProductFragment() {
         // Required empty public constructor
@@ -41,16 +46,23 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
 
         View root = inflater.inflate(R.layout.fragment_new_product, container, false);
         ButterKnife.bind(this, root);
+        setHasOptionsMenu(false);
 
-        Spinner spinner = (Spinner) root.findViewById(R.id.new_product_category_spinner);
-        spinner.setOnItemSelectedListener(this);
+        mCategorySpinner.setOnItemSelectedListener(this);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.CategoryList, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
+        mCategorySpinner.setAdapter(adapter);
+
+        mSellButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createProductToSell();
+            }
+        });
 
         return root;
     }
@@ -103,5 +115,10 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    private void createProductToSell() {
+        System.out.println(mCategorySpinner.getSelectedItem());
+        mListener.onProductsFragmentNewProductCreated();
     }
 }

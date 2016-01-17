@@ -110,6 +110,10 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         }
     }
 
+    public void reloadProductsList() {
+        askServerForProducts();
+    }
+
     private void askServerForProducts() {
         showPreloader(getActivity().getString(R.string.products_loading_message));
         apiManager.allProducts(this);
