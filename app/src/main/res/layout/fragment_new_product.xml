@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ffs="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:background="@android:color/white">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.farfromsober.customviews.CustomFontEditText
+                android:id="@+id/new_product_title"
+                android:hint="@string/new_product_hint_title"
+                ffs:fontName="Raleway-Regular.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.farfromsober.customviews.CustomFontEditText
+                android:id="@+id/new_product_description"
+                android:hint="@string/new_product_hint_description"
+                ffs:fontName="Raleway-Regular.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.farfromsober.customviews.CustomFontEditText
+                    android:id="@+id/new_product_category"
+                    android:hint="@string/new_product_hint_category"
+                    ffs:fontName="Raleway-Regular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0.75"
+                    android:layout_height="wrap_content"/>
+
+                <com.farfromsober.customviews.CustomFontEditText
+                    android:id="@+id/new_product_price"
+                    android:hint="@string/new_product_hint_price"
+                    ffs:fontName="Raleway-Regular.ttf"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="0.25"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <ImageButton
+                    android:id="@+id/new_product_image_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/photo_placeholder"/>
+
+                <ImageButton
+                    android:id="@+id/new_product_image_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/photo_placeholder"/>
+
+                <ImageButton
+                    android:id="@+id/new_product_image_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/photo_placeholder"/>
+
+                <ImageButton
+                    android:id="@+id/new_product_image_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/photo_placeholder"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/purchase_button"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Sell it"/>
+
+        </LinearLayout>
+
+
+
+</LinearLayout>

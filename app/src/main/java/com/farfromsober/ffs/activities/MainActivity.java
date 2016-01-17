@@ -23,6 +23,7 @@ import com.farfromsober.ffs.callbacks.OnOptionsFilterMenuSelected;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.fragments.CategoryFilterFragment;
 import com.farfromsober.ffs.fragments.FullMapFragment;
+import com.farfromsober.ffs.fragments.NewProductFragment;
 import com.farfromsober.ffs.fragments.NotificationsFragment;
 import com.farfromsober.ffs.fragments.ProductDetailFragment;
 import com.farfromsober.ffs.fragments.ProductsFragment;
@@ -263,6 +264,15 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     public void onProductsFragmentAddProductClicked() {
 //        Intent editProductIntent = new Intent(this, EditProductActivity.class);
 //        startActivity(editProductIntent);
+        mCurrentFragment.setHasOptionsMenu(false);
+        NewProductFragment fragment = new NewProductFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_bottom, R.anim.slide_out_top);
+        fragmentTransaction.add(R.id.content_frame, fragment);
+        fragmentTransaction.addToBackStack("fragBack");
+        fragmentTransaction.commit();
+
     }
 
     @Override

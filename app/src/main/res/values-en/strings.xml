@@ -34,6 +34,10 @@
     <string name="photos">photos</string>
     <string name="purchase">Purchase</string>
     <string name="login_accessing">Accessing</string>
+    <string name="new_product_hint_title">Title</string>
+    <string name="new_product_hint_description">Description</string>
+    <string name="new_product_hint_category">Category</string>
+    <string name="new_product_hint_price">Price</string>
 
 
 </resources>
