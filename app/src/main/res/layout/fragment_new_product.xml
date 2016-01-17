@@ -57,11 +57,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp">
+                android:layout_gravity="center_horizontal">
 
                 <ImageButton
                     android:id="@+id/new_product_image_1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
@@ -70,27 +70,30 @@
 
                 <ImageButton
                     android:id="@+id/new_product_image_2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:visibility="invisible"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
                     android:src="@drawable/photo_placeholder"/>
 
                 <ImageButton
                     android:id="@+id/new_product_image_3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:visibility="invisible"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
                     android:src="@drawable/photo_placeholder"/>
 
                 <ImageButton
                     android:id="@+id/new_product_image_4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:visibility="invisible"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
                     android:src="@drawable/photo_placeholder"/>
