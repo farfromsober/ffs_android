@@ -1,12 +1,5 @@
 package com.farfromsober.generalutils;
 
-import android.support.annotation.NonNull;
-
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-
 public class FormattingManager {
 
     public static String capitalizeFirstWord(String inputString) {
