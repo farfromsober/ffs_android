@@ -39,6 +39,7 @@ import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -293,7 +294,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     @Override
-    public void onProductFilter1Selected(Fragment f,ArrayList<String> selectedItems) {
+    public void onProductFilter1Selected(Fragment f,HashMap<String,Integer> selectedItems) {
 
         getFragmentManager().beginTransaction().remove(f).commit();
         ((ProductsFragment)mCurrentFragment).filterBycategory(selectedItems);

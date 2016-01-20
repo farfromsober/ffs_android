@@ -57,13 +57,18 @@ public class APIManager implements OnResponseReceivedCallback{
         loginAsyncTask.execute();
     }
 
-    public void allProductsFilterByCategories(ArrayList<String> categoriesIds,OnDataParsedCallback<Product> onDataParsedCallback){
+    public void allProductsFilterByCategories(HashMap<String,Integer> categoriesIds,OnDataParsedCallback<Product> onDataParsedCallback){
         HashMap<String,Object> getParameters = null;
         LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
         // Crear hashmap con parametros del get
         if (categoriesIds.size()>=1) {
             getParameters = new HashMap<String, Object>();
-            getParameters.put("category", categoriesIds.get(0));
+            if(categoriesIds.containsKey("category")) {
+                getParameters.put("category", categoriesIds.get("category"));
+            }
+            if(categoriesIds.containsKey("distance")) {
+                getParameters.put("distance", categoriesIds.get("distance"));
+            }
         }
         APIRequest apiRequest = new APIRequest(ALL_PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(),getParameters, null, 10000, 10000);
         APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);

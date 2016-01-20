@@ -32,6 +32,7 @@ import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -132,7 +133,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     }
 
 
-    public void filterBycategory(ArrayList<String> categories) {
+    public void filterBycategory(HashMap<String,Integer> categories) {
         showPreloader(getActivity().getString(R.string.products_loading_message));
         apiManager.allProductsFilterByCategories(categories,this);
 
