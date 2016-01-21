@@ -20,10 +20,14 @@ import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.ImagePagerAdapter;
 import com.farfromsober.ffs.callbacks.OnMenuSelectedCallback;
 import com.farfromsober.ffs.model.Product;
+import com.farfromsober.ffs.model.Transaction;
 import com.farfromsober.ffs.model.User;
+import com.farfromsober.ffs.network.APIManager;
 import com.farfromsober.ffs.utils.MapUtils;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.generalutils.DateManager;
+import com.farfromsober.network.callbacks.OnDataParsedCallback;
+import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -32,6 +36,7 @@ import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,10 +44,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.farfromsober.ffs.activities.MainActivity.*;
 
-public class ProductDetailFragment extends Fragment {
+public class ProductDetailFragment extends Fragment implements OnDataParsedCallback<Transaction> {
 
     public static final String ARG_PRODUCT = "com.farfromsober.ffs.fragments.ProductDetailFragment.ARG_PRODUCT";
     private Product mProduct;
+    private APIManager apiManager;
+    private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
 
     @Bind(R.id.detail_images_viewpager) ViewPager mViewPager;
     @Bind(R.id.detail_images_viewpager_indicator) CirclePageIndicator mCirclePageIndicator;
@@ -98,6 +105,13 @@ public class ProductDetailFragment extends Fragment {
         configureMap();
         setButtonListeners();
         return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        apiManager = new APIManager(getActivity());
     }
 
     private void setButtonListeners() {
@@ -200,6 +214,44 @@ public class ProductDetailFragment extends Fragment {
     }
 
     private void requestPurchaseProduct() {
-        Log.i("", "requestPurchaseProduct");
+        Log.i("ffs", "requestPurchaseProduct");
+        User user = SharedPreferencesManager.getPrefUserData(getActivity());
+        showPreloader(getActivity().getString(R.string.transaction_creation_message));
+        apiManager.createTransaction(mProduct.getId(),user.getUserId(), this);
+    }
+
+    private void showPreloader(String message) {
+        if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
+            mOnNetworkActivityCallback.get().onNetworkActivityStarted(message);
+        }
+    }
+
+    private void hidePreloader() {
+        if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
+            mOnNetworkActivityCallback.get().onNetworkActivityFinished();
+        }
+    }
+
+    @Override
+    public void onDataParsed(ArrayList<Transaction> data) {
+        if (data != null) {
+            Log.i("ffs", "Transaction succeed");
+        } else {
+            Log.i("ffs", "Transaction failed");
+        }
+        hidePreloader();
+    }
+
+    @Override
+    public void onDataParsed(Transaction data) {
+        Log.i("ffs", data.toString());
+        hidePreloader();
+    }
+
+    @Override
+    public void onExceptionReceived(Exception e) {
+        if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
+            mOnNetworkActivityCallback.get().onExceptionReceived(e);
+        }
     }
 }

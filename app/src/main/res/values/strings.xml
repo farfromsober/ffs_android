@@ -51,6 +51,8 @@
     <string name="login_error_message_title">Error en el acceso</string>
     <string name="login_error_message">Ha ocurrido un error al acceder. Por favor, revisa los datos introducidos.</string>
     <string name="title_activity_edit_product">EditProduct</string>
+    <string name="transaction_creation_message">Realizando la transacción,\npor favor espere.</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="product_detail_fragment">Product detail fragment</string>
