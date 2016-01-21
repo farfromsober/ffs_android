@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckedTextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -71,8 +72,11 @@ public class CategoryFilterFragment extends Fragment implements View.OnClickList
 
                     ArrayList<String> selectedItems = new ArrayList<String>();
 
-                    ListView v = mListView1;
-                    v.setItemChecked(position,true);
+                    //ListView v = mListView1;
+                    //v.setItemChecked(position, true);
+
+                    //CheckedTextView check = (CheckedTextView) arg1;
+                    //check.setChecked(!check.isChecked());
 
                     selectedItems.add(String.valueOf(position));
 
