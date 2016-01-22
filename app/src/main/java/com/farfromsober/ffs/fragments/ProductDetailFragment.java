@@ -202,7 +202,7 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
                     .resize(200, 200)
                     .centerCrop()
                     .into(mSellerImageView);
-        }else{
+        } else {
             mSellerImageView.setImageResource(R.drawable.no_user);
         }
 
@@ -215,8 +215,8 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
 
     private void requestPurchaseProduct() {
         Log.i("ffs", "requestPurchaseProduct");
-        User user = SharedPreferencesManager.getPrefUserData(getActivity());
         showPreloader(getActivity().getString(R.string.transaction_creation_message));
+        User user = SharedPreferencesManager.getPrefUserData(getActivity());
         apiManager.createTransaction(mProduct.getId(),user.getUserId(), this);
     }
 
@@ -244,7 +244,11 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
 
     @Override
     public void onDataParsed(Transaction data) {
-        Log.i("ffs", data.toString());
+        if (data != null) {
+            Log.i("ffs", "Transaction succeed");
+        } else {
+            Log.i("ffs", "Transaction failed");
+        }
         hidePreloader();
     }
 

@@ -175,7 +175,8 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
 
             for (int i = 0; i < data.size(); i++) {
                 Product product = data.get(i);
-                products.addProduct(product);
+                // ONLY Products that have selling = true will be shown
+                if (product.getIsSelling() == true) { products.addProduct(product);}
             }
             //Update Adapter
             mProductsList.swapAdapter(new ProductsAdapter(products.getProducts(), getActivity(), this), false);
