@@ -38,4 +38,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:8.1.0'
     compile 'com.google.android.gms:play-services-location:8.1.0'
     compile 'com.viewpagerindicator:library:2.4.1'
+    compile 'com.microsoft.azure.android:azure-storage-android:0.7.0@aar'
 }
