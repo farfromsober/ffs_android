@@ -141,6 +141,12 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
         } catch (Exception e) {
             throw new ClassCastException(context.toString()+" must implement OnMenuSelectedCallback in Activity");
         }
+
+        try {
+            mOnNetworkActivityCallback = new WeakReference<>((OnNetworkActivityCallback) getActivity());
+        } catch (Exception e) {
+            throw new ClassCastException(context.toString()+" must implement OnNetworkActivityCallback in Activity");
+        }
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
