@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Product implements Serializable {
 
@@ -55,20 +56,52 @@ public class Product implements Serializable {
     }
 
     public Product(JSONObject json) throws JSONException, ParseException {
-        mId = json.optString(ID_KEY);
-        mName = json.optString(NAME_KEY);
-        mDetail = json.optString(DESCRIPTION_KEY);
-        mPublished = DateManager.dateFromString(json.optString(PUBLISHED_DATE_KEY), DATE_FORMAT);
-        mIsSelling = json.optBoolean(SELLING_KEY);
-        mPrice = json.optString(PRICE_KEY);
-        mSeller = new User((JSONObject) json.opt(SELLER_KEY));
-        mCategory = new Category((JSONObject) json.opt(CATEGORY_KEY));
+        if (hasNeededFields(json)) {
+            mId = json.optString(ID_KEY);
+            mName = json.optString(NAME_KEY);
+            mDetail = json.optString(DESCRIPTION_KEY);
+            mPublished = DateManager.dateFromString(json.optString(PUBLISHED_DATE_KEY), DATE_FORMAT);
+            mIsSelling = json.optBoolean(SELLING_KEY);
+            mPrice = json.optString(PRICE_KEY);
+            mSeller = new User((JSONObject) json.opt(SELLER_KEY));
+            mCategory = new Category((JSONObject) json.opt(CATEGORY_KEY));
 
-        mImages = new ArrayList<>();
-        JSONArray objectsArray = json.optJSONArray(IMAGES_KEY);
-        for (int i = 0; i < objectsArray.length(); i++) {
-            mImages.add(objectsArray.getString(i));
+            mImages = new ArrayList<>();
+            JSONArray objectsArray = json.optJSONArray(IMAGES_KEY);
+            for (int i = 0; i < objectsArray.length(); i++) {
+                mImages.add(objectsArray.getString(i));
+            }
         }
+    }
+
+    private boolean hasNeededFields(JSONObject json) {
+        if (json == null) {
+            return false;
+        }
+        ArrayList<String> neededFields = new ArrayList<>();
+        neededFields.add(ID_KEY);
+        neededFields.add(NAME_KEY);
+        neededFields.add(DESCRIPTION_KEY);
+        neededFields.add(PUBLISHED_DATE_KEY);
+        neededFields.add(SELLING_KEY);
+        neededFields.add(PRICE_KEY);
+        neededFields.add(SELLER_KEY);
+        neededFields.add(CATEGORY_KEY);
+        neededFields.add(IMAGES_KEY);
+
+        Iterator iterator = json.keys();
+        ArrayList<String> keysList = new ArrayList<>();
+        while(iterator.hasNext()) {
+            String key = (String) iterator.next();
+            keysList.add(key);
+        }
+
+        for (String neededField:neededFields) {
+            if (!keysList.contains(neededField)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getId() {

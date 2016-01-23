@@ -13,7 +13,7 @@ public class CategoryTests extends AndroidTestCase {
         Category category = new Category(null);
 
         assertEquals(null, category.getName());
-        assertEquals(FakeModelObjectsHelper.CATEGORY_DEFAULT_INDEX, category.getIndex());
+        assertEquals(FakeModelObjectsHelper.DOUBLE_DEFAULT_VALUE, category.getIndex());
     }
 
     public void testCategoryInitializedWithJSONObjectWithoutIndexShouldBeCategoryWithNullAttributes() throws JSONException, ParseException {
@@ -21,7 +21,7 @@ public class CategoryTests extends AndroidTestCase {
         Category category = new Category(FakeModelObjectsHelper.fakeJSONCategoryWithoutIndex());
 
         assertEquals(null, category.getName());
-        assertEquals(FakeModelObjectsHelper.CATEGORY_DEFAULT_INDEX, category.getIndex());
+        assertEquals(FakeModelObjectsHelper.DOUBLE_DEFAULT_VALUE, category.getIndex());
     }
 
     public void testCategoryInitializedWithJSONObjectWithoutNameShouldBeCategoryWithNullAttributes() throws JSONException, ParseException {
@@ -29,14 +29,14 @@ public class CategoryTests extends AndroidTestCase {
         Category category = new Category(FakeModelObjectsHelper.fakeJSONCategoryWithoutName());
 
         assertEquals(null, category.getName());
-        assertEquals(FakeModelObjectsHelper.CATEGORY_DEFAULT_INDEX, category.getIndex());
+        assertEquals(FakeModelObjectsHelper.DOUBLE_DEFAULT_VALUE, category.getIndex());
     }
 
     public void testCategoryInitializedWithJSONObjectShouldBeFullCategory() throws JSONException, ParseException {
 
         Category category = new Category(FakeModelObjectsHelper.fakeJSONCategory());
 
-        assertEquals(FakeModelObjectsHelper.CATEGORY_NAME, category.getName());
-        assertEquals(FakeModelObjectsHelper.CATEGORY_INDEX, category.getIndex());
+        assertEquals(FakeModelObjectsHelper.CATEGORY_NAME_VALUE, category.getName());
+        assertEquals(FakeModelObjectsHelper.CATEGORY_INDEX_VALUE, category.getIndex());
     }
 }
