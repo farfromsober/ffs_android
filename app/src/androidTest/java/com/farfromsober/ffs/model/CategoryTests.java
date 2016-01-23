@@ -8,7 +8,7 @@ import java.text.ParseException;
 
 public class CategoryTests extends AndroidTestCase {
 
-    public void testCategoryInitializedWithNilJSONObjectShouldBeCategoryWithNullAttributes() throws JSONException, ParseException {
+    public void testCategoryInitializedWithNilJSONObjectShouldBeCategoryWithNullAttributes() {
 
         Category category = new Category(null);
 
@@ -16,7 +16,7 @@ public class CategoryTests extends AndroidTestCase {
         assertEquals(FakeModelObjectsHelper.DOUBLE_DEFAULT_VALUE, category.getIndex());
     }
 
-    public void testCategoryInitializedWithJSONObjectWithoutIndexShouldBeCategoryWithNullAttributes() throws JSONException, ParseException {
+    public void testCategoryInitializedWithJSONObjectWithoutIndexShouldBeCategoryWithNullAttributes() {
 
         Category category = new Category(FakeModelObjectsHelper.fakeJSONCategoryWithoutIndex());
 
@@ -24,7 +24,7 @@ public class CategoryTests extends AndroidTestCase {
         assertEquals(FakeModelObjectsHelper.DOUBLE_DEFAULT_VALUE, category.getIndex());
     }
 
-    public void testCategoryInitializedWithJSONObjectWithoutNameShouldBeCategoryWithNullAttributes() throws JSONException, ParseException {
+    public void testCategoryInitializedWithJSONObjectWithoutNameShouldBeCategoryWithNullAttributes() {
 
         Category category = new Category(FakeModelObjectsHelper.fakeJSONCategoryWithoutName());
 
