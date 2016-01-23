@@ -2,8 +2,6 @@ package com.farfromsober.generalutils;
 
 import android.test.AndroidTestCase;
 
-import com.google.gson.Gson;
-
 public class SharedPreferencesTests extends AndroidTestCase {
 
     private final String stringKey = "stringKey";

@@ -3,7 +3,9 @@ package com.farfromsober.ffs.model;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Category implements Serializable {
 
@@ -20,8 +22,33 @@ public class Category implements Serializable {
     }
 
     public Category(JSONObject json) {
-        mName = json.optString(NAME_KEY);
-        mIndex = json.optInt(INDEX_KEY);
+        if (hasNeededFields(json)) {
+            mName = json.optString(NAME_KEY);
+            mIndex = json.optDouble(INDEX_KEY);
+        }
+    }
+
+    private boolean hasNeededFields(JSONObject json) {
+        if (json == null) {
+            return false;
+        }
+        ArrayList<String> neededFields = new ArrayList<>();
+        neededFields.add(NAME_KEY);
+        neededFields.add(INDEX_KEY);
+
+        Iterator iterator = json.keys();
+        ArrayList<String> keysList = new ArrayList<>();
+        while(iterator.hasNext()) {
+            String key = (String) iterator.next();
+            keysList.add(key);
+        }
+
+        for (String neededField:neededFields) {
+            if (!keysList.contains(neededField)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getName() {
