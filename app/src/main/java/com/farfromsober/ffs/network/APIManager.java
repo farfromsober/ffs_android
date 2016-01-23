@@ -96,6 +96,7 @@ public class APIManager implements OnResponseReceivedCallback {
         APIAsyncTask transactionAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Transaction.class);
         transactionAsyncTask.execute();
     }
+
     public void allProductsFilterByWord(String word,OnDataParsedCallback<Product> onDataParsedCallback){
         HashMap<String,Object> getParameters = null;
         LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);

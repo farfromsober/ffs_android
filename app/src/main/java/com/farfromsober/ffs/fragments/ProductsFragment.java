@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -17,6 +18,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
@@ -32,6 +36,7 @@ import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,6 +50,8 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
     public ProductsFragmentListener mListener;
     public OnOptionsFilterMenuSelected optionsListener;
+
+    Button button;
 
     //private RecyclerView mProductsList;
     @Bind(R.id.products_list) RecyclerView mProductsList;
@@ -87,6 +94,20 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         apiManager = new APIManager(getActivity());
         askServerForProducts();
         //mProductsList.swapAdapter(new ProductsAdapter(Products.getInstance(getActivity()).getProducts(), getActivity(), this), false);
+
+        button = (Button) getActivity().findViewById(R.id.filtrar_submit);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                EditText mText = (EditText) getActivity().findViewById(R.id.filter_product);
+                mListener.onProductFilter(mText.getText().toString());
+
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        });
+
     }
 
     @Override
@@ -132,10 +153,16 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     }
 
 
-    public void filterBycategory(ArrayList<String> categories) {
+    public void filterBycategoryAndDistance(HashMap<String,Integer> categories, Location location) {
         showPreloader(getActivity().getString(R.string.products_loading_message));
-        apiManager.allProductsFilterByCategories(categories,this);
+        apiManager.allProductsFilterByCategoriesAndDistance(categories,this,location);
     }
+
+    public void filterByWord(String word) {
+        showPreloader(getActivity().getString(R.string.products_loading_message));
+        apiManager.allProductsFilterByWord(word, this);
+    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu,MenuInflater inflater)

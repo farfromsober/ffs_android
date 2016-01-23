@@ -52,7 +52,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback, OnOptionsFilterMenuSelected,FiltersFragmentListener,ProductDetailFragmentListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
-{
 
     public static final int PRODUCTS_FRAGMENT_INDEX = 0;
     public static final int MAP_FRAGMENT_INDEX = 1;
