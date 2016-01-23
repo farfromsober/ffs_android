@@ -3,6 +3,7 @@ package com.farfromsober.ffs.network;
 import android.content.Context;
 
 import com.farfromsober.ffs.model.Product;
+import com.farfromsober.ffs.model.Transaction;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.model.LoginData;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
@@ -18,13 +19,15 @@ import java.util.HashMap;
 
 import static com.farfromsober.network.APIAsyncTask.ApiRequestType;
 
-public class APIManager implements OnResponseReceivedCallback{
+public class APIManager implements OnResponseReceivedCallback {
 
     private final Context mContext;
 
     private static final String ALL_PRODUCTS_URL = "http://forsale.cloudapp.net/api/1.0/products";
     private static final String ALL_USERS_URL = "http://beta.json-generator.com/api/json/get/NJsNmZgQe";
     private static final String LOGIN_URL = "http://forsale.cloudapp.net/api/1.0/login/";
+    private static final String TRANSACTIONS_URL = "http://forsale.cloudapp.net/api/1.0/transactions/";
+
 
     public APIManager(Context context) {
         mContext = context;
@@ -70,7 +73,19 @@ public class APIManager implements OnResponseReceivedCallback{
         allProductsAsyncTask.execute();
     }
 
-
+    public void createTransaction(String productId, String buyerId, OnDataParsedCallback<Transaction> onDataParsedCallback){
+        LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
+        // Crear hashmap con parametros del post
+        HashMap<String,Object> postParameters = null;
+        if (productId.length()>=1 && buyerId.length()>=1) {
+            postParameters = new HashMap<String, Object>();
+            postParameters.put("productId", productId);
+            postParameters.put("buyerId", buyerId);
+        }
+        APIRequest apiRequest = new APIRequest(TRANSACTIONS_URL, ApiRequestType.POST, loginData.getHeaders(),null, postParameters, 10000, 10000);
+        APIAsyncTask transactionAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Transaction.class);
+        transactionAsyncTask.execute();
+    }
 
     @Override
     public void onResponseReceived(int responseCode, String response, Class<?> modelClass, WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {

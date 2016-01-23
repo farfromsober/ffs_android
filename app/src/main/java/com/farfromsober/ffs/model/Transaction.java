@@ -18,13 +18,11 @@ public class Transaction {
     private static final String DATE_KEY = "date";
 
     private Product mProduct;
-    private User mSeller;
     private User mBuyer;
     private Date mDate;
 
     public Transaction(Product product, User buyer, Date date) {
         mProduct = product;
-        mSeller = product.getSeller();
         mBuyer = buyer;
         mDate = date;
     }
@@ -32,7 +30,6 @@ public class Transaction {
     public Transaction(JSONObject json) throws JSONException, ParseException {
         Product product = new Product((JSONObject) json.opt(PRODUCT_KEY));
         mProduct = product;
-        mSeller = product.getSeller();
         mBuyer = new User((JSONObject) json.opt(BUYER_KEY));
         mDate = DateManager.dateFromString(json.optString(DATE_KEY), DATE_FORMAT);
     }
@@ -43,14 +40,6 @@ public class Transaction {
 
     public void setProduct(Product product) {
         mProduct = product;
-    }
-
-    public User getSeller() {
-        return mSeller;
-    }
-
-    public void setSeller(User seller) {
-        mSeller = seller;
     }
 
     public User getBuyer() {
@@ -73,7 +62,6 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "mProduct=" + mProduct +
-                ", mSeller=" + mSeller +
                 ", mBuyer=" + mBuyer +
                 ", mDate=" + mDate +
                 '}';
