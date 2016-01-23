@@ -73,8 +73,8 @@ public class APIManager implements OnResponseReceivedCallback {
             if(categoriesIds.containsKey("distance")) {
                 getParameters.put("distance", categoriesIds.get("distance"));
                 if (location != null) {
-                    getParameters.put("latitude", Double.valueOf(location.getLatitude()));
-                    getParameters.put("longitude", Double.valueOf(location.getLongitude()));
+                    getParameters.put("latitude", String.valueOf(location.getLatitude()).replace(",","."));
+                    getParameters.put("longitude", String.valueOf(location.getLongitude()).replace(",","."));
                 }
             }
         }
