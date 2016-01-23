@@ -80,5 +80,7 @@
     <string name="new_product_hint_description">Description</string>
     <string name="new_product_hint_category">Category</string>
     <string name="new_product_hint_price">Price</string>
+    <string name="find_product">Buscar producto</string>
+    <string name="filter_product_name">Filtrar productos</string>
 
 </resources>

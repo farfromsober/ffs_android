@@ -7,7 +7,7 @@
 
 <ScrollView android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_above="@+id/filter1_submit"
+            android:layout_above="@+id/linear_button"
             android:fillViewport="true"
     >
 
@@ -57,7 +57,8 @@
     <ListView
         android:id="@+id/distanceList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice">
     </ListView>
 
     <TextView
@@ -71,18 +72,31 @@
 </LinearLayout>
 </ScrollView>
 
-<com.farfromsober.customviews.CustomFontButton
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="@string/filter_submit"
-ffs:fontName="Raleway-Bold.ttf"
-android:id="@+id/filter1_submit"
-android:layout_centerHorizontal="true"
-android:padding="10dp"
-style="@style/app_button"
-android:layout_alignParentBottom="true"
-android:layout_marginBottom="10dp"
-android:layout_marginTop="10dp"
-    />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_light_orange"
+        android:id="@+id/linear_button"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        >
+
+        <com.farfromsober.customviews.CustomFontButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_submit"
+            ffs:fontName="Raleway-Bold.ttf"
+            android:id="@+id/filter1_submit"
+            android:gravity="center"
+            android:padding="10dp"
+            style="@style/app_button"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

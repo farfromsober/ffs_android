@@ -1,6 +1,7 @@
 package com.farfromsober.ffs.network;
 
 import android.content.Context;
+import android.location.Location;
 
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.User;
@@ -57,7 +58,7 @@ public class APIManager implements OnResponseReceivedCallback{
         loginAsyncTask.execute();
     }
 
-    public void allProductsFilterByCategories(HashMap<String,Integer> categoriesIds,OnDataParsedCallback<Product> onDataParsedCallback){
+    public void allProductsFilterByCategoriesAndDistance(HashMap<String,Integer> categoriesIds,OnDataParsedCallback<Product> onDataParsedCallback, Location location){
         HashMap<String,Object> getParameters = null;
         LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
         // Crear hashmap con parametros del get
@@ -68,12 +69,31 @@ public class APIManager implements OnResponseReceivedCallback{
             }
             if(categoriesIds.containsKey("distance")) {
                 getParameters.put("distance", categoriesIds.get("distance"));
+                if (location != null) {
+                    getParameters.put("latitude", Double.valueOf(location.getLatitude()));
+                    getParameters.put("longitude", Double.valueOf(location.getLongitude()));
+                }
             }
         }
         APIRequest apiRequest = new APIRequest(ALL_PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(),getParameters, null, 10000, 10000);
         APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
         allProductsAsyncTask.execute();
     }
+
+    public void allProductsFilterByWord(String word,OnDataParsedCallback<Product> onDataParsedCallback){
+        HashMap<String,Object> getParameters = null;
+        LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
+        // Crear hashmap con parametros del get
+        if (word != null) {
+            getParameters = new HashMap<String, Object>();
+            getParameters.put("name", word);
+        }
+
+        APIRequest apiRequest = new APIRequest(ALL_PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(),getParameters, null, 10000, 10000);
+        APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
+        allProductsAsyncTask.execute();
+    }
+
 
 
 

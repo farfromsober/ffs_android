@@ -1,29 +1,51 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:ffs="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/direction_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:background="#fcb797"
-        android:paddingLeft="5dp"
-        android:paddingTop="5dp"
-        android:text="Categorías"
-        android:textColor="#FFFFFF"
-        android:textSize="13dip"
-        android:layout_alignParentTop="true"
-        />
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/filter_linear"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+
+
+        <com.farfromsober.customviews.CustomFontEditText
+            android:id="@+id/filter_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/find_product"
+            ffs:fontName="Raleway-Regular.ttf"
+            android:gravity="center"
+            style="@style/app_edit_text"
+            android:layout_weight="1"
+
+            />
+
+        <com.farfromsober.customviews.CustomFontButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/filtrar_submit"
+            android:layout_centerHorizontal="true"
+            android:padding="10dp"
+            android:layout_alignParentBottom="true"
+            android:drawableRight="@drawable/ic_search"
+            android:background="@android:color/transparent"
+            />
+
+</LinearLayout>
+
+
+
 
 <android.support.design.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/coordinator"
-    android:layout_below="@id/direction_label">
+    android:layout_below="@+id/filter_linear">
 
 
 

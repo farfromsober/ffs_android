@@ -72,16 +72,8 @@ public class CategoryFilterFragment extends Fragment implements View.OnClickList
 
                     ArrayList<String> selectedItems = new ArrayList<String>();
 
-                    //ListView v = mListView1;
-                    //v.setItemChecked(position, true);
-
-                    //CheckedTextView check = (CheckedTextView) arg1;
-                    //check.setChecked(!check.isChecked());
-
                     selectedItems.add(String.valueOf(position));
 
-                    //Toast.makeText(getActivity(), "Selected: " + selectedItems.toString(), Toast.LENGTH_SHORT).show();
-                    //mListener.onProductFilter∫1Selected(myFragment, selectedItems);
                     itemSelected.put("category",position);
                 }
             });
@@ -94,9 +86,10 @@ public class CategoryFilterFragment extends Fragment implements View.OnClickList
                     ArrayList<String> selectedItems = new ArrayList<String>();
 
                     selectedItems.add(String.valueOf(position));
-                    //Toast.makeText(getActivity(), "Selected: " + selectedItems.toString(), Toast.LENGTH_SHORT).show();
-                    //mListener.onProductFilter1Selected(myFragment, selectedItems);
-                    itemSelected.put("distance", (Integer) arg0.getItemAtPosition(position));
+
+                    String pos = (String)arg0.getItemAtPosition(position);
+
+                    itemSelected.put("distance", Integer.valueOf(pos));
                 }
             });
 
@@ -107,26 +100,6 @@ public class CategoryFilterFragment extends Fragment implements View.OnClickList
                 }
             });
 
-            //ListUtils.setDynamicHeight(mListView1);
-            //ListUtils.setDynamicHeight(mListView2);
-
-            /*
-
-                button.setOnClickListener(this);
-
-                String[] catetogories = getResources().getStringArray(R.array.CategoryList);
-                String[] distances = getResources().getStringArray(R.array.DistanceList);
-
-                adapter = new ArrayAdapter<String>(getActivity(),
-                        android.R.layout.simple_list_item_checked, catetogories);
-                setListAdapter(adapter);
-                getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-                adapterDistances = new ArrayAdapter<String>(getActivity(),
-                        android.R.layout.simple_list_item_checked, distances);
-                setListAdapter(adapterDistances);
-                getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
- */
         }
 
         private void findViewsById() {
@@ -134,25 +107,10 @@ public class CategoryFilterFragment extends Fragment implements View.OnClickList
                 button = (Button) getActivity().findViewById(R.id.filter1_submit);
         }
 
-        /*@Override
-        public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
-            Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
-        }*/
+
         @Override
         public void onClick(View v) {
-/*
-            SparseBooleanArray checkedCategory = mListView1.getCheckedItemPositions();
-            SparseBooleanArray checkedDistance = mListView2.getCheckedItemPositions();
-            ArrayList<String> selectedItems = new ArrayList<String>();
-            for (int i = 0; i < checkedCategory.size(); i++) {
-                int position = checkedCategory.keyAt(i);
-                // Add if it is checked i.e.) == TRUE!
-                if (checkedCategory.valueAt(i))
-                    selectedItems.add(String.valueOf(position));
-            }
-            //Toast.makeText(getActivity(), "Selected: " + selectedItems.toString(), Toast.LENGTH_SHORT).show();
-            mListener.onProductFilter1Selected(this,selectedItems);
-*/
+
         }
 
 
