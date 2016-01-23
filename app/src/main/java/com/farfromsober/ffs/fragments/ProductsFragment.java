@@ -193,6 +193,11 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     }
 
     @Override
+    public void onResponseSuccess() {
+
+    }
+
+    @Override
     public void onExceptionReceived(Exception e) {
         if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
             mOnNetworkActivityCallback.get().onExceptionReceived(e);

@@ -95,6 +95,8 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
             writer.close();
             os.close();
 
+            conn.connect();
+
             responseCode = conn.getResponseCode();
 
             String line;
@@ -122,7 +124,11 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
         String response = (String) values.get(RESPONSE_KEY);
 
         if (mOnResponseReceivedCallbackWeakReference != null && mOnResponseReceivedCallbackWeakReference.get() != null) {
-            mOnResponseReceivedCallbackWeakReference.get().onResponseReceived(responseCode, response, mModelClass, mOnDataParsedCallbackWeakReference);
+            if (response.equals("") || response==null) {
+                mOnResponseReceivedCallbackWeakReference.get().onResponseReceivedWithNoData(mOnDataParsedCallbackWeakReference);
+            } else {
+                mOnResponseReceivedCallbackWeakReference.get().onResponseReceived(responseCode, response, mModelClass, mOnDataParsedCallbackWeakReference);
+            }
         }
         super.onPostExecute(values);
     }

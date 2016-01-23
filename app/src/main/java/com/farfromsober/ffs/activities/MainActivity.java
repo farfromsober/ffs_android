@@ -31,6 +31,7 @@ import com.farfromsober.ffs.fragments.ProfileFragment;
 import com.farfromsober.ffs.model.DrawerMenuItem;
 import com.farfromsober.ffs.model.LoginData;
 import com.farfromsober.ffs.model.Product;
+import com.farfromsober.ffs.model.ProductImage;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.networkviews.NetworkPreloaderActivity;
@@ -268,10 +269,17 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_bottom, R.anim.slide_out_top);
-        fragmentTransaction.add(R.id.content_frame, fragment);
+        fragmentTransaction.add(R.id.content_frame, fragment, "newProductFragment");
         fragmentTransaction.addToBackStack("fragBack");
         fragmentTransaction.commit();
 
+    }
+
+    @Override
+    public void onProductsFragmentNewProductImagesUploaded(ArrayList<ProductImage> productImages) {
+        NewProductFragment newProductFragment = ((NewProductFragment) getFragmentManager().findFragmentByTag("newProductFragment"));
+        newProductFragment.mProductImages = productImages;
+        newProductFragment.uploadNewProduct();
     }
 
     @Override

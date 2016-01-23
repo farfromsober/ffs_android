@@ -5,5 +5,6 @@ import java.util.ArrayList;
 public interface OnDataParsedCallback <T> {
     void onDataParsed(ArrayList<T> data);
     void onDataParsed(T data);
+    void onResponseSuccess();
     void onExceptionReceived(Exception e);
 }

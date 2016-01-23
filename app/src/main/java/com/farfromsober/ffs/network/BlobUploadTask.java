@@ -17,35 +17,49 @@ package com.farfromsober.ffs.network;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
+import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
+import com.farfromsober.ffs.model.ProductImage;
+import com.farfromsober.ffs.model.User;
+import com.farfromsober.ffs.utils.SharedPreferencesManager;
+import com.farfromsober.generalutils.DateManager;
 import com.microsoft.azure.storage.CloudStorageAccount;
 import com.microsoft.azure.storage.blob.BlobContainerPermissions;
 import com.microsoft.azure.storage.blob.BlobContainerPublicAccessType;
+import com.microsoft.azure.storage.blob.BlobProperties;
+import com.microsoft.azure.storage.blob.BlobType;
 import com.microsoft.azure.storage.blob.CloudBlobClient;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import com.microsoft.azure.storage.blob.CloudBlockBlob;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * This sample illustrates basic usage of the various Blob Primitives provided
  * in the Storage Client Library including CloudBlobContainer, CloudBlockBlob
  * and CloudBlobClient.
  */
-public class BlobUploadTask extends AsyncTask<String, Void, Void> {
+public class BlobUploadTask extends AsyncTask<String, Void, ArrayList<ProductImage>> {
 
-    private File imageToUpload;
+    private ProductsFragmentListener mListener;
+    private ArrayList<ProductImage> imagesToUpload;
+    private User mCurrentUser;
+    private static final String AZURE_CONTAINER = "farfromsober-images-container";
 
     public static final String storageConnectionString = "DefaultEndpointsProtocol=https;"
             + "AccountName=farfromsober;"
             + "AccountKey=tv2oqlfCxzFUm7/dYgBGD6YW5K1eQOROVGqqDVm3ijaJpdhxwpkW5OttAFS70++IAcEReSdc0fR/zc06CKrkWQ==";
 
-    public BlobUploadTask(File imageFile) {
-        this.imageToUpload = imageFile;
+    public BlobUploadTask(ArrayList<ProductImage> imageFiles, ProductsFragmentListener listener, User currentUser) {
+        this.imagesToUpload = imageFiles;
+        this.mListener = listener;
+        this.mCurrentUser = currentUser;
     }
 
     @Override
-    protected Void doInBackground(String... arg0) {
+    protected ArrayList<ProductImage> doInBackground(String... arg0) {
 
         //act.printSampleStartInfo("BlobBasics");
 
@@ -61,25 +75,32 @@ public class BlobUploadTask extends AsyncTask<String, Void, Void> {
             // The container name must be lower case
             // Append a random UUID to the end of the container name so that
             // this sample can be run more than once in quick succession.
-            CloudBlobContainer container = blobClient.getContainerReference("farfromsober-images-container");
+            CloudBlobContainer container = blobClient.getContainerReference(AZURE_CONTAINER);
 
-            // Get a reference to a blob in the container
-            CloudBlockBlob imageBlob = container.getBlockBlobReference("imagen_test.jpg");
+            int currentPosition=0;
+            for (ProductImage productImage: imagesToUpload) {
+                if (productImage.isHasImage()) {
+                    // Get a reference to a blob in the container
+                    CloudBlockBlob imageBlob = container.getBlockBlobReference(mCurrentUser.getUserId()+ "-" + currentPosition + "-" +DateManager.timestampFromDate(new Date()) +".jpg");
+                    BlobProperties imageBlobProperties = new BlobProperties();
+                    imageBlobProperties.setContentType("image/jpg");
 
-            // Upload imageFile to blob
-            imageBlob.upload(new FileInputStream(imageToUpload), imageToUpload.length());
+                    productImage.setImageUrl(imageBlob.getStorageUri().getPrimaryUri().toString());
+                    // Upload imageFile to blob
+                    imageBlob.upload(new FileInputStream(productImage.getImageFile()), productImage.getImageFile().length());
+                }
+                currentPosition++;
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return null;
+        return imagesToUpload;
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
-
-        System.out.println("IMAGE UPLOADED");
-        super.onPostExecute(aVoid);
+    protected void onPostExecute(ArrayList<ProductImage> productImages) {
+        mListener.onProductsFragmentNewProductImagesUploaded(productImages);
     }
 }

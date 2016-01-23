@@ -47,4 +47,9 @@ public class ProductImage {
     public void setImageName(String imageName) {
         mImageName = imageName;
     }
+
+    @Override
+    public String toString() {
+        return mImageUrl;
+    }
 }
