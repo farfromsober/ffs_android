@@ -19,6 +19,7 @@ import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.ImagePagerAdapter;
 import com.farfromsober.ffs.callbacks.OnMenuSelectedCallback;
+import com.farfromsober.ffs.callbacks.ProductDetailFragmentListener;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.Transaction;
 import com.farfromsober.ffs.model.User;
@@ -48,6 +49,8 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
 
     public static final String ARG_PRODUCT = "com.farfromsober.ffs.fragments.ProductDetailFragment.ARG_PRODUCT";
     private Product mProduct;
+    public ProductDetailFragmentListener mListener;
+
     private APIManager apiManager;
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
 
@@ -242,8 +245,10 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
     public void onDataParsed(ArrayList<Transaction> data) {
         if (data != null) {
             Log.i("ffs", "Transaction succeed");
+            mListener.onProductsDetailFragmentPurchaseSucceed();
         } else {
             Log.i("ffs", "Transaction failed");
+            mListener.onProductsDetailFragmentPurchaseFailed();
         }
         hidePreloader();
     }
@@ -252,8 +257,10 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
     public void onDataParsed(Transaction data) {
         if (data != null) {
             Log.i("ffs", "Transaction succeed");
+            mListener.onProductsDetailFragmentPurchaseSucceed();
         } else {
             Log.i("ffs", "Transaction failed");
+            mListener.onProductsDetailFragmentPurchaseFailed();
         }
         hidePreloader();
     }

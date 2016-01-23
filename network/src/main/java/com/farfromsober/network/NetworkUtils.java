@@ -87,7 +87,7 @@ public class NetworkUtils {
         return result.toString();
     }
     public static void parseObjects(int responseCode, String response, Class<?> modelClass, WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {
-        if (responseCode == HttpsURLConnection.HTTP_OK) {
+        if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
             Object json;
             try {
                 json = new JSONTokener(response).nextValue();

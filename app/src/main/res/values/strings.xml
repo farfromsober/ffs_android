@@ -72,5 +72,10 @@
     <string name="new_product_hint_description">Description</string>
     <string name="new_product_hint_category">Category</string>
     <string name="new_product_hint_price">Price</string>
+    <string name="transaction_succeed">Transacción completada</string>
+    <string name="enjoy_new_product">Disfruta tu nuevo producto</string>
+    <string name="button_ok">OK</string>
+    <string name="please_try_again">Por favor, inténtalo de nuevo.</string>
+    <string name="transaction_failed">Ups, la transacción no pudo completarse</string>
 
 </resources>
