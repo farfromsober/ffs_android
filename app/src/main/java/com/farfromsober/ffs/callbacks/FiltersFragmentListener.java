@@ -4,10 +4,11 @@ import android.app.Fragment;
 import com.farfromsober.ffs.model.Product;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by joanbiscarri on 04/12/15.
  */
 public interface FiltersFragmentListener {
-    public void onProductFilter1Selected(Fragment f,ArrayList<String> selectedItems);
+    public void onProductFilter1Selected(Fragment f,HashMap<String,Integer> selectedItems);
 }

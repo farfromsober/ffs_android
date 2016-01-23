@@ -25,10 +25,20 @@
     </string-array>
 
     <string-array name="CategoryList">
-        <item>General</item>
-        <item>Deportes</item>
-        <item>Tecnología</item>
-        <item>Motor</item>
+        <item>Mac</item>
+        <item>iPad</item>
+        <item>iPhone</item>
+        <item>Watch</item>
+        <item>TV</item>
+        <item>Music</item>
+    </string-array>
+
+    <string-array name="DistanceList">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>50</item>
+        <item>100</item>
     </string-array>
 
     <string name="products_fragment">Productos fragment</string>
@@ -77,5 +87,7 @@
     <string name="button_ok">OK</string>
     <string name="please_try_again">Por favor, inténtalo de nuevo.</string>
     <string name="transaction_failed">Ups, la transacción no pudo completarse</string>
+    <string name="find_product">Buscar producto</string>
+    <string name="filter_product_name">Filtrar productos</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -36,16 +37,22 @@ import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.networkviews.NetworkPreloaderActivity;
 import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback, OnOptionsFilterMenuSelected,FiltersFragmentListener,ProductDetailFragmentListener {
+public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback, OnOptionsFilterMenuSelected,FiltersFragmentListener,ProductDetailFragmentListener, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
+{
 
     public static final int PRODUCTS_FRAGMENT_INDEX = 0;
     public static final int MAP_FRAGMENT_INDEX = 1;
@@ -73,6 +80,9 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
     public WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
 
+    private GoogleApiClient mGoogleApiClient;
+    private Location mLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +95,22 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         }
         else {
             this.configureDrawer();
+        }
+
+        configureGoogleApiClient();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
         }
     }
 
@@ -293,9 +319,17 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     @Override
-    public void onProductFilter1Selected(Fragment f,ArrayList<String> selectedItems) {
+    public void onProductFilter(String word){
+        ((ProductsFragment)mCurrentFragment).filterByWord(word);
+    }
+
+    @Override
+    public void onProductFilter1Selected(Fragment f,HashMap<String,Integer> selectedItems) {
+
+
         getFragmentManager().beginTransaction().remove(f).commit();
-        ((ProductsFragment)mCurrentFragment).filterBycategory(selectedItems);
+        ((ProductsFragment)mCurrentFragment).filterBycategoryAndDistance(selectedItems, mLocation);
+
     }
 
     @Override
@@ -341,4 +375,41 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
             ((ProductsFragment)mCurrentFragment).askServerForProducts();
         }
     }
+
+    private void configureGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+    }
+
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        System.out.print("Pause");
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        System.out.print("Error");
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+
+        android.location.Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (location == null) {
+            // Blank for the moment...
+        }
+        else {
+            handleNewLocation(location);
+        }
+    }
+
+    private void handleNewLocation(android.location.Location location) {
+
+        mLocation = location;
+    }
+
 }

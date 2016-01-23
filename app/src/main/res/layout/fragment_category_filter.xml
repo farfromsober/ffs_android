@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              xmlns:ffs="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:ffs="http://schemas.android.com/apk/res-auto"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+
+<ScrollView android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/linear_button"
+            android:fillViewport="true"
+    >
+
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
@@ -9,10 +19,46 @@
               style="@style/light_orange_background"
     >
 
-    <ListView
-        android:id="@android:id/list"
+
+    <TextView
+        android:id="@+id/direction_label"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:background="#fcb797"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="Categorías"
+        android:textColor="#FFFFFF"
+        android:textSize="13dip" />
+
+    <ListView
+        android:id="@+id/categoryList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice">
+    </ListView>
+
+
+    <TextView
+        android:id="@+id/direction_label1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#fcb797"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:text="Distancia"
+        android:textColor="#FFFFFF"
+        android:textSize="13dip" />
+
+    <ListView
+        android:id="@+id/distanceList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice">
     </ListView>
 
     <TextView
@@ -22,15 +68,35 @@
     </TextView>
 
 
-    <com.farfromsober.customviews.CustomFontButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/filter_submit"
-        ffs:fontName="Raleway-Bold.ttf"
-        android:id="@+id/filter1_submit"
-        android:layout_centerHorizontal="true"
-        android:padding="10dp"
-        style="@style/app_button"
-        />
 
 </LinearLayout>
+</ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_light_orange"
+        android:id="@+id/linear_button"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        >
+
+        <com.farfromsober.customviews.CustomFontButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter_submit"
+            ffs:fontName="Raleway-Bold.ttf"
+            android:id="@+id/filter1_submit"
+            android:gravity="center"
+            android:padding="10dp"
+            style="@style/app_button"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

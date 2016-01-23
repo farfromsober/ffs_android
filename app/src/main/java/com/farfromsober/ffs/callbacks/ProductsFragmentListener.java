@@ -10,4 +10,5 @@ public interface ProductsFragmentListener {
     public void onProductsFragmentAddProductClicked();
     public void onProductsFragmentNewProductCreated();
     public void onProductsFragmentProductClicked(Product product);
+    public void onProductFilter(String word);
 }
