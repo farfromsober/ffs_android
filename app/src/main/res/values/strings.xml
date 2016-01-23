@@ -89,5 +89,6 @@
     <string name="transaction_failed">Ups, la transacción no pudo completarse</string>
     <string name="find_product">Buscar producto</string>
     <string name="filter_product_name">Filtrar productos</string>
+    <string name="no_products_label_text">No se han encontrado productos</string>
 
 </resources>

@@ -22,6 +22,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
 import com.farfromsober.ffs.callbacks.FiltersFragmentListener;
@@ -54,6 +55,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     Button button;
 
     //private RecyclerView mProductsList;
+    @Bind(R.id.no_products_label) CustomFontTextView mNoProductsLabel;
     @Bind(R.id.products_list) RecyclerView mProductsList;
     @Bind(R.id.add_product_button) FloatingActionButton mAddProduct;
 
@@ -194,9 +196,13 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
             Log.i("ffs", data.toString());
 
             Products products = Products.getInstance(getActivity());
-            if (data.size() > 0)
+            if (data.size() > 0) {
+                mProductsList.setVisibility(View.VISIBLE);
                 products.deleteProducts();
-
+            }
+            else {
+                mProductsList.setVisibility(View.INVISIBLE);
+            }
             for (int i = 0; i < data.size(); i++) {
                 Product product = data.get(i);
                 // ONLY Products that have selling = true will be shown

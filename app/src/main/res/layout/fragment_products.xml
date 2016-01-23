@@ -5,68 +5,77 @@
                 android:layout_height="match_parent">
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:id="@+id/filter_linear"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true">
+        android:id="@+id/filter_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal">
 
 
         <com.farfromsober.customviews.CustomFontEditText
             android:id="@+id/filter_product"
+            style="@style/app_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:hint="@string/find_product"
             ffs:fontName="Raleway-Regular.ttf"
-            android:gravity="center"
-            style="@style/app_edit_text"
-            android:layout_weight="1"
 
             />
 
         <com.farfromsober.customviews.CustomFontButton
+            android:id="@+id/filtrar_submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/filtrar_submit"
-            android:layout_centerHorizontal="true"
-            android:padding="10dp"
             android:layout_alignParentBottom="true"
-            android:drawableRight="@drawable/ic_search"
+            android:layout_centerHorizontal="true"
             android:background="@android:color/transparent"
+            android:drawableRight="@drawable/ic_search"
+            android:padding="10dp"
             />
 
-</LinearLayout>
+    </LinearLayout>
 
 
-
-
-<android.support.design.widget.CoordinatorLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/coordinator"
-    android:layout_below="@+id/filter_linear">
-
-
-
-    <!-- TODO: Update blank fragment layout -->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/products_list"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_product_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_plus"
-        app:borderWidth="0dp"
-        app:elevation="10dp"
-        android:layout_margin="10dp"
-        app:layout_anchor="@id/products_list"
-        app:layout_anchorGravity="bottom|right|end"
-        app:backgroundTint="@color/app_dark_orange"
-        />
+        android:layout_below="@+id/filter_linear">
 
-</android.support.design.widget.CoordinatorLayout>
+        <com.farfromsober.customviews.CustomFontTextView
+            android:id="@+id/no_products_label"
+            style="@style/app_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/no_products_label_text"
+            android:textSize="16sp"
+            android:textColor="@color/app_dark_orange"
+            ffs:fontName="Raleway-Regular.ttf"/>
+
+
+        <!-- TODO: Update blank fragment layout -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/products_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_product_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_plus"
+            app:backgroundTint="@color/app_dark_orange"
+            app:borderWidth="0dp"
+            app:elevation="10dp"
+            app:layout_anchor="@id/products_list"
+            app:layout_anchorGravity="bottom|right|end"
+            />
+
+    </android.support.design.widget.CoordinatorLayout>
 </RelativeLayout>
