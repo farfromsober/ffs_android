@@ -22,6 +22,8 @@ import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -32,11 +34,16 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
     private LoginData loginData;
 
 
-    @Bind(R.id.login_email) EditText mLoginEmail;
-    @Bind(R.id.login_password) EditText mLoginPassword;
-    @Bind(R.id.button_login_signin) Button mSigninButton;
-    @Bind(R.id.button_fotgot_pass) Button mForgotPassButton;
-    @Bind(R.id.button_register) Button mRegisterButton;
+    @Bind(R.id.login_email)
+    EditText mLoginEmail;
+    @Bind(R.id.login_password)
+    EditText mLoginPassword;
+    @Bind(R.id.button_login_signin)
+    Button mSigninButton;
+    @Bind(R.id.button_fotgot_pass)
+    Button mForgotPassButton;
+    @Bind(R.id.button_register)
+    Button mRegisterButton;
     public WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
 
 
@@ -46,8 +53,8 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        mOnDataParsedCallback = new WeakReference<>((OnDataParsedCallback)this);
-        mOnNetworkActivityCallback = new WeakReference<>((OnNetworkActivityCallback)this);
+        mOnDataParsedCallback = new WeakReference<>((OnDataParsedCallback) this);
+        mOnNetworkActivityCallback = new WeakReference<>((OnNetworkActivityCallback) this);
 
         apiManager = new APIManager(this);
 
@@ -56,7 +63,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
 
 
     protected void initButtonsListeners() {
-        final WeakReference<LoginActivity> loginActivityWeakReference =  new WeakReference<LoginActivity>(this);
+        final WeakReference<LoginActivity> loginActivityWeakReference = new WeakReference<LoginActivity>(this);
 
         mSigninButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,33 +94,29 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
     }
 
 
-
     @Override
-    public void onDataParsed(ArrayList data) {
+    public void onDataArrayParsed(int responseCode, ArrayList data) {
         if (data != null) {
             Log.i("ffs", data.toString());
         }
     }
 
     @Override
-    public void onDataParsed(User data) {
+    public void onDataObjectParsed(int responseCode, User data) {
         hidePreloader();
+        if (responseCode != HttpsURLConnection.HTTP_OK) {
+            return;
+        }
         if (data != null) {
             Log.i("ffs", data.toString());
             SharedPreferencesManager.savePrefUserData(getApplicationContext(), data);
             SharedPreferencesManager.savePrefLoginUser(getApplicationContext(), this.loginData);
 
             this.showMainActivity();
-        }else{
+        } else if (data == null) {
             this.showErrorMessage();
         }
     }
-
-    @Override
-    public void onResponseSuccess() {
-
-    }
-
 
     private void showMainActivity() {
         Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
@@ -127,7 +130,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
         alertDialog.setMessage(getString(R.string.login_error_message));
         alertDialog.setButton(0, "OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-            // here you can add functions
+                // here you can add functions
             }
         });
         alertDialog.show();

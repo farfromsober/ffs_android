@@ -128,16 +128,9 @@ public class APIManager implements OnResponseReceivedCallback {
         uploadNewProductImagesAsyncTask.execute();
     }
 
-
-
     @Override
     public void onResponseReceived(int responseCode, String response, Class<?> modelClass, WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {
         NetworkUtils.parseObjects(responseCode, response, modelClass, onDataParsedCallbackWeakReference);
-    }
-
-    @Override
-    public void onResponseReceivedWithNoData(WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {
-        onDataParsedCallbackWeakReference.get().onResponseSuccess();
     }
 
     @Override

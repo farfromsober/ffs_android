@@ -39,6 +39,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -162,7 +164,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
 
     public void filterBycategoryAndDistance(HashMap<String,Integer> categories, Location location) {
         showPreloader(getActivity().getString(R.string.products_loading_message));
-        apiManager.allProductsFilterByCategoriesAndDistance(categories,this,location);
+        apiManager.allProductsFilterByCategoriesAndDistance(categories, this, location);
     }
 
     public void filterByWord(String word) {
@@ -196,7 +198,10 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
 
 
     @Override
-    public void onDataParsed(ArrayList<Product> data) {
+    public void onDataArrayParsed(int responseCode, ArrayList<Product> data) {
+        if (responseCode != HttpsURLConnection.HTTP_OK) {
+            return;
+        }
         if (data != null) {
             Log.i("ffs", data.toString());
 
@@ -224,15 +229,10 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     }
 
     @Override
-    public void onDataParsed(Product data) {
+    public void onDataObjectParsed(int responseCode, Product data) {
         Log.i("ffs", data.toString());
 
         hidePreloader();
-    }
-
-    @Override
-    public void onResponseSuccess() {
-
     }
 
     @Override

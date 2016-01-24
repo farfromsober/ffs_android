@@ -37,7 +37,10 @@ import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -52,16 +55,25 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
     public ArrayList<ProductImage> mProductImages = new ArrayList<>();
 
 
-    @Bind(R.id.new_product_sell_button) Button mSellButton;
-    @Bind(R.id.new_product_image_1) ImageButton mImage1Button;
-    @Bind(R.id.new_product_image_2) ImageButton mImage2Button;
-    @Bind(R.id.new_product_image_3) ImageButton mImage3Button;
-    @Bind(R.id.new_product_image_4) ImageButton mImage4Button;
+    @Bind(R.id.new_product_sell_button)
+    Button mSellButton;
+    @Bind(R.id.new_product_image_1)
+    ImageButton mImage1Button;
+    @Bind(R.id.new_product_image_2)
+    ImageButton mImage2Button;
+    @Bind(R.id.new_product_image_3)
+    ImageButton mImage3Button;
+    @Bind(R.id.new_product_image_4)
+    ImageButton mImage4Button;
 
-    @Bind(R.id.new_product_title) CustomFontEditText mProductTitle;
-    @Bind(R.id.new_product_description) CustomFontEditText mProductDescription;
-    @Bind(R.id.new_product_category_spinner) Spinner mProductCategorySpinner;
-    @Bind(R.id.new_product_price) CustomFontEditText mProductPrice;
+    @Bind(R.id.new_product_title)
+    CustomFontEditText mProductTitle;
+    @Bind(R.id.new_product_description)
+    CustomFontEditText mProductDescription;
+    @Bind(R.id.new_product_category_spinner)
+    Spinner mProductCategorySpinner;
+    @Bind(R.id.new_product_price)
+    CustomFontEditText mProductPrice;
 
     private Product mNewProduct;
 
@@ -152,7 +164,7 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
     }
 
     private void setProductPhoto() {
-        if(mProductImages.get(mActualImagePosition).isHasImage()) {
+        if (mProductImages.get(mActualImagePosition).isHasImage()) {
             // Preguntar qué quiere hacer con la foto
             FragmentManager manager = getFragmentManager();
             ProductImageDialogFragment dialog = new ProductImageDialogFragment();
@@ -169,7 +181,7 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
         mActualProductImage = mProductImages.get(mActualImagePosition);
 
         File externalFilesDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        Long tsLong = System.currentTimeMillis()/1000;
+        Long tsLong = System.currentTimeMillis() / 1000;
         String ts = tsLong.toString();
         String imageName = "IMG_" + "user_id" + ts + ".jpg";
         mActualProductImage.setImageName(imageName);
@@ -189,8 +201,8 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
         ProductImage productImageToRemove = mProductImages.get(mActualImagePosition);
         productImageToRemove.getImageFile().delete();
         mProductImages.remove(mActualImagePosition);
-        if (mProductImages.size()>0) {
-            mProductImages.remove(mProductImages.size()-1);
+        if (mProductImages.size() > 0) {
+            mProductImages.remove(mProductImages.size() - 1);
 
         }
         updateProductImages();
@@ -205,7 +217,7 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
                 imageButton.setImageBitmap(bitmap);
             } else {
                 imageButton.setImageResource(R.drawable.photo_placeholder);
-                if (i==mProductImages.size()) {
+                if (i == mProductImages.size()) {
                     imageButton.setVisibility(View.VISIBLE);
                 } else {
                     imageButton.setVisibility(View.INVISIBLE);
@@ -228,7 +240,7 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
                 removePhoto();
             } else if (resultCode == getActivity().RESULT_CANCELED) {
                 // Reemplazamos foto
-                mProductImages.remove(mProductImages.size()-1);
+                mProductImages.remove(mProductImages.size() - 1);
                 takePhoto();
             }
         }
@@ -258,7 +270,7 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
         try {
             mOnNetworkActivityCallback = new WeakReference<>((OnNetworkActivityCallback) getActivity());
         } catch (Exception e) {
-            throw new ClassCastException(context.toString()+" must implement OnNetworkActivityCallback in Activity");
+            throw new ClassCastException(context.toString() + " must implement OnNetworkActivityCallback in Activity");
         }
     }
 
@@ -299,7 +311,7 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
     }
 
     private void removeImagesFromStorage() {
-        for (ProductImage productImage: mProductImages) {
+        for (ProductImage productImage : mProductImages) {
             if (productImage.isHasImage()) {
                 productImage.getImageFile().delete();
             }
@@ -307,28 +319,32 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
     }
 
     @Override
-    public void onDataParsed(ArrayList<Product> data) {
-        Log.i("ffs", data.toString());
-        hidePreloader();
+    public void onDataArrayParsed(int responseCode, ArrayList<Product> data) {
+        System.out.println("Aqui");
     }
 
     @Override
-    public void onDataParsed(Product data) {
-        mNewProduct = data;
-        ArrayList<String> imageUrls = new ArrayList<>();
-        for (ProductImage productImage: mProductImages) {
-            if (productImage.isHasImage()) {
-                imageUrls.add(productImage.getImageUrl());
-            }
+    public void onDataObjectParsed(int responseCode, Product data) {
+        if (responseCode != HttpsURLConnection.HTTP_CREATED) {
+            return;
         }
-        mNewProduct.setImages(imageUrls);
-        apiManager.uploadNewProductImages(mNewProduct, this);
-    }
+        if (data != null) {
+            mNewProduct = data;
+            ArrayList<String> imageUrls = new ArrayList<>();
+            for (ProductImage productImage : mProductImages) {
+                if (productImage.isHasImage()) {
+                    imageUrls.add(productImage.getImageUrl());
+                }
+            }
+            mNewProduct.setImages(imageUrls);
+            apiManager.uploadNewProductImages(mNewProduct, this);
+        } else if (data == null) {
+            removeImagesFromStorage();
+            hidePreloader();
+            mListener.onProductsFragmentNewProductCreated();
+        }
 
-    @Override
-    public void onResponseSuccess() {
-        removeImagesFromStorage();
-        mListener.onProductsFragmentNewProductCreated();
+
     }
 
     @Override

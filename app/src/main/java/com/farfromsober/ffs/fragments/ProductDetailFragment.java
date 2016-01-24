@@ -39,6 +39,8 @@ import com.viewpagerindicator.CirclePageIndicator;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -242,32 +244,22 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
     }
 
     @Override
-    public void onDataParsed(ArrayList<Transaction> data) {
+    public void onDataArrayParsed(int responseCode, ArrayList<Transaction> data) {
+    }
+
+    @Override
+    public void onDataObjectParsed(int responseCode, Transaction data) {
+        if (responseCode != HttpsURLConnection.HTTP_CREATED) {
+            return;
+        }
         if (data != null) {
             Log.i("ffs", "Transaction succeed");
             mListener.onProductsDetailFragmentPurchaseSucceed();
-        } else {
+        } else if (data==null){
             Log.i("ffs", "Transaction failed");
             mListener.onProductsDetailFragmentPurchaseFailed();
         }
         hidePreloader();
-    }
-
-    @Override
-    public void onDataParsed(Transaction data) {
-        if (data != null) {
-            Log.i("ffs", "Transaction succeed");
-            mListener.onProductsDetailFragmentPurchaseSucceed();
-        } else {
-            Log.i("ffs", "Transaction failed");
-            mListener.onProductsDetailFragmentPurchaseFailed();
-        }
-        hidePreloader();
-    }
-
-    @Override
-    public void onResponseSuccess() {
-
     }
 
     @Override

@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
-
 public class NetworkUtils {
 
     @NonNull
@@ -34,6 +32,7 @@ public class NetworkUtils {
         url = uri.toURL();
         return url;
     }
+
     public static String getUrlDataString(HashMap<String, Object> params) throws UnsupportedEncodingException {
         if (params == null) {
             return "";
@@ -41,20 +40,19 @@ public class NetworkUtils {
         StringBuilder result = new StringBuilder();
         boolean first = true;
         for (Map.Entry<String, Object> entry : params.entrySet()) {
-            if (first){
+            if (first) {
                 first = false;
                 result.append("?");
-            }
-            else{
+            } else {
                 result.append("&");
             }
 
             result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
             result.append("=");
 
-            if (entry.getValue().getClass().equals(String.class)){
-                result.append(URLEncoder.encode((String)entry.getValue(), "UTF-8"));
-            } else{
+            if (entry.getValue().getClass().equals(String.class)) {
+                result.append(URLEncoder.encode((String) entry.getValue(), "UTF-8"));
+            } else {
                 result.append(entry.getValue());
             }
         }
@@ -83,7 +81,7 @@ public class NetworkUtils {
                 // Si se trata de un Hashmap dentro de otro
                 result.append(getBodyDataString((HashMap<String, Object>) entry.getValue()));
             } else if (entry.getValue() instanceof Object[]) {
-                result.append(getBodyDataStringFromArray((Object[])entry.getValue()));
+                result.append(getBodyDataStringFromArray((Object[]) entry.getValue()));
             } else {
                 result.append("\"");
                 result.append(entry.getValue());
@@ -102,7 +100,7 @@ public class NetworkUtils {
         StringBuilder result = new StringBuilder();
         result.append("[");
         boolean first = true;
-        for (Object objectInArray: array) {
+        for (Object objectInArray : array) {
             if (first)
                 first = false;
             else
@@ -117,36 +115,35 @@ public class NetworkUtils {
     }
 
     public static void parseObjects(int responseCode, String response, Class<?> modelClass, WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {
-        if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
-            Object json;
-            try {
-                json = new JSONTokener(response).nextValue();
-                if (json instanceof JSONObject) {
+        if (response.equals("")) {
+            onDataParsedCallbackWeakReference.get().onDataObjectParsed(responseCode, null);
+            return;
+        }
+        Object json;
+        try {
+            json = new JSONTokener(response).nextValue();
+            if (json instanceof JSONObject) {
 
-                    Constructor<?> ctor = modelClass.getConstructor(JSONObject.class);
-                    Object object = ctor.newInstance((JSONObject) json);
+                Constructor<?> ctor = modelClass.getConstructor(JSONObject.class);
+                Object object = ctor.newInstance((JSONObject) json);
 
-                    if (onDataParsedCallbackWeakReference != null && onDataParsedCallbackWeakReference.get() != null) {
-                        onDataParsedCallbackWeakReference.get().onDataParsed(object);
-                    }
+                if (onDataParsedCallbackWeakReference != null && onDataParsedCallbackWeakReference.get() != null) {
+                    onDataParsedCallbackWeakReference.get().onDataObjectParsed(responseCode, object);
                 }
-                else if (json instanceof JSONArray) {
-                    ArrayList<Object> objects = new ArrayList<>();
-                    JSONArray objectsArray = new JSONArray(response);
-                    for (int i = 0; i < objectsArray.length(); i++) {
-                        JSONObject jsonObject = objectsArray.getJSONObject(i);
-                        Constructor<?> constructor = modelClass.getConstructor(JSONObject.class);
-                        Object object = constructor.newInstance(jsonObject);
-                        objects.add(object);
-                    }
-                    onDataParsedCallbackWeakReference.get().onDataParsed(objects);
+            } else if (json instanceof JSONArray) {
+                ArrayList<Object> objects = new ArrayList<>();
+                JSONArray objectsArray = new JSONArray(response);
+                for (int i = 0; i < objectsArray.length(); i++) {
+                    JSONObject jsonObject = objectsArray.getJSONObject(i);
+                    Constructor<?> constructor = modelClass.getConstructor(JSONObject.class);
+                    Object object = constructor.newInstance(jsonObject);
+                    objects.add(object);
                 }
-            } catch (JSONException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
-                onDataParsedCallbackWeakReference.get().onDataParsed(null);
+                onDataParsedCallbackWeakReference.get().onDataArrayParsed(responseCode, objects);
             }
-        } else {
-            onDataParsedCallbackWeakReference.get().onDataParsed(null);
+        } catch (JSONException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+            onDataParsedCallbackWeakReference.get().onDataArrayParsed(responseCode, null);
         }
     }
 }

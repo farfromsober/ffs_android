@@ -124,11 +124,7 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
         String response = (String) values.get(RESPONSE_KEY);
 
         if (mOnResponseReceivedCallbackWeakReference != null && mOnResponseReceivedCallbackWeakReference.get() != null) {
-            if (response.equals("") || response==null) {
-                mOnResponseReceivedCallbackWeakReference.get().onResponseReceivedWithNoData(mOnDataParsedCallbackWeakReference);
-            } else {
-                mOnResponseReceivedCallbackWeakReference.get().onResponseReceived(responseCode, response, mModelClass, mOnDataParsedCallbackWeakReference);
-            }
+            mOnResponseReceivedCallbackWeakReference.get().onResponseReceived(responseCode, response, mModelClass, mOnDataParsedCallbackWeakReference);
         }
         super.onPostExecute(values);
     }
