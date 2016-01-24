@@ -11,9 +11,9 @@ public class Category implements Serializable {
     private static final String NAME_KEY = "name";
 
     private String mName;
-    private double mIndex;
+    private int mIndex;
 
-    public Category(String name, double index) {
+    public Category(String name, int index) {
         super();
         mName = name;
         mIndex = index;
@@ -21,7 +21,7 @@ public class Category implements Serializable {
 
     public Category(JSONObject json) {
         mName = json.optString(NAME_KEY);
-        mIndex = json.optDouble(INDEX_KEY);
+        mIndex = json.optInt(INDEX_KEY);
     }
 
     public String getName() {
@@ -32,20 +32,21 @@ public class Category implements Serializable {
         mName = name;
     }
 
-    public double getIndex() {
+    public int getIndex() {
         return mIndex;
     }
 
-    public void setIndex(double index) {
+    public void setIndex(int index) {
         mIndex = index;
     }
 
     @Override
     public String toString() {
-        return "Category{" +
+        /*return "Category{" +
                 "mName='" + mName + '\'' +
                 ", mIndex=" + mIndex +
-                '}';
+                '}';*/
+        return mName;
     }
 
     public HashMap<String, Object> toHashMap() {

@@ -90,5 +90,11 @@
     <string name="find_product">Buscar producto</string>
     <string name="filter_product_name">Filtrar productos</string>
     <string name="no_products_label_text">No se han encontrado productos</string>
+    <string name="product_image_dialog_title">Product Photo</string>
+    <string name="product_image_dialog_message">What do you want to do with this picture?</string>
+    <string name="product_image_dialog_remove">Remove</string>
+    <string name="product_image_dialog_replace">Replace</string>
+    <string name="new_product_uploading_images">Uploading Product Images</string>
+    <string name="new_product_uploading_product_info">Uploading product info</string>
 
 </resources>

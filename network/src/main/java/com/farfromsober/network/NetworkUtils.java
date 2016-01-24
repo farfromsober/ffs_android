@@ -79,13 +79,43 @@ public class NetworkUtils {
             result.append(entry.getKey());
             result.append("\"");
             result.append(":");
-            result.append("\"");
-            result.append(entry.getValue());
-            result.append("\"");
+            if (entry.getValue() instanceof HashMap) {
+                // Si se trata de un Hashmap dentro de otro
+                result.append(getBodyDataString((HashMap<String, Object>) entry.getValue()));
+            } else if (entry.getValue() instanceof Object[]) {
+                result.append(getBodyDataStringFromArray((Object[])entry.getValue()));
+            } else {
+                result.append("\"");
+                result.append(entry.getValue());
+                result.append("\"");
+            }
         }
         result.append("}");
         return result.toString();
     }
+
+    public static String getBodyDataStringFromArray(Object[] array) {
+        if (array == null) {
+            return "";
+        }
+
+        StringBuilder result = new StringBuilder();
+        result.append("[");
+        boolean first = true;
+        for (Object objectInArray: array) {
+            if (first)
+                first = false;
+            else
+                result.append(",\n");
+            result.append("\"");
+            result.append(objectInArray.toString());
+            result.append("\"");
+        }
+
+        result.append("]");
+        return result.toString();
+    }
+
     public static void parseObjects(int responseCode, String response, Class<?> modelClass, WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {
         if (responseCode == HttpsURLConnection.HTTP_OK || responseCode == HttpsURLConnection.HTTP_CREATED) {
             Object json;

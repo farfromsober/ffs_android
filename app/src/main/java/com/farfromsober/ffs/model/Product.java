@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -25,6 +26,9 @@ public class Product implements Serializable {
     private static final String CATEGORY_KEY = "category";
     private static final String IMAGES_KEY = "images";
 
+    private static final String IMAGE_UPLOAD_ID_KEY = "productId";
+    private static final String IMAGE_UPLOAD_IMAGES_URLS = "urls";
+
     private String mId;
     private String mName;
     private String mDetail;
@@ -34,6 +38,8 @@ public class Product implements Serializable {
     private User mSeller;
     private Category mCategory;
     private ArrayList<String> mImages;
+
+    public Product() { }
 
     public Product(String id, String name, String detail, Date published, boolean isSelling,
                    String price, User seller, Category category, ArrayList<String> images) {
@@ -162,6 +168,24 @@ public class Product implements Serializable {
         hashMap.put(PRICE_KEY, getPrice());
         hashMap.put(SELLER_KEY, getSeller().toHashMap());
         hashMap.put(CATEGORY_KEY, getCategory().toHashMap());
+
+        return hashMap;
+    }
+
+    public HashMap<String, Object> toNewProductHashMap() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(NAME_KEY, getName());
+        hashMap.put(DESCRIPTION_KEY, getDetail());
+        hashMap.put(PRICE_KEY, getPrice());
+        hashMap.put(CATEGORY_KEY, getCategory().toHashMap());
+
+        return hashMap;
+    }
+
+    public HashMap<String, Object> toImagesHashMap() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put(IMAGE_UPLOAD_ID_KEY, getId());
+        hashMap.put(IMAGE_UPLOAD_IMAGES_URLS, getImages().toArray());
 
         return hashMap;
     }

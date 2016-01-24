@@ -109,6 +109,11 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
         }
     }
 
+    @Override
+    public void onResponseSuccess() {
+
+    }
+
 
     private void showMainActivity() {
         Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);

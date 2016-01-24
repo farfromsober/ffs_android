@@ -26,6 +26,8 @@ public class APIManager implements OnResponseReceivedCallback {
     private final Context mContext;
 
     private static final String ALL_PRODUCTS_URL = "http://forsale.cloudapp.net/api/1.0/products";
+    private static final String NEW_PRODUCT_URL = "http://forsale.cloudapp.net/api/1.0/products/";
+    private static final String IMAGES_URL = "http://forsale.cloudapp.net/api/1.0/images/";
     private static final String ALL_USERS_URL = "http://beta.json-generator.com/api/json/get/NJsNmZgQe";
     private static final String LOGIN_URL = "http://forsale.cloudapp.net/api/1.0/login/";
     private static final String TRANSACTIONS_URL = "http://forsale.cloudapp.net/api/1.0/transactions/";
@@ -112,12 +114,30 @@ public class APIManager implements OnResponseReceivedCallback {
         allProductsAsyncTask.execute();
     }
 
+    public void createProduct(Product newProduct, OnDataParsedCallback<Product> onDataParsedCallback) {
+        LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
+        APIRequest apiRequest = new APIRequest(NEW_PRODUCT_URL, ApiRequestType.POST, loginData.getHeaders(),null, newProduct.toNewProductHashMap(), 10000, 10000);
+        APIAsyncTask createProductAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
+        createProductAsyncTask.execute();
+    }
+
+    public void uploadNewProductImages(Product newProduct, OnDataParsedCallback<Product> onDataParsedCallback) {
+        LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
+        APIRequest apiRequest = new APIRequest(IMAGES_URL, ApiRequestType.POST, loginData.getHeaders(),null, newProduct.toImagesHashMap(), 10000, 10000);
+        APIAsyncTask uploadNewProductImagesAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, null);
+        uploadNewProductImagesAsyncTask.execute();
+    }
 
 
 
     @Override
     public void onResponseReceived(int responseCode, String response, Class<?> modelClass, WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {
         NetworkUtils.parseObjects(responseCode, response, modelClass, onDataParsedCallbackWeakReference);
+    }
+
+    @Override
+    public void onResponseReceivedWithNoData(WeakReference<OnDataParsedCallback> onDataParsedCallbackWeakReference) {
+        onDataParsedCallbackWeakReference.get().onResponseSuccess();
     }
 
     @Override
