@@ -10,5 +10,5 @@ import java.util.HashMap;
  * Created by joanbiscarri on 04/12/15.
  */
 public interface FiltersFragmentListener {
-    public void onProductFilter1Selected(Fragment f,HashMap<String,Integer> selectedItems);
+    public void onProductFilter1Selected(HashMap<String,Integer> filterSelectedItems);
 }

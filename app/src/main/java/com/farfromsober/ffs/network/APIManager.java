@@ -3,10 +3,10 @@ package com.farfromsober.ffs.network;
 import android.content.Context;
 import android.location.Location;
 
+import com.farfromsober.ffs.model.LoginData;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.Transaction;
 import com.farfromsober.ffs.model.User;
-import com.farfromsober.ffs.model.LoginData;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.network.APIAsyncTask;
 import com.farfromsober.network.APIRequest;
@@ -15,10 +15,11 @@ import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.farfromsober.network.callbacks.OnResponseReceivedCallback;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static com.farfromsober.network.APIAsyncTask.ApiRequestType;
+
+import static com.farfromsober.ffs.fragments.CategoryFilterFragment.*;
 
 public class APIManager implements OnResponseReceivedCallback {
 
@@ -67,11 +68,11 @@ public class APIManager implements OnResponseReceivedCallback {
         // Crear hashmap con parametros del get
         if (categoriesIds.size()>=1) {
             getParameters = new HashMap<String, Object>();
-            if(categoriesIds.containsKey("category")) {
-                getParameters.put("category", categoriesIds.get("category"));
+            if(categoriesIds.containsKey(CATEGORY_KEY)) {
+                getParameters.put(CATEGORY_KEY, categoriesIds.get(CATEGORY_KEY));
             }
-            if(categoriesIds.containsKey("distance")) {
-                getParameters.put("distance", categoriesIds.get("distance"));
+            if(categoriesIds.containsKey(DISTANCE_KEY)) {
+                getParameters.put(DISTANCE_KEY, categoriesIds.get(DISTANCE_KEY));
                 if (location != null) {
                     getParameters.put("latitude", String.valueOf(location.getLatitude()).replace(",","."));
                     getParameters.put("longitude", String.valueOf(location.getLongitude()).replace(",","."));

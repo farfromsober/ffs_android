@@ -52,6 +52,8 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     public ProductsFragmentListener mListener;
     public OnOptionsFilterMenuSelected optionsListener;
 
+    HashMap<String,Integer> mFilterSelectedItems;
+
     Button button;
 
     //private RecyclerView mProductsList;
@@ -67,7 +69,6 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -109,7 +110,6 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
         });
-
     }
 
     @Override
@@ -133,8 +133,13 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         }
     }
 
-    public void reloadProductsList() {
-        askServerForProducts();
+    public void reloadProductsList(HashMap<String,Integer> filterSelectedItems, Location location) {
+        mFilterSelectedItems = filterSelectedItems;
+        if (filterSelectedItems == null) {
+            askServerForProducts();
+        }else{
+            filterBycategoryAndDistance(mFilterSelectedItems, location);
+        }
     }
 
     public void askServerForProducts() {
@@ -180,7 +185,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
 
             case R.id.action_filter:{
 
-                optionsListener.onFilterMenuSelected(1);
+                optionsListener.onFilterMenuSelected(mFilterSelectedItems);
                 return true;
 
             }
@@ -198,10 +203,12 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
             Products products = Products.getInstance(getActivity());
             if (data.size() > 0) {
                 mProductsList.setVisibility(View.VISIBLE);
+                mNoProductsLabel.setVisibility(View.INVISIBLE);
                 products.deleteProducts();
             }
             else {
                 mProductsList.setVisibility(View.INVISIBLE);
+                mNoProductsLabel.setVisibility(View.VISIBLE);
             }
             for (int i = 0; i < data.size(); i++) {
                 Product product = data.get(i);

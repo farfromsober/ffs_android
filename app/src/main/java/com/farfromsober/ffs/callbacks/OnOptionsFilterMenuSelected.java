@@ -1,11 +1,9 @@
 package com.farfromsober.ffs.callbacks;
-import android.app.Fragment;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by gloria cortés on 04/12/15.
  */
 public interface OnOptionsFilterMenuSelected {
-    public void onFilterMenuSelected(int option);
+    public void onFilterMenuSelected(HashMap<String,Integer> lastFilterSelectedItems);
 }

@@ -137,7 +137,9 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     @Override
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
-            goBackToProductList();
+            if (mCurrentFragment.getClass().equals(ProductsFragment.class)) {
+                goBackToProductList(null);
+            }
         } else {
             super.onBackPressed();
         }
@@ -286,6 +288,11 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     @Override
+    public void onMenuSelected(int position) {
+        loadFragment(position);
+    }
+
+    @Override
     public void onProductsFragmentAddProductClicked() {
         mCurrentFragment.setHasOptionsMenu(false);
         NewProductFragment fragment = new NewProductFragment();
@@ -296,12 +303,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         fragmentTransaction.add(R.id.content_frame, fragment);
         fragmentTransaction.addToBackStack("fragBack");
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onProductsFragmentNewProductCreated() {
-        onBackPressed();
-        ((ProductsFragment)mCurrentFragment).reloadProductsList();
     }
 
     @Override
@@ -318,43 +319,28 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     @Override
-    public void onProductFilter(String word){
-        ((ProductsFragment)mCurrentFragment).filterByWord(word);
+    public void onFilterMenuSelected(HashMap<String,Integer> lastFilterSelectedItems) {
+
+        // Create fragment and give it an argument for the selected article
+        mCurrentFragment.setHasOptionsMenu(false);
+        CategoryFilterFragment fragment = CategoryFilterFragment.newInstance(lastFilterSelectedItems);
+        fragment.mListener = this;
+
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
+        transaction.add(R.id.content_frame, fragment);
+        transaction.addToBackStack("fragBack");
+        transaction.commit();
     }
 
     @Override
-    public void onProductFilter1Selected(Fragment f,HashMap<String,Integer> selectedItems) {
-
-
-        getFragmentManager().beginTransaction().remove(f).commit();
-        ((ProductsFragment)mCurrentFragment).filterBycategoryAndDistance(selectedItems, mLocation);
-
-    }
-
-    @Override
-    public void onMenuSelected(int position) {
-        loadFragment(position);
-    }
-
-    @Override
-    public void onFilterMenuSelected(int option) {
-
-        if (option == 1) {
-            // Create fragment and give it an argument for the selected article
-            CategoryFilterFragment newFragment = new CategoryFilterFragment();
-            newFragment.mListener = (FiltersFragmentListener) this;
-
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
-            transaction.add(R.id.content_frame, newFragment);
-            transaction.addToBackStack("fragBack");
-            transaction.commit();
-        }
+    public void onProductsFragmentNewProductCreated() {
+        goBackToProductList(null);
     }
 
     @Override
     public void onProductsDetailFragmentPurchaseSucceed() {
-        goBackToProductList();
+        goBackToProductList(null);
         showInfoDialogFragment(R.string.transaction_succeed, R.string.enjoy_new_product, R.string.button_ok);
     }
 
@@ -363,16 +349,23 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         showInfoDialogFragment(R.string.transaction_failed, R.string.please_try_again, R.string.button_ok);
     }
 
-    private void goBackToProductList() {
-        getFragmentManager().popBackStack();
-        mCurrentFragment.setHasOptionsMenu(true);
-        reloadProductList();
+    @Override
+    public void onProductFilter(String word){
+        ((ProductsFragment)mCurrentFragment).filterByWord(word);
     }
 
-    private void reloadProductList() {
-        if (mCurrentFragment.getClass().equals(ProductsFragment.class)) {
-            ((ProductsFragment)mCurrentFragment).askServerForProducts();
-        }
+    @Override
+    public void onProductFilter1Selected(HashMap<String,Integer> filterSelectedItems) {
+        goBackToProductList(filterSelectedItems);
+
+//        getFragmentManager().beginTransaction().remove(f).commit();
+//        ((ProductsFragment)mCurrentFragment).filterBycategoryAndDistance(selectedItems, mLocation);
+    }
+
+    private void goBackToProductList(HashMap<String,Integer> filterSelectedItems) {
+        getFragmentManager().popBackStack();
+        mCurrentFragment.setHasOptionsMenu(true);
+        ((ProductsFragment) mCurrentFragment).reloadProductsList(filterSelectedItems, mLocation);
     }
 
     private void configureGoogleApiClient() {
