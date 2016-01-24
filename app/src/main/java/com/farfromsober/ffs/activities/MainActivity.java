@@ -315,8 +315,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
     @Override
     public void onProductsFragmentNewProductCreated() {
-        onBackPressed();
-        ((ProductsFragment)mCurrentFragment).reloadProductsList();
+        goBackToProductList(null);
     }
 
     @Override
@@ -345,11 +344,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         transaction.add(R.id.content_frame, fragment);
         transaction.addToBackStack("fragBack");
         transaction.commit();
-    }
-
-    @Override
-    public void onProductsFragmentNewProductCreated() {
-        goBackToProductList(null);
     }
 
     @Override

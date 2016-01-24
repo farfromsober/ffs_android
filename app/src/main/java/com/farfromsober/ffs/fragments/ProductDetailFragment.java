@@ -266,6 +266,11 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
     }
 
     @Override
+    public void onResponseSuccess() {
+
+    }
+
+    @Override
     public void onExceptionReceived(Exception e) {
         if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
             mOnNetworkActivityCallback.get().onExceptionReceived(e);
