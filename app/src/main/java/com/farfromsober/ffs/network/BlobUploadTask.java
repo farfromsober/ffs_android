@@ -15,23 +15,17 @@
 package com.farfromsober.ffs.network;
 
 import android.os.AsyncTask;
-import android.widget.TextView;
 
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.model.ProductImage;
 import com.farfromsober.ffs.model.User;
-import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.generalutils.DateManager;
 import com.microsoft.azure.storage.CloudStorageAccount;
-import com.microsoft.azure.storage.blob.BlobContainerPermissions;
-import com.microsoft.azure.storage.blob.BlobContainerPublicAccessType;
 import com.microsoft.azure.storage.blob.BlobProperties;
-import com.microsoft.azure.storage.blob.BlobType;
 import com.microsoft.azure.storage.blob.CloudBlobClient;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import com.microsoft.azure.storage.blob.CloudBlockBlob;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -82,8 +76,6 @@ public class BlobUploadTask extends AsyncTask<String, Void, ArrayList<ProductIma
                 if (productImage.isHasImage()) {
                     // Get a reference to a blob in the container
                     CloudBlockBlob imageBlob = container.getBlockBlobReference(mCurrentUser.getUserId()+ "-" + currentPosition + "-" +DateManager.timestampFromDate(new Date()) +".jpg");
-                    BlobProperties imageBlobProperties = new BlobProperties();
-                    imageBlobProperties.setContentType("image/jpg");
 
                     productImage.setImageUrl(imageBlob.getStorageUri().getPrimaryUri().toString());
                     // Upload imageFile to blob
