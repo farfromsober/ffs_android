@@ -44,6 +44,25 @@ public class APIManager implements OnResponseReceivedCallback {
         allProductsAsyncTask.execute();
     }
 
+    public void mySellingProducts(OnDataParsedCallback<Product> onDataParsedCallback){
+        LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
+        HashMap<String, Object> urlParams = new HashMap<>();
+        urlParams.put("seller",SharedPreferencesManager.getPrefUserData(mContext).getUsername());
+        APIRequest apiRequest = new APIRequest(ALL_PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(), urlParams, null, 10000, 10000);
+        APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
+        allProductsAsyncTask.execute();
+    }
+
+    public void mySoldProducts(OnDataParsedCallback<Product> onDataParsedCallback){
+        LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
+        HashMap<String, Object> urlParams = new HashMap<>();
+        urlParams.put("seller",SharedPreferencesManager.getPrefUserData(mContext).getUsername());
+        urlParams.put("selling", "3");
+        APIRequest apiRequest = new APIRequest(ALL_PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(), urlParams, null, 10000, 10000);
+        APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
+        allProductsAsyncTask.execute();
+    }
+
     public void allUsers(OnDataParsedCallback<User> onDataParsedCallback){
         APIRequest apiRequest = new APIRequest(ALL_USERS_URL, ApiRequestType.GET, null, null, null, 10000, 10000);
         APIAsyncTask allUsersAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, User.class);

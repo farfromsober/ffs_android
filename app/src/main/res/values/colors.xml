@@ -34,6 +34,8 @@
     <color name="product_detail_title_text_color">#ff292525</color>
     <color name="product_detail_description_text_color">#ff292525</color>
 
+    <!-- Profile -->
+    <color name="profile_tab_layout_color">#fffc9565</color>
 
 
     <color name="veryLightPink">#fffcebe3</color>

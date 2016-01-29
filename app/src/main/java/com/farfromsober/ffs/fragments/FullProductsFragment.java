@@ -2,12 +2,11 @@ package com.farfromsober.ffs.fragments;
 
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +24,6 @@ import android.widget.EditText;
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
-import com.farfromsober.ffs.callbacks.FiltersFragmentListener;
 import com.farfromsober.ffs.callbacks.OnOptionsFilterMenuSelected;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.callbacks.RecyclerViewClickListener;
@@ -44,12 +42,9 @@ import javax.net.ssl.HttpsURLConnection;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ProductsFragment extends Fragment implements OnDataParsedCallback<Product>, RecyclerViewClickListener {
+public class FullProductsFragment extends Fragment implements OnDataParsedCallback<Product>, RecyclerViewClickListener {
 
-    private APIManager apiManager;
+    protected APIManager apiManager;
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
     public ProductsFragmentListener mListener;
     public OnOptionsFilterMenuSelected optionsListener;
@@ -64,7 +59,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     @Bind(R.id.add_product_button) FloatingActionButton mAddProduct;
 
 
-    public ProductsFragment() {
+    public FullProductsFragment() {
         // Required empty public constructor
     }
 
@@ -76,8 +71,17 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_products, container, false);
+        View root = inflater.inflate(R.layout.fragment_full_products, container, false);
         ButterKnife.bind(this, root);
+
+
+
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         mProductsList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mProductsList.setItemAnimator(new DefaultItemAnimator());
@@ -88,13 +92,6 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
                 mListener.onProductsFragmentAddProductClicked();
             }
         });
-
-        return root;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         apiManager = new APIManager(getActivity());
         askServerForProducts();
@@ -149,7 +146,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         apiManager.allProducts(this);
     }
 
-    private void showPreloader(String message) {
+    protected void showPreloader(String message) {
         if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
             mOnNetworkActivityCallback.get().onNetworkActivityStarted(message);
         }

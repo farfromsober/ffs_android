@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:ffs="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/filter_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal">
+
+
+        <com.farfromsober.customviews.CustomFontEditText
+            android:id="@+id/filter_product"
+            style="@style/app_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="@string/find_product"
+            ffs:fontName="Raleway-Regular.ttf"
+
+            />
+
+        <com.farfromsober.customviews.CustomFontButton
+            android:id="@+id/filtrar_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:drawableRight="@drawable/ic_search"
+            android:padding="10dp"
+            />
+
+    </LinearLayout>
+
+    <include layout="@layout/products_list"/>
+
+</RelativeLayout>
