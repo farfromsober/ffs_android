@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,8 +58,7 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
     @Bind(R.id.no_products_label) CustomFontTextView mNoProductsLabel;
     @Bind(R.id.products_list) RecyclerView mProductsList;
     @Bind(R.id.add_product_button) FloatingActionButton mAddProduct;
-
-
+    @Bind(R.id.products_swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;;
 
     public FullProductsFragment() {
         // Required empty public constructor
@@ -120,6 +120,14 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
         });
+
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.app_dark_orange);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                askServerForProducts();
+            }
+        });
     }
 
     @Override
@@ -174,6 +182,7 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
     }
 
     private void hidePreloader() {
+        mSwipeRefreshLayout.setRefreshing(false);
         if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
             mOnNetworkActivityCallback.get().onNetworkActivityFinished();
         }
@@ -218,6 +227,7 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
     @Override
     public void onDataArrayParsed(int responseCode, ArrayList<Product> data) {
         if (responseCode != HttpsURLConnection.HTTP_OK) {
+            hidePreloader();
             return;
         }
         if (data != null) {
@@ -241,8 +251,6 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
             //Update Adapter
             mProductsList.swapAdapter(new ProductsAdapter(products.getProducts(), getActivity(), this), false);
             hidePreloader();
-        }else{
-
         }
     }
 
@@ -256,6 +264,7 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
         if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
             mOnNetworkActivityCallback.get().onExceptionReceived(e);
         }
+        hidePreloader();
     }
 
     @Override

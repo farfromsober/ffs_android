@@ -35,7 +35,7 @@
             android:gravity="center_horizontal|center_vertical"
             android:padding="5dp"
             style="@style/product_list_price"
-            ffs:fontName="Raleway-Regular.ttf"
+            ffs:fontName="Raleway-Bold.ttf"
             tools:text="@string/product_price_mock_text"/>
 
         <com.farfromsober.customviews.CustomFontTextView
