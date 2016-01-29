@@ -74,7 +74,7 @@
     <string name="filter_submit">Aceptar</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profile_fragment_text">To be done by Mixi     ;-)</string>
     <string name="title_activity_maps">Mapa</string>
     <string name="purchase">Comprar</string>
     <string name="login_accessing">Accediendo</string>
@@ -96,5 +96,8 @@
     <string name="product_image_dialog_replace">Replace</string>
     <string name="new_product_uploading_images">Uploading Product Images</string>
     <string name="new_product_uploading_product_info">Uploading product info</string>
+    <string name="product_image_content_description">Product image</string>
+    <string name="product_name_mock_text">Product name</string>
+    <string name="product_price_mock_text">00.00</string>
 
 </resources>

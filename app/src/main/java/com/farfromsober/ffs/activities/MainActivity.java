@@ -182,7 +182,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         if (user.getAvatarURL() != null && user.getAvatarURL() != "") {
             Picasso.with(this)
                     .load(user.getAvatarURL())
-                    .placeholder(R.drawable.no_user)
+                    .placeholder(R.drawable.mavatar_placeholder)
                     .resize(500, 500)
                     .centerCrop()
                     .into(mDrawerProfileImageView);

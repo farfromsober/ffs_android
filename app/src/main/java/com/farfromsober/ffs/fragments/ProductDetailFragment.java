@@ -209,12 +209,12 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
         if (user.getAvatarURL() != null && user.getAvatarURL().length() > 0) {
             Picasso.with(getActivity())
                     .load(user.getAvatarURL())
-                    .placeholder(R.drawable.no_user)
+                    .placeholder(R.drawable.mavatar_placeholder)
                     .resize(200, 200)
                     .centerCrop()
                     .into(mSellerImageView);
         } else {
-            mSellerImageView.setImageResource(R.drawable.no_user);
+            mSellerImageView.setImageResource(R.drawable.mavatar_placeholder);
         }
 
         mSellerName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));

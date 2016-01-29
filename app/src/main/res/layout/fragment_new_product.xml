@@ -70,7 +70,7 @@
                     android:layout_weight="1"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/photo_placeholder"/>
+                    android:src="@drawable/mphoto_placeholder"/>
 
                 <ImageButton
                     android:id="@+id/new_product_image_2"
@@ -80,7 +80,7 @@
                     android:visibility="invisible"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/photo_placeholder"/>
+                    android:src="@drawable/mphoto_placeholder"/>
 
                 <ImageButton
                     android:id="@+id/new_product_image_3"
@@ -90,7 +90,7 @@
                     android:visibility="invisible"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/photo_placeholder"/>
+                    android:src="@drawable/mphoto_placeholder"/>
 
                 <ImageButton
                     android:id="@+id/new_product_image_4"
@@ -100,7 +100,7 @@
                     android:visibility="invisible"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
-                    android:src="@drawable/photo_placeholder"/>
+                    android:src="@drawable/mphoto_placeholder"/>
 
             </LinearLayout>
 

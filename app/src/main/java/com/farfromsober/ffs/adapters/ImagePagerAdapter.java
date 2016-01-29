@@ -43,12 +43,12 @@ public class ImagePagerAdapter extends PagerAdapter {
         if ((imagePath != null) && (imagePath.length() > 0)) {
             Picasso.with(mContext)
                     .load(mProduct.getImages().get(position))
-                    .placeholder(R.drawable.photo_placeholder)
+                    .placeholder(R.drawable.mphoto_placeholder)
                     .resize(500, 500)
                     .centerCrop()
                     .into(imageView);
         } else {
-            imageView.setImageResource(R.drawable.photo_placeholder);
+            imageView.setImageResource(R.drawable.mphoto_placeholder);
         }
         container.addView(itemView);
 
