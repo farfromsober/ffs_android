@@ -20,7 +20,7 @@ import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.DrawerListAdapter;
 import com.farfromsober.ffs.callbacks.FiltersFragmentListener;
 import com.farfromsober.ffs.callbacks.OnMenuSelectedCallback;
-import com.farfromsober.ffs.callbacks.OnOptionsFilterMenuSelected;
+import com.farfromsober.ffs.callbacks.OnOptionsFilterListener;
 import com.farfromsober.ffs.callbacks.ProductDetailFragmentListener;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.fragments.CategoryFilterFragment;
@@ -51,7 +51,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback, OnOptionsFilterMenuSelected,FiltersFragmentListener,ProductDetailFragmentListener, GoogleApiClient.ConnectionCallbacks,
+public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback, OnOptionsFilterListener,FiltersFragmentListener,ProductDetailFragmentListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     public static final int PRODUCTS_FRAGMENT_INDEX = 0;
@@ -140,6 +140,9 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             if (mCurrentFragment.getClass().equals(FullProductsFragment.class)) {
                 goBackToProductList(null);
+            }
+            if (mCurrentFragment.getClass().equals(FullProfileFragment.class)) {
+                goBackToProfile();
             }
         } else {
             super.onBackPressed();
@@ -232,8 +235,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         switch (position) {
             case PRODUCTS_FRAGMENT_INDEX:
                 mCurrentFragment = new FullProductsFragment();
-                ((FullProductsFragment)mCurrentFragment).mListener = this;
-                ((FullProductsFragment)mCurrentFragment).optionsListener = this;
                 break;
             case MAP_FRAGMENT_INDEX:
                 mCurrentFragment = new FullMapFragment();
@@ -243,6 +244,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
                 break;
             case PROFILE_FRAGMENT_INDEX:
                 mCurrentFragment = new FullProfileFragment();
+                ((FullProfileFragment)mCurrentFragment).mListener = this;
                 break;
         }
         return mCurrentFragment;
@@ -374,6 +376,10 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         getFragmentManager().popBackStack();
         mCurrentFragment.setHasOptionsMenu(true);
         ((FullProductsFragment) mCurrentFragment).reloadProductsList(filterSelectedItems, mLocation);
+    }
+
+    private void goBackToProfile() {
+        getFragmentManager().popBackStack();
     }
 
     private void configureGoogleApiClient() {

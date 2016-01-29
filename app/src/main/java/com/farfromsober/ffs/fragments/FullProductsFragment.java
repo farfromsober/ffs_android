@@ -24,7 +24,7 @@ import android.widget.EditText;
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
-import com.farfromsober.ffs.callbacks.OnOptionsFilterMenuSelected;
+import com.farfromsober.ffs.callbacks.OnOptionsFilterListener;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.callbacks.RecyclerViewClickListener;
 import com.farfromsober.ffs.model.Product;
@@ -46,8 +46,8 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
     protected APIManager apiManager;
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
-    public ProductsFragmentListener mListener;
-    public OnOptionsFilterMenuSelected optionsListener;
+    public WeakReference<ProductsFragmentListener> mProductsListener;
+    public WeakReference<OnOptionsFilterListener> mOptionslistener;
 
     HashMap<String,Integer> mFilterSelectedItems;
 
@@ -59,13 +59,23 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
     @Bind(R.id.add_product_button) FloatingActionButton mAddProduct;
 
 
+
     public FullProductsFragment() {
         // Required empty public constructor
+    }
+
+    public static FullProductsFragment newInstance() {
+        FullProductsFragment fragment = new FullProductsFragment();
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+
+        }
     }
 
     @Override
@@ -73,8 +83,6 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
         View root = inflater.inflate(R.layout.fragment_full_products, container, false);
         ButterKnife.bind(this, root);
-
-
 
         return root;
     }
@@ -89,7 +97,9 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
         mAddProduct.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mListener.onProductsFragmentAddProductClicked();
+                if (mProductsListener != null && mProductsListener.get() != null) {
+                    mProductsListener.get().onProductsFragmentAddProductClicked();
+                }
             }
         });
 
@@ -103,8 +113,9 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
             public void onClick(View v) {
                 // Perform action on click
                 EditText mText = (EditText) getActivity().findViewById(R.id.filter_product);
-                mListener.onProductFilter(mText.getText().toString());
-
+                if (mProductsListener != null && mProductsListener.get() != null) {
+                    mProductsListener.get().onProductFilter(mText.getText().toString());
+                }
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
@@ -129,6 +140,16 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
             mOnNetworkActivityCallback = new WeakReference<>((OnNetworkActivityCallback) getActivity());
         } catch (Exception e) {
             throw new ClassCastException(context.toString()+" must implement OnNetworkActivityCallback in Activity");
+        }
+        try {
+            mProductsListener = new WeakReference<>((ProductsFragmentListener) getActivity());
+        } catch (Exception e) {
+            throw new ClassCastException(context.toString()+" must implement ProductsFragmentListener in Activity");
+        }
+        try {
+            mOptionslistener = new WeakReference<>((OnOptionsFilterListener) getActivity());
+        } catch (Exception e) {
+            throw new ClassCastException(context.toString()+" must implement ProductsFragmentListener in Activity");
         }
     }
 
@@ -183,10 +204,10 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
         switch (item.getItemId()) {
 
             case R.id.action_filter:{
-
-                optionsListener.onFilterMenuSelected(mFilterSelectedItems);
+                if (mOptionslistener != null && mOptionslistener.get() != null) {
+                    mOptionslistener.get().onFilterMenuSelected(mFilterSelectedItems);
+                }
                 return true;
-
             }
             default:
                 return super.onOptionsItemSelected(item);
@@ -227,8 +248,6 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
     @Override
     public void onDataObjectParsed(int responseCode, Product data) {
-        Log.i("ffs", data.toString());
-
         hidePreloader();
     }
 
@@ -243,6 +262,8 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
     public void recyclerViewListClicked(View v, int position) {
         Products products = Products.getInstance(getActivity());
         Product product = products.getProducts().get(position);
-        mListener.onProductsFragmentProductClicked(product);
+        if (mProductsListener != null && mProductsListener.get() != null) {
+            mProductsListener.get().onProductsFragmentProductClicked(product);
+        }
     }
 }

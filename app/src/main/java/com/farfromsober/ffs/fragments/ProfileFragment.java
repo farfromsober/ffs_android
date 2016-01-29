@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.farfromsober.ffs.R;
+import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +17,10 @@ public class ProfileFragment extends Fragment {
 
 
     public ProfileFragment() {
+        // Required empty public constructor
+    }
+
+    public ProfileFragment(ProductsFragmentListener listener) {
         // Required empty public constructor
     }
 

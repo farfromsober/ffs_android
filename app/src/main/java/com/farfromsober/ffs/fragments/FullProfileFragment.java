@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.farfromsober.ffs.R;
+import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ import butterknife.ButterKnife;
 public class FullProfileFragment extends Fragment {
 
     private FragmentActivity mContext;
+    public ProductsFragmentListener mListener;
 
     //@Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.tabs) TabLayout mTabLayout;
@@ -64,7 +66,7 @@ public class FullProfileFragment extends Fragment {
         adapter.addFragment(new ProfileFragment(), "Perfil");
         adapter.addFragment(new SellingFragment(), "En venta");
         adapter.addFragment(new SoldFragment(), "Vendidos");
-        //adapter.addFragment(new BoughtFragment(), "Comprados");
+        adapter.addFragment(new BoughtFragment(), "Comprados");
         viewPager.setAdapter(adapter);
     }
 

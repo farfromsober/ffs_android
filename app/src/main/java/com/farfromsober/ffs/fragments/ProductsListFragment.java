@@ -27,6 +27,8 @@ public class ProductsListFragment extends FullProductsFragment {
         mAddProduct.setVisibility(View.INVISIBLE);
         mFilterLinear.setVisibility(View.GONE);
 
+        setHasOptionsMenu(false);
+
         return root;
     }
 
