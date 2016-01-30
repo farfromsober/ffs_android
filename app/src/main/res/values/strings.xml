@@ -100,5 +100,9 @@
     <string name="product_name_mock_text">Product name</string>
     <string name="product_price_mock_text">00.00</string>
     <string name="search_product_hint_text">Buscar productos</string>
+    <string name="profile_tab_title">Perfil</string>
+    <string name="selling_tab_title">En venta</string>
+    <string name="sold_tab_title">Vendidos</string>
+    <string name="bought_tab_title">Comprados</string>
 
 </resources>

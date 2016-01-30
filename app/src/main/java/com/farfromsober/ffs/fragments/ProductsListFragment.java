@@ -5,11 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
-import com.farfromsober.ffs.R;
-
-import butterknife.Bind;
 
 public class ProductsListFragment extends FullProductsFragment {
 

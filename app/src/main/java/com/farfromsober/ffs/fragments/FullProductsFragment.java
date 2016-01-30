@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -215,10 +216,18 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
     }
 
     private void hidePreloader() {
-        mSwipeRefreshLayout.setRefreshing(false);
-        if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
-            mOnNetworkActivityCallback.get().onNetworkActivityFinished();
-        }
+        Handler mainHandler = new Handler(getActivity().getMainLooper());
+
+        Runnable myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(false);
+                if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
+                    mOnNetworkActivityCallback.get().onNetworkActivityFinished();
+                }
+            }
+        };
+        mainHandler.post(myRunnable);
     }
 
 
