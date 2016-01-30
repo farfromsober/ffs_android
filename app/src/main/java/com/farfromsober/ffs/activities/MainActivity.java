@@ -234,17 +234,16 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
         switch (position) {
             case PRODUCTS_FRAGMENT_INDEX:
-                mCurrentFragment = new FullProductsFragment();
+                mCurrentFragment = FullProductsFragment.newInstance();
                 break;
             case MAP_FRAGMENT_INDEX:
-                mCurrentFragment = new FullMapFragment();
+                mCurrentFragment = FullMapFragment.newInstance();
                 break;
             case NOTIFICATIONS_FRAGMENT_INDEX:
-                mCurrentFragment = new NotificationsFragment();
+                mCurrentFragment = NotificationsFragment.newInstance();
                 break;
             case PROFILE_FRAGMENT_INDEX:
-                mCurrentFragment = new FullProfileFragment();
-                ((FullProfileFragment)mCurrentFragment).mListener = this;
+                mCurrentFragment = FullProfileFragment.newInstance(SharedPreferencesManager.getPrefUserData(this));
                 break;
         }
         return mCurrentFragment;
@@ -365,7 +364,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     @Override
-    public void onProductFilter1Selected(HashMap<String,Integer> filterSelectedItems) {
+    public void onProductFiltersSelected(HashMap<String, Integer> filterSelectedItems) {
         goBackToProductList(filterSelectedItems);
 
 //        getFragmentManager().beginTransaction().remove(f).commit();

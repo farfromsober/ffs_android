@@ -39,13 +39,29 @@
                 ffs:fontName="Raleway-Bold.ttf"
                 tools:text="Javier Alzueta"
                 style="@style/navigation_header_main_text_style"/>
-            <com.farfromsober.customviews.CustomFontTextView
-                android:id="@+id/drawer_user_location"
-                android:layout_width="match_parent"
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                ffs:fontName="Raleway-Regular.ttf"
-                tools:text="Pamplona"
-                style="@style/navigation_header_main_text_style"/>
+                android:layout_gravity="right"
+                android:layout_marginTop="5dp">
+
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/drawer_user_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    ffs:fontName="Raleway-Light.ttf"
+                    tools:text="Pamplona"
+                    android:layout_alignParentRight="true"
+                    style="@style/navigation_header_main_text_style"/>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/drawer_map_item_icon_on"
+                    android:layout_toLeftOf="@id/drawer_user_location"
+                    android:layout_marginRight="5dp"/>
+            </RelativeLayout>
         </LinearLayout>
 
     </LinearLayout>

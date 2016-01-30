@@ -14,7 +14,6 @@ import android.widget.ListView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.callbacks.FiltersFragmentListener;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -123,7 +122,7 @@ public class CategoryFilterFragment extends Fragment implements View.OnClickList
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-                mListener.onProductFilter1Selected(mFilterSelectedItems);
+                mListener.onProductFiltersSelected(mFilterSelectedItems);
             }
         });
 
