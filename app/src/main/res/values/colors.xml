@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Navigation Drawer styles -->
-    <color name="color_primary_dark">#fffc7232</color> <!-- Status bar -->
+    <color name="color_primary_dark">#fffc7232</color> <!-- Status bar ffb83000-->
     <color name="color_primary">#fffc7232</color> <!-- Navigation bar -->
     <color name="color_accent">#ffffffff</color> <!-- Similar al Tint de iOS -->
     <!-- ======================== -->
@@ -12,9 +12,9 @@
     <color name="nav_drawer_background_color">#fffcdaca</color>
     <color name="nav_drawer_inset_foreground">#44000000</color>
     <color name="nav_drawer_item_background_off">#fffcdaca</color>
-    <color name="nav_drawer_item_background_on">#fffcdaca</color>
-    <color name="nav_drawer_item_title_off">#ffffffff</color>
-    <color name="nav_drawer_item_title_on">#fffc7232</color>
+    <color name="nav_drawer_item_background_on">#aafc7232</color>
+    <color name="nav_drawer_item_title_off">#fffc7232</color>
+    <color name="nav_drawer_item_title_on">#ffffffff</color>
     <color name="nav_drawer_header_background_color">#fffc7232</color>
     <color name="nav_drawer_header_text_color">#ffffffff</color>
 
