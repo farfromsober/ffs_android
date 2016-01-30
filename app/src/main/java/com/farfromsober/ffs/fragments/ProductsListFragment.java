@@ -13,8 +13,6 @@ import butterknife.Bind;
 
 public class ProductsListFragment extends FullProductsFragment {
 
-    @Bind(R.id.filter_linear) LinearLayout mFilterLinear;
-
     public ProductsListFragment() {
         // Required empty public constructor
     }
@@ -25,7 +23,7 @@ public class ProductsListFragment extends FullProductsFragment {
         View root = super.onCreateView(inflater, container, savedInstanceState);
 
         mAddProduct.setVisibility(View.INVISIBLE);
-        mFilterLinear.setVisibility(View.GONE);
+        mSearchGroup.setVisibility(View.GONE);
 
         setHasOptionsMenu(false);
 

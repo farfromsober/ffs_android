@@ -6,7 +6,6 @@
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@+id/filter_linear"
     tools:showIn="@layout/fragment_products">
 
     <com.farfromsober.customviews.CustomFontTextView

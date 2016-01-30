@@ -11,6 +11,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
@@ -52,13 +54,14 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
     HashMap<String,Integer> mFilterSelectedItems;
 
-    Button button;
-
     //private RecyclerView mProductsList;
     @Bind(R.id.no_products_label) CustomFontTextView mNoProductsLabel;
     @Bind(R.id.products_list) RecyclerView mProductsList;
     @Bind(R.id.add_product_button) FloatingActionButton mAddProduct;
-    @Bind(R.id.products_swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;;
+    @Bind(R.id.products_swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
+    @Bind(R.id.searchGroup) RelativeLayout mSearchGroup;
+    @Bind(R.id.searchView) SearchView mSearchView;
+    @Bind(R.id.searchViewLabel) CustomFontTextView mSearchLabel;
 
     public FullProductsFragment() {
         // Required empty public constructor
@@ -107,25 +110,55 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
         askServerForProducts();
         //mProductsList.swapAdapter(new ProductsAdapter(Products.getInstance(getActivity()).getProducts(), getActivity(), this), false);
 
-        button = (Button) getActivity().findViewById(R.id.filtrar_submit);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-                EditText mText = (EditText) getActivity().findViewById(R.id.filter_product);
-                if (mProductsListener != null && mProductsListener.get() != null) {
-                    mProductsListener.get().onProductFilter(mText.getText().toString());
-                }
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-            }
-        });
-
         mSwipeRefreshLayout.setColorSchemeResources(R.color.app_dark_orange);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 askServerForProducts();
+            }
+        });
+
+        mSearchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mSearchView.setQuery("", false);
+                filterByWord(mSearchView.getQuery().toString());
+                return false;
+            }
+        });
+
+        mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    mSearchView.setQuery("", false);
+                    filterByWord(mSearchView.getQuery().toString());
+                }
+            }
+        });
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                filterByWord(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText != null && newText.length() != 0) {
+                    mSearchLabel.setVisibility(View.INVISIBLE);
+                    return false;
+                }
+                mSearchLabel.setVisibility(View.VISIBLE);
+                return false;
             }
         });
     }

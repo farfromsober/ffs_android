@@ -4,57 +4,65 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/filter_linear"
+    <RelativeLayout
+        android:id="@+id/searchGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true"
-        android:orientation="horizontal">
+        android:visibility="visible">
 
-
-        <com.farfromsober.customviews.CustomFontEditText
-            android:id="@+id/filter_product"
-            style="@style/app_edit_text"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:hint="@string/find_product"
-            ffs:fontName="Raleway-Regular.ttf"
-
-            />
-
-        <com.farfromsober.customviews.CustomFontButton
-            android:id="@+id/filtrar_submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"
-            android:drawableRight="@drawable/ic_search"
-            android:padding="10dp"
-            />
+            android:background="@android:color/background_light"
+            android:iconifiedByDefault="false"
+            android:queryHint="@string/search_product_hint_text">
+        </android.support.v7.widget.SearchView>
 
-    </LinearLayout>
+        <com.farfromsober.customviews.CustomFontTextView
+            android:id="@+id/searchViewLabel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/searchView"
+            android:layout_alignEnd="@+id/searchView"
+            android:layout_alignLeft="@+id/searchView"
+            android:layout_alignRight="@+id/searchView"
+            android:layout_alignStart="@+id/searchView"
+            android:layout_alignTop="@+id/searchView"
+            android:gravity="left|center_vertical"
+            android:paddingEnd="50dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingStart="50dp"
+            android:text="@string/search_product_hint_text"
+            android:textColor="@color/app_light_orange"
+            android:textSize="16sp"
+            ffs:fontName="Raleway-Light.ttf"/>
 
-    <include layout="@layout/products_list"
-        android:id="@+id/products_list_group"/>
+    </RelativeLayout>
 
+    <include
+        layout="@layout/products_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchGroup"
+        android:layout_marginTop="10dp"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_product_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_margin="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
         android:src="@drawable/ic_plus"
         app:backgroundTint="@color/app_dark_orange"
         app:borderWidth="3dp"
         app:elevation="10dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
         />
 
 </RelativeLayout>
