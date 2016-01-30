@@ -11,6 +11,8 @@ import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 
+import butterknife.ButterKnife;
+
 import static com.farfromsober.ffs.fragments.FullProfileFragment.ARG_USER;
 
 public class ProfileFragment extends Fragment {
@@ -53,8 +55,13 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View root = inflater.inflate(R.layout.fragment_profile, container, false);
+        ButterKnife.bind(this, root);
+        setHasOptionsMenu(false);
+
+        //TODO: pintar los datos del usuario en pantalla: usar @Bind para "findViewById"
+
+        return root;
     }
 
 }
