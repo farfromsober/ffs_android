@@ -36,7 +36,7 @@ public class SellingFragment extends ProductsListFragment {
 
         if (getArguments() != null) {
             mUser = (User) getArguments().getSerializable(ARG_USER);
-            if ((mUser == null) ) {
+            if ((mUser == null)) {
                 mUser = SharedPreferencesManager.getPrefUserData(getActivity());
             }
             return;
