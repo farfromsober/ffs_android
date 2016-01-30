@@ -31,9 +31,4 @@ public class ProductsListFragment extends FullProductsFragment {
 
         return root;
     }
-
-    public void askServerForProducts() {
-        showPreloader(getActivity().getString(R.string.products_loading_message));
-        apiManager.allProducts(this);
-    }
 }

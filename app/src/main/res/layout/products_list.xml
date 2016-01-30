@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:ffs="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -32,18 +31,5 @@
             android:layout_height="match_parent"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_product_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_plus"
-        app:backgroundTint="@color/app_dark_orange"
-        app:borderWidth="0dp"
-        app:elevation="10dp"
-        app:layout_anchor="@id/products_list"
-        app:layout_anchorGravity="bottom|right|end"
-        />
 
 </android.support.design.widget.CoordinatorLayout>
