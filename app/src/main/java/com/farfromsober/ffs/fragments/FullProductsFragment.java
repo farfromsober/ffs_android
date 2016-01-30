@@ -33,6 +33,7 @@ import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.callbacks.RecyclerViewClickListener;
 import com.farfromsober.ffs.model.Product;
 import com.farfromsober.ffs.model.Products;
+import com.farfromsober.ffs.model.Transaction;
 import com.farfromsober.ffs.network.APIManager;
 import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
@@ -46,7 +47,7 @@ import javax.net.ssl.HttpsURLConnection;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class FullProductsFragment extends Fragment implements OnDataParsedCallback<Product>, RecyclerViewClickListener {
+public class FullProductsFragment extends Fragment implements OnDataParsedCallback<Object>, RecyclerViewClickListener {
 
     protected APIManager apiManager;
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
@@ -206,7 +207,7 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
     public void askServerForProducts() {
         showPreloader(getActivity().getString(R.string.products_loading_message));
-        apiManager.allProducts(this);
+        apiManager.allSellingProducts(this);
     }
 
     protected void showPreloader(String message) {
@@ -267,7 +268,7 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
 
     @Override
-    public void onDataArrayParsed(int responseCode, ArrayList<Product> data) {
+    public void onDataArrayParsed(int responseCode, ArrayList<Object> data) {
         if (responseCode != HttpsURLConnection.HTTP_OK) {
             hidePreloader();
             return;
@@ -286,9 +287,16 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
                 mNoProductsLabel.setVisibility(View.VISIBLE);
             }
             for (int i = 0; i < data.size(); i++) {
-                Product product = data.get(i);
-                // ONLY Products that have selling = true will be shown
-                if (product.getIsSelling() == true) { products.addProduct(product);}
+                if (data.get(i).getClass().equals(Product.class)){
+                    Product product = (Product)data.get(i);
+                    products.addProduct(product);
+                    // ONLY Products that have selling = true will be shown
+                    //if (product.getIsSelling() == true) {products.addProduct(product); }
+                }
+                if (data.get(i).getClass().equals(Transaction.class)){
+                    Transaction transaction = (Transaction)data.get(i);
+                    products.addProduct(transaction.getProduct());
+                }
             }
             //Update Adapter
             mProductsList.swapAdapter(new ProductsAdapter(products.getProducts(), getActivity(), this), false);
@@ -297,7 +305,7 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
     }
 
     @Override
-    public void onDataObjectParsed(int responseCode, Product data) {
+    public void onDataObjectParsed(int responseCode, Object data) {
         hidePreloader();
     }
 

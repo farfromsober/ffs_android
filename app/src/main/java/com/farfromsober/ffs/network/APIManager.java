@@ -27,10 +27,11 @@ public class APIManager implements OnResponseReceivedCallback {
 
     private static final String PRODUCTS_URL = "http://forsale.cloudapp.net/api/1.0/products";
     private static final String NEW_PRODUCT_URL = "http://forsale.cloudapp.net/api/1.0/products/";
+    private static final String PRODUCTS_BOUGHT_URL = "http://forsale.cloudapp.net/api/1.0/products-bought";
     private static final String IMAGES_URL = "http://forsale.cloudapp.net/api/1.0/images/";
     private static final String ALL_USERS_URL = "http://beta.json-generator.com/api/json/get/NJsNmZgQe";
     private static final String LOGIN_URL = "http://forsale.cloudapp.net/api/1.0/login/";
-    private static final String TRANSACTIONS_URL = "http://forsale.cloudapp.net/api/1.0/transactions/";
+    private static final String TRANSACTIONS_URL = "http://forsale.cloudapp.net/api/1.0/transactions";
 
 
     public APIManager(Context context) {
@@ -44,38 +45,44 @@ public class APIManager implements OnResponseReceivedCallback {
         allProductsAsyncTask.execute();
     }
 
-    public void userSellingProducts(User user, OnDataParsedCallback<Product> onDataParsedCallback){
+    public void allSellingProducts(OnDataParsedCallback<Object> onDataParsedCallback){
+        LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
+        HashMap<String, Object> urlParams = new HashMap<>();
+        urlParams.put("selling", 2);
+        APIRequest apiRequest = new APIRequest(PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(), null, null, 10000, 10000);
+        APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
+        allProductsAsyncTask.execute();
+    }
+
+    public void userSellingProducts(User user, OnDataParsedCallback<Object> onDataParsedCallback){
         LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
         HashMap<String, Object> urlParams = new HashMap<>();
         if (user == null) {
             user = SharedPreferencesManager.getPrefUserData(mContext);
         }
         urlParams.put("seller", user.getUsername());
+        urlParams.put("selling", 2);
         APIRequest apiRequest = new APIRequest(PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(), urlParams, null, 10000, 10000);
         APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
         allProductsAsyncTask.execute();
     }
 
-    public void userSoldProducts(User user, OnDataParsedCallback<Product> onDataParsedCallback){
+    public void userSoldProducts(User user, OnDataParsedCallback<Object> onDataParsedCallback){
         LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
         HashMap<String, Object> urlParams = new HashMap<>();
         if (user == null) {
             user = SharedPreferencesManager.getPrefUserData(mContext);
         }
         urlParams.put("sellerId",user.getUserId());
+        //urlParams.put("selling",3);
         APIRequest apiRequest = new APIRequest(TRANSACTIONS_URL, ApiRequestType.GET, loginData.getHeaders(), urlParams, null, 10000, 10000);
         APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Transaction.class);
         allProductsAsyncTask.execute();
     }
 
-    public void userBoughtProducts(User user, OnDataParsedCallback<Product> onDataParsedCallback){
+    public void userBoughtProducts(User user, OnDataParsedCallback<Object> onDataParsedCallback){
         LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
-        HashMap<String, Object> urlParams = new HashMap<>();
-        if (user == null) {
-            user = SharedPreferencesManager.getPrefUserData(mContext);
-        }
-        urlParams.put("buyerId",user.getUserId());
-        APIRequest apiRequest = new APIRequest(TRANSACTIONS_URL, ApiRequestType.GET, loginData.getHeaders(), urlParams, null, 10000, 10000);
+        APIRequest apiRequest = new APIRequest(PRODUCTS_BOUGHT_URL, ApiRequestType.GET, loginData.getHeaders(), null, null, 10000, 10000);
         APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Transaction.class);
         allProductsAsyncTask.execute();
     }
@@ -100,7 +107,7 @@ public class APIManager implements OnResponseReceivedCallback {
         loginAsyncTask.execute();
     }
 
-    public void allProductsFilterByCategoriesAndDistance(HashMap<String,Integer> categoriesIds,OnDataParsedCallback<Product> onDataParsedCallback, Location location){
+    public void allProductsFilterByCategoriesAndDistance(HashMap<String,Integer> categoriesIds,OnDataParsedCallback<Object> onDataParsedCallback, Location location){
         HashMap<String,Object> getParameters = null;
         LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
         // Crear hashmap con parametros del get
@@ -136,7 +143,7 @@ public class APIManager implements OnResponseReceivedCallback {
         transactionAsyncTask.execute();
     }
 
-    public void allProductsFilterByWord(String word,OnDataParsedCallback<Product> onDataParsedCallback){
+    public void allProductsFilterByWord(String word,OnDataParsedCallback<Object> onDataParsedCallback){
         HashMap<String,Object> getParameters = null;
         LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
         // Crear hashmap con parametros del get
