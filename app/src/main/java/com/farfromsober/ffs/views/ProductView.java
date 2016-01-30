@@ -42,12 +42,12 @@ public class ProductView extends LinearLayout {
         super(context, attrs);
         mContext = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.view_product, this, true);
+        inflater.inflate(R.layout.item_product, this, true);
         ButterKnife.bind(this);
     }
 
     public void setProductImage(String mProductImage) {
-        this.mProductImageView.setImageResource(R.drawable.photo_placeholder);
+        this.mProductImageView.setImageResource(R.drawable.mphoto_placeholder);
         if (mProductImage != null) {
             this.mProductImage = mProductImage;
             //show Image

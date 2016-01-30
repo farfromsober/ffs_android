@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:ffs="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/filter_linear"
+    tools:showIn="@layout/fragment_products">
+
+    <com.farfromsober.customviews.CustomFontTextView
+        android:id="@+id/no_products_label"
+        style="@style/app_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/no_products_label_text"
+        android:textSize="16sp"
+        android:textColor="@color/app_dark_orange"
+        ffs:fontName="Raleway-Regular.ttf"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/products_swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/products_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</android.support.design.widget.CoordinatorLayout>

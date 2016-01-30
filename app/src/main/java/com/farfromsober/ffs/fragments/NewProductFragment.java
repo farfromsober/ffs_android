@@ -216,7 +216,7 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
                 Bitmap bitmap = PictureUtils.getScaledBitmap(productImage.getImageFile().getPath(), getActivity());
                 imageButton.setImageBitmap(bitmap);
             } else {
-                imageButton.setImageResource(R.drawable.photo_placeholder);
+                imageButton.setImageResource(R.drawable.mphoto_placeholder);
                 if (i == mProductImages.size()) {
                     imageButton.setVisibility(View.VISIBLE);
                 } else {

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ffs="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/products_border"
+    android:padding="3dp">
+
+    <ImageView
+        android:id="@+id/product_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_dark_orange"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/product_image_content_description"
+        android:src="@drawable/mphoto_placeholder"/>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/product_image"
+        android:background="@color/app_light"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <com.farfromsober.customviews.CustomFontTextView
+            android:id="@+id/product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center_horizontal|center_vertical"
+            android:padding="5dp"
+            style="@style/product_list_price"
+            ffs:fontName="Raleway-Bold.ttf"
+            tools:text="@string/product_price_mock_text"/>
+
+        <com.farfromsober.customviews.CustomFontTextView
+            android:id="@+id/product_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@id/product_price"
+            android:layout_alignBottom="@id/product_price"
+            android:layout_toLeftOf="@id/product_price"
+            android:padding="2dp"
+            style="@style/product_list_name"
+            ffs:fontName="Raleway-Regular.ttf"
+            tools:text="@string/product_name_mock_text"/>
+    </RelativeLayout>
+
+</RelativeLayout>

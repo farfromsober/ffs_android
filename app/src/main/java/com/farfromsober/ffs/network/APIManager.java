@@ -26,6 +26,7 @@ public class APIManager implements OnResponseReceivedCallback {
     private final Context mContext;
 
     private static final String ALL_PRODUCTS_URL = "http://forsale.cloudapp.net/api/1.0/products";
+    private static final String MY_PRODUCTS_URL = "http://forsale.cloudapp.net/api/1.0/products/?seller=javi";//&selling=3";
     private static final String NEW_PRODUCT_URL = "http://forsale.cloudapp.net/api/1.0/products/";
     private static final String IMAGES_URL = "http://forsale.cloudapp.net/api/1.0/images/";
     private static final String ALL_USERS_URL = "http://beta.json-generator.com/api/json/get/NJsNmZgQe";
@@ -40,6 +41,25 @@ public class APIManager implements OnResponseReceivedCallback {
     public void allProducts(OnDataParsedCallback<Product> onDataParsedCallback){
         LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
         APIRequest apiRequest = new APIRequest(ALL_PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(), null, null, 10000, 10000);
+        APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
+        allProductsAsyncTask.execute();
+    }
+
+    public void mySellingProducts(OnDataParsedCallback<Product> onDataParsedCallback){
+        LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
+        HashMap<String, Object> urlParams = new HashMap<>();
+        urlParams.put("seller",SharedPreferencesManager.getPrefUserData(mContext).getUsername());
+        APIRequest apiRequest = new APIRequest(ALL_PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(), urlParams, null, 10000, 10000);
+        APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
+        allProductsAsyncTask.execute();
+    }
+
+    public void mySoldProducts(OnDataParsedCallback<Product> onDataParsedCallback){
+        LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
+        HashMap<String, Object> urlParams = new HashMap<>();
+        urlParams.put("seller",SharedPreferencesManager.getPrefUserData(mContext).getUsername());
+        //urlParams.put("selling","3");
+        APIRequest apiRequest = new APIRequest(ALL_PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(), urlParams, null, 10000, 10000);
         APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
         allProductsAsyncTask.execute();
     }

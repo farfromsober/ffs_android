@@ -2,12 +2,12 @@ package com.farfromsober.ffs.fragments;
 
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,8 +25,7 @@ import android.widget.EditText;
 import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.ProductsAdapter;
-import com.farfromsober.ffs.callbacks.FiltersFragmentListener;
-import com.farfromsober.ffs.callbacks.OnOptionsFilterMenuSelected;
+import com.farfromsober.ffs.callbacks.OnOptionsFilterListener;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.callbacks.RecyclerViewClickListener;
 import com.farfromsober.ffs.model.Product;
@@ -44,15 +43,12 @@ import javax.net.ssl.HttpsURLConnection;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ProductsFragment extends Fragment implements OnDataParsedCallback<Product>, RecyclerViewClickListener {
+public class FullProductsFragment extends Fragment implements OnDataParsedCallback<Product>, RecyclerViewClickListener {
 
-    private APIManager apiManager;
+    protected APIManager apiManager;
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
-    public ProductsFragmentListener mListener;
-    public OnOptionsFilterMenuSelected optionsListener;
+    public WeakReference<ProductsFragmentListener> mProductsListener;
+    public WeakReference<OnOptionsFilterListener> mOptionslistener;
 
     HashMap<String,Integer> mFilterSelectedItems;
 
@@ -62,32 +58,31 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     @Bind(R.id.no_products_label) CustomFontTextView mNoProductsLabel;
     @Bind(R.id.products_list) RecyclerView mProductsList;
     @Bind(R.id.add_product_button) FloatingActionButton mAddProduct;
+    @Bind(R.id.products_swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;;
 
-
-    public ProductsFragment() {
+    public FullProductsFragment() {
         // Required empty public constructor
+    }
+
+    public static FullProductsFragment newInstance() {
+        FullProductsFragment fragment = new FullProductsFragment();
+        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_products, container, false);
+        View root = inflater.inflate(R.layout.fragment_full_products, container, false);
         ButterKnife.bind(this, root);
-
-        mProductsList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        mProductsList.setItemAnimator(new DefaultItemAnimator());
-        setHasOptionsMenu(true);
-
-        mAddProduct.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mListener.onProductsFragmentAddProductClicked();
-            }
-        });
 
         return root;
     }
@@ -95,6 +90,18 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mProductsList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mProductsList.setItemAnimator(new DefaultItemAnimator());
+        setHasOptionsMenu(true);
+
+        mAddProduct.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (mProductsListener != null && mProductsListener.get() != null) {
+                    mProductsListener.get().onProductsFragmentAddProductClicked();
+                }
+            }
+        });
 
         apiManager = new APIManager(getActivity());
         askServerForProducts();
@@ -106,10 +113,19 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
             public void onClick(View v) {
                 // Perform action on click
                 EditText mText = (EditText) getActivity().findViewById(R.id.filter_product);
-                mListener.onProductFilter(mText.getText().toString());
-
+                if (mProductsListener != null && mProductsListener.get() != null) {
+                    mProductsListener.get().onProductFilter(mText.getText().toString());
+                }
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+        });
+
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.app_dark_orange);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                askServerForProducts();
             }
         });
     }
@@ -133,6 +149,16 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         } catch (Exception e) {
             throw new ClassCastException(context.toString()+" must implement OnNetworkActivityCallback in Activity");
         }
+        try {
+            mProductsListener = new WeakReference<>((ProductsFragmentListener) getActivity());
+        } catch (Exception e) {
+            throw new ClassCastException(context.toString()+" must implement ProductsFragmentListener in Activity");
+        }
+        try {
+            mOptionslistener = new WeakReference<>((OnOptionsFilterListener) getActivity());
+        } catch (Exception e) {
+            throw new ClassCastException(context.toString()+" must implement ProductsFragmentListener in Activity");
+        }
     }
 
     public void reloadProductsList(HashMap<String,Integer> filterSelectedItems, Location location) {
@@ -149,13 +175,14 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         apiManager.allProducts(this);
     }
 
-    private void showPreloader(String message) {
+    protected void showPreloader(String message) {
         if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
             mOnNetworkActivityCallback.get().onNetworkActivityStarted(message);
         }
     }
 
     private void hidePreloader() {
+        mSwipeRefreshLayout.setRefreshing(false);
         if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
             mOnNetworkActivityCallback.get().onNetworkActivityFinished();
         }
@@ -186,10 +213,10 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         switch (item.getItemId()) {
 
             case R.id.action_filter:{
-
-                optionsListener.onFilterMenuSelected(mFilterSelectedItems);
+                if (mOptionslistener != null && mOptionslistener.get() != null) {
+                    mOptionslistener.get().onFilterMenuSelected(mFilterSelectedItems);
+                }
                 return true;
-
             }
             default:
                 return super.onOptionsItemSelected(item);
@@ -200,6 +227,7 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
     @Override
     public void onDataArrayParsed(int responseCode, ArrayList<Product> data) {
         if (responseCode != HttpsURLConnection.HTTP_OK) {
+            hidePreloader();
             return;
         }
         if (data != null) {
@@ -223,15 +251,11 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
             //Update Adapter
             mProductsList.swapAdapter(new ProductsAdapter(products.getProducts(), getActivity(), this), false);
             hidePreloader();
-        }else{
-
         }
     }
 
     @Override
     public void onDataObjectParsed(int responseCode, Product data) {
-        Log.i("ffs", data.toString());
-
         hidePreloader();
     }
 
@@ -240,12 +264,15 @@ public class ProductsFragment extends Fragment implements OnDataParsedCallback<P
         if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
             mOnNetworkActivityCallback.get().onExceptionReceived(e);
         }
+        hidePreloader();
     }
 
     @Override
     public void recyclerViewListClicked(View v, int position) {
         Products products = Products.getInstance(getActivity());
         Product product = products.getProducts().get(position);
-        mListener.onProductsFragmentProductClicked(product);
+        if (mProductsListener != null && mProductsListener.get() != null) {
+            mProductsListener.get().onProductsFragmentProductClicked(product);
+        }
     }
 }
