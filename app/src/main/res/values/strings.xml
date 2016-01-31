@@ -104,5 +104,10 @@
     <string name="selling_tab_title">En venta</string>
     <string name="sold_tab_title">Vendidos</string>
     <string name="bought_tab_title">Comprados</string>
+    <string name="profile_fragment_user_name">%1$s %2$s</string>
+    <string name="profile_fragment_user_location">%1$s (%2$s)</string>
+    <string name="profile_fragment_products_selling">0</string>
+    <string name="profile_fragment_products_sold">0</string>
+    <string name="profile_fragment_products_bought">0</string>
 
 </resources>

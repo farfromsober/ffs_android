@@ -6,69 +6,148 @@
              tools:context="com.farfromsober.ffs.fragments.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:id="@+id/detail_map_group"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <fragment
-            android:id="@+id/profile_map"
-            android:name="com.google.android.gms.maps.MapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_below="@id/detail_location_title"
-            tools:layout="@android:layout/list_content"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/detail_map_group"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profile_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/mavatar_placeholder"
-                app:civ_border_width="0dp"
-                app:civ_border_color="#FFffffff"/>
-
-            <com.farfromsober.customviews.CustomFontTextView
-                android:id="@+id/profile_purchases"
+            <fragment
+                android:id="@+id/profile_map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                ffs:fontName="Raleway-Regular.ttf"
-                style="@style/product_detail_description_text_style"
-                android:text="999 purchases"/>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_below="@id/detail_location_title"
+                tools:layout="@android:layout/list_content"/>
 
-            <com.farfromsober.customviews.CustomFontTextView
-                android:id="@+id/profile_sales"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                ffs:fontName="Raleway-Regular.ttf"
-                style="@style/product_detail_description_text_style"
-                android:text="999 sales"/>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingTop="80dp"
+                android:orientation="vertical">
 
-            <com.farfromsober.customviews.CustomFontTextView
-                android:id="@+id/profile_bought"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                ffs:fontName="Raleway-Regular.ttf"
-                style="@style/product_detail_description_text_style"
-                android:text="999 bought"/>
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    ffs:fontName="Raleway-Bold.ttf"
+                    style="@style/profile_user_name_style"
+                    android:text="@string/profile_fragment_user_name"/>
+
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/profile_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    ffs:fontName="Raleway-Regular.ttf"
+                    style="@style/profile_user_location_style"
+                    android:text="@string/profile_fragment_user_location"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingTop="10dp"
+                    android:orientation="horizontal">
+
+                    <com.farfromsober.customviews.CustomFontTextView
+                        android:id="@+id/profile_selling_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:layout_weight="1"
+                        ffs:fontName="Raleway-Regular.ttf"
+                        style="@style/profile_user_sales_info"
+                        android:text="@string/profile_fragment_products_selling"/>
+
+                    <com.farfromsober.customviews.CustomFontTextView
+                        android:id="@+id/profile_selling_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:layout_weight="1"
+                        ffs:fontName="Raleway-Regular.ttf"
+                        style="@style/profile_user_sales_info"
+                        android:text=" purchases"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.farfromsober.customviews.CustomFontTextView
+                        android:id="@+id/profile_sales_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:layout_weight="1"
+                        ffs:fontName="Raleway-Regular.ttf"
+                        style="@style/profile_user_sales_info"
+                        android:text="@string/profile_fragment_products_sold"/>
+
+                    <com.farfromsober.customviews.CustomFontTextView
+                        android:id="@+id/profile_sales_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:layout_weight="1"
+                        ffs:fontName="Raleway-Regular.ttf"
+                        style="@style/profile_user_sales_info"
+                        android:text=" sales"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.farfromsober.customviews.CustomFontTextView
+                        android:id="@+id/profile_bought_number"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:layout_weight="1"
+                        ffs:fontName="Raleway-Regular.ttf"
+                        style="@style/profile_user_sales_info"
+                        android:text="@string/profile_fragment_products_bought"/>
+
+                    <com.farfromsober.customviews.CustomFontTextView
+                        android:id="@+id/profile_bought_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:layout_weight="1"
+                        ffs:fontName="Raleway-Regular.ttf"
+                        style="@style/profile_user_sales_info"
+                        android:text=" bought"/>
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/mavatar_placeholder"
+            app:civ_border_width="3dp"
+            app:civ_border_color="#FFffffff"/>
 
-    </LinearLayout>
+    </RelativeLayout>
+
 
 </FrameLayout>
