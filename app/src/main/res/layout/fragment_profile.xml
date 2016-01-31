@@ -51,87 +51,33 @@
                     style="@style/profile_user_location_style"
                     android:text="@string/profile_fragment_user_location"/>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/profile_selling_number"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:paddingTop="10dp"
-                    android:orientation="horizontal">
+                    ffs:fontName="Raleway-Regular.ttf"
+                    style="@style/profile_user_sales_info"
+                    android:text="@string/profile_fragment_products_selling"/>
 
-                    <com.farfromsober.customviews.CustomFontTextView
-                        android:id="@+id/profile_selling_number"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:layout_weight="1"
-                        ffs:fontName="Raleway-Regular.ttf"
-                        style="@style/profile_user_sales_info"
-                        android:text="@string/profile_fragment_products_selling"/>
-
-                    <com.farfromsober.customviews.CustomFontTextView
-                        android:id="@+id/profile_selling_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:layout_weight="1"
-                        ffs:fontName="Raleway-Regular.ttf"
-                        style="@style/profile_user_sales_info"
-                        android:text=" purchases"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/profile_sales_number"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
+                    android:gravity="center"
+                    ffs:fontName="Raleway-Regular.ttf"
+                    style="@style/profile_user_sales_info"
+                    android:text="@string/profile_fragment_products_sold"/>
 
-                    <com.farfromsober.customviews.CustomFontTextView
-                        android:id="@+id/profile_sales_number"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:layout_weight="1"
-                        ffs:fontName="Raleway-Regular.ttf"
-                        style="@style/profile_user_sales_info"
-                        android:text="@string/profile_fragment_products_sold"/>
-
-                    <com.farfromsober.customviews.CustomFontTextView
-                        android:id="@+id/profile_sales_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:layout_weight="1"
-                        ffs:fontName="Raleway-Regular.ttf"
-                        style="@style/profile_user_sales_info"
-                        android:text=" sales"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <com.farfromsober.customviews.CustomFontTextView
+                    android:id="@+id/profile_bought_number"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
-
-                    <com.farfromsober.customviews.CustomFontTextView
-                        android:id="@+id/profile_bought_number"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:layout_weight="1"
-                        ffs:fontName="Raleway-Regular.ttf"
-                        style="@style/profile_user_sales_info"
-                        android:text="@string/profile_fragment_products_bought"/>
-
-                    <com.farfromsober.customviews.CustomFontTextView
-                        android:id="@+id/profile_bought_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:layout_weight="1"
-                        ffs:fontName="Raleway-Regular.ttf"
-                        style="@style/profile_user_sales_info"
-                        android:text=" bought"/>
-                </LinearLayout>
+                    android:gravity="center"
+                    ffs:fontName="Raleway-Regular.ttf"
+                    style="@style/profile_user_sales_info"
+                    android:text="@string/profile_fragment_products_bought"/>
 
             </LinearLayout>
 

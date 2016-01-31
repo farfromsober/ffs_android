@@ -2,7 +2,6 @@ package com.farfromsober.ffs.fragments;
 
 
 import android.annotation.TargetApi;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,7 +18,6 @@ import com.farfromsober.ffs.utils.MapUtils;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -101,6 +99,9 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
 
         mProfileName.setText(getString(R.string.profile_fragment_user_name, mUser.getFirstName(), mUser.getLastName()));
         mProfileLocation.setText(getString(R.string.profile_fragment_user_location, mUser.getCity(), mUser.getState()));
+        mProfileSelling.setText(getString(R.string.profile_fragment_products_selling, 0));
+        mProfileSales.setText(getString(R.string.profile_fragment_products_sold, 0));
+        mProfileBought.setText(getString(R.string.profile_fragment_products_bought, 0));
 
         apiManager = new APIManager(getActivity());
         apiCall = "Selling";
@@ -141,21 +142,21 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
         switch (apiCall) {
             case "Selling":
                 if (data != null) {
-                    mProfileSelling.setText(String.valueOf(data.size()));
+                    mProfileSelling.setText(getString(R.string.profile_fragment_products_selling, data.size()));
                 }
                 apiManager.userSoldProducts(mUser, this);
                 apiCall = "Sold";
                 break;
             case "Sold":
                 if (data != null) {
-                    mProfileSales.setText(String.valueOf(data.size()));
+                    mProfileSales.setText(getString(R.string.profile_fragment_products_sold, data.size()));
                 }
                 apiManager.userBoughtProducts(mUser, this);
                 apiCall = "Bought";
                 break;
             case "Bought":
                 if (data != null) {
-                    mProfileBought.setText(String.valueOf(data.size()));
+                    mProfileBought.setText(getString(R.string.profile_fragment_products_bought, data.size()));
                 }
                 apiCall = "Selling";
                 break;
