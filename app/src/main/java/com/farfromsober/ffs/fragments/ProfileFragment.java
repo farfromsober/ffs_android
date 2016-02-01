@@ -86,8 +86,6 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
         ButterKnife.bind(this, root);
         setHasOptionsMenu(false);
 
-        //TODO: pintar los datos del usuario en pantalla: usar @Bind para "findViewById"
-
         if (mUser.getAvatarURL() != null && mUser.getAvatarURL() != "") {
             Picasso.with(getActivity())
                     .load(mUser.getAvatarURL())
