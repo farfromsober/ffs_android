@@ -2,15 +2,14 @@ package com.farfromsober.ffs.fragments;
 
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +36,10 @@ public class FullProfileFragment extends Fragment {
     private User mUser;
 
     //@Bind(R.id.toolbar) Toolbar mToolbar;
-    @Bind(R.id.tabs) TabLayout mTabLayout;
-    @Bind(R.id.viewpager) ViewPager mViewPager;
+    @Bind(R.id.tabs)
+    TabLayout mTabLayout;
+    @Bind(R.id.viewpager)
+    ViewPager mViewPager;
 
     public FullProfileFragment() {
         // Required empty public constructor
@@ -63,7 +64,7 @@ public class FullProfileFragment extends Fragment {
 
         if (getArguments() != null) {
             mUser = (User) getArguments().getSerializable(ARG_USER);
-            if ((mUser == null) ) {
+            if ((mUser == null)) {
                 mUser = SharedPreferencesManager.getPrefUserData(getActivity());
             }
             return;
@@ -98,9 +99,9 @@ public class FullProfileFragment extends Fragment {
         try {
             mProductsFragmentListener = new WeakReference<>((ProductsFragmentListener) getActivity());
         } catch (Exception e) {
-            throw new ClassCastException(context.toString()+" must implement OnMenuSelectedCallback in Activity");
+            throw new ClassCastException(context.toString() + " must implement OnMenuSelectedCallback in Activity");
         }
-        mContext = (FragmentActivity)context;
+        mContext = (FragmentActivity) context;
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -121,7 +122,7 @@ public class FullProfileFragment extends Fragment {
         }
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position) {
+        public Fragment getItem(int position) {
             return mFragmentList.get(position);
         }
 

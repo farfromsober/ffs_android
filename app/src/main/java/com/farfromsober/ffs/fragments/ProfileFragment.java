@@ -43,12 +43,18 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
 
     private static View view;
 
-    @Bind(R.id.profile_image) CircleImageView mProfileImage;
-    @Bind(R.id.profile_selling_number) CustomFontTextView mProfileSelling;
-    @Bind(R.id.profile_sales_number) CustomFontTextView mProfileSales;
-    @Bind(R.id.profile_bought_number) CustomFontTextView mProfileBought;
-    @Bind(R.id.profile_name) CustomFontTextView mProfileName;
-    @Bind(R.id.profile_location) CustomFontTextView mProfileLocation;
+    @Bind(R.id.profile_image)
+    CircleImageView mProfileImage;
+    @Bind(R.id.profile_selling_number)
+    CustomFontTextView mProfileSelling;
+    @Bind(R.id.profile_sales_number)
+    CustomFontTextView mProfileSales;
+    @Bind(R.id.profile_bought_number)
+    CustomFontTextView mProfileBought;
+    @Bind(R.id.profile_name)
+    CustomFontTextView mProfileName;
+    @Bind(R.id.profile_location)
+    CustomFontTextView mProfileLocation;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -73,7 +79,7 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
 
         if (getArguments() != null) {
             mUser = (User) getArguments().getSerializable(ARG_USER);
-            if ((mUser == null) ) {
+            if ((mUser == null)) {
                 mUser = SharedPreferencesManager.getPrefUserData(getActivity());
             }
             return;
@@ -93,7 +99,7 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
         try {
             view = inflater.inflate(R.layout.fragment_profile, container, false);
         } catch (InflateException e) {
-        /* map is already there, just return view as it is */
+            /* map is already there, just return view as it is */
         }
         ButterKnife.bind(this, view);
         setHasOptionsMenu(false);
@@ -124,7 +130,7 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void configureMap() {
 
-        mMapFragment =   ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.profile_map));
+        mMapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.profile_map));
 
         if (mMapFragment != null) {
 
@@ -148,7 +154,7 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
         }
     }
 
-    public void getNextApiCall (ArrayList<Object> data) {
+    public void getNextApiCall(ArrayList<Object> data) {
         switch (apiCall) {
             case "Selling":
                 if (data != null) {
