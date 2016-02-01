@@ -50,6 +50,8 @@ import static com.farfromsober.ffs.activities.MainActivity.*;
 public class ProductDetailFragment extends Fragment implements OnDataParsedCallback<Transaction> {
 
     public static final String ARG_PRODUCT = "com.farfromsober.ffs.fragments.ProductDetailFragment.ARG_PRODUCT";
+    private static final String DEFAULT_CITY = "Madrid";
+    private static final String DEFAULT_STATE = "Spain";
     private Product mProduct;
     public ProductDetailFragmentListener mListener;
 
@@ -170,12 +172,15 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
                 }
             });
 
-            User user = SharedPreferencesManager.getPrefUserData(getActivity());
             LatLng center;
-            if (user.getLatitude() == "" || user.getLongitude() == "") {
-                center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", user.getCity(), user.getState()));
+            if (mProduct.getSeller().getLatitude() == "" || mProduct.getSeller().getLongitude() == "") {
+                if (mProduct.getSeller().getCity() == "" || mProduct.getSeller().getState() == "") {
+                    center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", mProduct.getSeller().getCity(), mProduct.getSeller().getState()));
+                } else {
+                    center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", DEFAULT_CITY, DEFAULT_STATE));
+                }
             } else {
-                center = new LatLng(Double.parseDouble(user.getLatitude()), Double.parseDouble(user.getLongitude()));
+                center = new LatLng(Double.parseDouble(mProduct.getSeller().getLatitude()), Double.parseDouble(mProduct.getSeller().getLongitude()));
             }
             MapUtils.centerMap(map, center.latitude, center.longitude, 12);
             // create marker
