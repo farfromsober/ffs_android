@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="50dp"
-        android:paddingBottom="50dp"
+        android:paddingBottom="20dp"
         android:layout_alignParentBottom="true">
 
         <com.farfromsober.customviews.CustomFontTextView
@@ -65,7 +65,7 @@
 
     <fragment
         android:id="@+id/profile_map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/profile_data_group"

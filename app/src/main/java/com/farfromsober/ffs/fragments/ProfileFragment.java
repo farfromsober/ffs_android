@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,8 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
 
     private SupportMapFragment mMapFragment;
     private GoogleMap map;
+
+    private static View view;
 
     @Bind(R.id.profile_image) CircleImageView mProfileImage;
     @Bind(R.id.profile_selling_number) CustomFontTextView mProfileSelling;
@@ -82,8 +85,17 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        ButterKnife.bind(this, root);
+        if (view != null) {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent != null)
+                parent.removeView(view);
+        }
+        try {
+            view = inflater.inflate(R.layout.fragment_profile, container, false);
+        } catch (InflateException e) {
+        /* map is already there, just return view as it is */
+        }
+        ButterKnife.bind(this, view);
         setHasOptionsMenu(false);
 
         if (mUser.getAvatarURL() != null && mUser.getAvatarURL() != "") {
@@ -106,7 +118,7 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
         apiManager.userSellingProducts(mUser, this);
         configureMap();
 
-        return root;
+        return view;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
