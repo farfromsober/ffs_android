@@ -323,7 +323,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     public void onProductsFragmentProductClicked(Product product) {
         mCurrentFragment.setHasOptionsMenu(false);
         ProductDetailFragment fragment = ProductDetailFragment.newInstance(product);
-        fragment.mListener = this;
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
@@ -356,6 +355,13 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     @Override
     public void onProductsDetailFragmentPurchaseFailed() {
         showInfoDialogFragment(R.string.transaction_failed, R.string.please_try_again, R.string.button_ok);
+    }
+
+    @Override
+    public void onProductsDetailProfilePressed(User seller) {
+        if (seller.getUserId().equals(SharedPreferencesManager.getPrefUserData(this).getUserId())) {
+            loadFragment(PROFILE_FRAGMENT_INDEX);
+        }
     }
 
     @Override

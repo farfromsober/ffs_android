@@ -96,6 +96,16 @@
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="0dp"/>
 
+                <Button
+                    android:id="@+id/detail_seller_profile_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@id/detail_seller_image"
+                    android:layout_alignBottom="@id/detail_seller_image"
+                    android:layout_alignLeft="@id/detail_seller_image"
+                    android:layout_alignRight="@id/detail_seller_image"
+                    android:background="@android:color/transparent"/>
+
                 <com.farfromsober.customviews.CustomFontTextView
                     android:id="@+id/detail_seller_name"
                     android:layout_width="match_parent"
