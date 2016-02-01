@@ -298,7 +298,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     public void onProductsFragmentAddProductClicked() {
         mCurrentFragment.setHasOptionsMenu(false);
         NewProductFragment fragment = new NewProductFragment();
-        fragment.mListener = this;
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_bottom, R.anim.slide_out_top);
@@ -372,9 +371,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     @Override
     public void onProductFiltersSelected(HashMap<String, Integer> filterSelectedItems) {
         goBackToProductList(filterSelectedItems);
-
-//        getFragmentManager().beginTransaction().remove(f).commit();
-//        ((FullProductsFragment)mCurrentFragment).filterBycategoryAndDistance(selectedItems, mLocation);
     }
 
     private void goBackToProductList(HashMap<String,Integer> filterSelectedItems) {

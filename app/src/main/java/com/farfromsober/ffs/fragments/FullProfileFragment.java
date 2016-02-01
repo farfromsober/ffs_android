@@ -89,6 +89,7 @@ public class FullProfileFragment extends Fragment {
         super.onAttach(context);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         setCallbacks(activity);

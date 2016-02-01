@@ -27,6 +27,7 @@ import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import com.microsoft.azure.storage.blob.CloudBlockBlob;
 
 import java.io.FileInputStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -37,7 +38,7 @@ import java.util.Date;
  */
 public class BlobUploadTask extends AsyncTask<String, Void, ArrayList<ProductImage>> {
 
-    private ProductsFragmentListener mListener;
+    private WeakReference<ProductsFragmentListener> mListener;
     private ArrayList<ProductImage> imagesToUpload;
     private User mCurrentUser;
     private static final String AZURE_CONTAINER = "farfromsober-images-container";
@@ -48,7 +49,7 @@ public class BlobUploadTask extends AsyncTask<String, Void, ArrayList<ProductIma
 
     public BlobUploadTask(ArrayList<ProductImage> imageFiles, ProductsFragmentListener listener, User currentUser) {
         this.imagesToUpload = imageFiles;
-        this.mListener = listener;
+        this.mListener = new WeakReference<>(listener);
         this.mCurrentUser = currentUser;
     }
 
@@ -93,6 +94,8 @@ public class BlobUploadTask extends AsyncTask<String, Void, ArrayList<ProductIma
 
     @Override
     protected void onPostExecute(ArrayList<ProductImage> productImages) {
-        mListener.onProductsFragmentNewProductImagesUploaded(productImages);
+        if (mListener != null && mListener.get() != null) {
+            mListener.get().onProductsFragmentNewProductImagesUploaded(productImages);
+        }
     }
 }

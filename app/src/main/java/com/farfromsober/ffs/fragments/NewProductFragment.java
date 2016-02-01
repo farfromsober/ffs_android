@@ -49,7 +49,7 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
 
     private APIManager apiManager;
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
-    public ProductsFragmentListener mListener;
+    public WeakReference<ProductsFragmentListener> mListener;
     private ProductImage mActualProductImage;
     private int mActualImagePosition;
     public ArrayList<ProductImage> mProductImages = new ArrayList<>();
@@ -121,8 +121,10 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
             @Override
             public void onClick(View v) {
                 showPreloader(getResources().getString(R.string.new_product_uploading_images));
-                new BlobUploadTask(mProductImages, mListener, SharedPreferencesManager.getPrefUserData(getActivity()))
-                        .execute();
+                if (mListener != null && mListener.get() != null) {
+                    new BlobUploadTask(mProductImages, mListener.get(), SharedPreferencesManager.getPrefUserData(getActivity()))
+                            .execute();
+                }
             }
         });
 
@@ -272,6 +274,11 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
         } catch (Exception e) {
             throw new ClassCastException(context.toString() + " must implement OnNetworkActivityCallback in Activity");
         }
+        try {
+            mListener = new WeakReference<>((ProductsFragmentListener) getActivity());
+        } catch (Exception e) {
+            throw new ClassCastException(context.toString() + " must implement ProductsFragmentListener in Activity");
+        }
     }
 
     private void showPreloader(String message) {
@@ -341,10 +348,10 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
         } else if (data == null) {
             removeImagesFromStorage();
             hidePreloader();
-            mListener.onProductsFragmentNewProductCreated();
+            if (mListener != null && mListener.get() != null) {
+                mListener.get().onProductsFragmentNewProductCreated();
+            }
         }
-
-
     }
 
     @Override

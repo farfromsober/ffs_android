@@ -157,6 +157,7 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
         super.onAttach(context);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         setCallbacks(activity);
