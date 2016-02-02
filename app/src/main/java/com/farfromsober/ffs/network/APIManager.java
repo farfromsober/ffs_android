@@ -49,7 +49,7 @@ public class APIManager implements OnResponseReceivedCallback {
         LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
         HashMap<String, Object> urlParams = new HashMap<>();
         urlParams.put("selling", 2);
-        APIRequest apiRequest = new APIRequest(PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(), null, null, 10000, 10000);
+        APIRequest apiRequest = new APIRequest(PRODUCTS_URL, ApiRequestType.GET, loginData.getHeaders(), urlParams, null, 10000, 10000);
         APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
         allProductsAsyncTask.execute();
     }

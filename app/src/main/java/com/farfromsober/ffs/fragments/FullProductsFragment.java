@@ -280,8 +280,6 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
                 if (data.get(i).getClass().equals(Product.class)) {
                     Product product = (Product) data.get(i);
                     products.addProduct(product);
-                    // ONLY Products that have selling = true will be shown
-                    //if (product.getIsSelling() == true) {products.addProduct(product); }
                 }
                 if (data.get(i).getClass().equals(Transaction.class)) {
                     Transaction transaction = (Transaction) data.get(i);

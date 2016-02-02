@@ -395,7 +395,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
     private void goBackToProductDetail() {
         getSupportFragmentManager().popBackStack();
-        getSupportFragmentManager().getBackStackEntryAt(1);
+        getSupportFragmentManager().getBackStackEntryAt(0);
     }
 
     private void goBackToProfile() {

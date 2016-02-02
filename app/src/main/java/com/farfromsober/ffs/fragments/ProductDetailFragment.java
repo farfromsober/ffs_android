@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,6 +89,8 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
     private GoogleMap map;
     private WeakReference<OnMenuSelectedCallback> mOnMenuSelectedCallback;
 
+    private static View view;
+
     public ProductDetailFragment() {
         // Required empty public constructor
     }
@@ -118,14 +121,24 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_product_detail, container, false);
-        ButterKnife.bind(this, root);
+        if (view != null) {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent != null)
+                parent.removeView(view);
+        }
+        try {
+            view = inflater.inflate(R.layout.fragment_product_detail, container, false);
+        } catch (InflateException e) {
+            /* map is already there, just return view as it is */
+        }
+
+        ButterKnife.bind(this, view);
         setHasOptionsMenu(false);
         loadViewPagerImages();
         populateFields();
         configureMap();
         setButtonListeners();
-        return root;
+        return view;
     }
 
     @Override

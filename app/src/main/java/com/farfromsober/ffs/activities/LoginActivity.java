@@ -68,6 +68,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
         mSigninButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mSigninButton.setEnabled(false);
                 loginActivityWeakReference.get().showPreloader(getString(R.string.login_accessing));
 
                 String email = mLoginEmail.getText().toString();
@@ -96,6 +97,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
 
     @Override
     public void onDataArrayParsed(int responseCode, ArrayList data) {
+        mSigninButton.setEnabled(true);
         if (data != null) {
             Log.i("ffs", data.toString());
         }
@@ -103,6 +105,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
 
     @Override
     public void onDataObjectParsed(int responseCode, User data) {
+        mSigninButton.setEnabled(true);
         hidePreloader();
         if (responseCode != HttpsURLConnection.HTTP_OK) {
             return;
@@ -121,7 +124,7 @@ public class LoginActivity extends NetworkPreloaderActivity implements OnDataPar
     private void showMainActivity() {
         Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(mainIntent);
-        //this.finish();
+        this.finish();
     }
 
     private void showErrorMessage() {
