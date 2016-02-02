@@ -25,15 +25,14 @@
         android:layout_below="@id/product_image"
         android:background="@color/app_light"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <com.farfromsober.customviews.CustomFontTextView
             android:id="@+id/product_price"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
             android:gravity="center_horizontal|center_vertical"
-            android:padding="5dp"
             style="@style/product_list_price"
             ffs:fontName="Raleway-Bold.ttf"
             tools:text="@string/product_price_mock_text"/>
@@ -45,8 +44,12 @@
             android:layout_alignTop="@id/product_price"
             android:layout_alignBottom="@id/product_price"
             android:layout_toLeftOf="@id/product_price"
-            android:padding="2dp"
+            android:layout_marginRight="10dp"
+            android:paddingTop="3dp"
+            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
             style="@style/product_list_name"
+            android:lines="2"
             ffs:fontName="Raleway-Regular.ttf"
             tools:text="@string/product_name_mock_text"/>
     </RelativeLayout>
