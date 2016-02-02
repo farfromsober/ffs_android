@@ -51,8 +51,8 @@ import static com.farfromsober.ffs.activities.MainActivity.*;
 public class ProductDetailFragment extends Fragment implements OnDataParsedCallback<Transaction> {
 
     public static final String ARG_PRODUCT = "com.farfromsober.ffs.fragments.ProductDetailFragment.ARG_PRODUCT";
-    private static final String DEFAULT_CITY = "Madrid";
-    private static final String DEFAULT_STATE = "Spain";
+    public static final String DEFAULT_CITY = "Madrid";
+    public static final String DEFAULT_STATE = "Spain";
     private Product mProduct;
     public WeakReference<ProductDetailFragmentListener>  mListener;
 

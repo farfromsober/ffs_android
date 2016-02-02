@@ -87,10 +87,8 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    public static NewProductFragment newInstance() {
+        return new NewProductFragment();
     }
 
     @Override

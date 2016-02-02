@@ -31,10 +31,11 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.farfromsober.ffs.fragments.FullProfileFragment.ARG_USER;
+import static com.farfromsober.ffs.fragments.ProductDetailFragment.*;
 
 public class ProfileFragment extends Fragment implements OnDataParsedCallback<Object> {
 
-    private User mUser;
+    public User mUser;
     protected APIManager apiManager;
     private String apiCall;
 
@@ -104,7 +105,13 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
         ButterKnife.bind(this, view);
         setHasOptionsMenu(false);
 
-        if (mUser.getAvatarURL() != null && mUser.getAvatarURL() != "") {
+        configScreenValuesWithUser(mUser);
+        return view;
+    }
+
+    public void configScreenValuesWithUser(User user) {
+        mUser = user;
+        if (mUser.getAvatarURL() != null && !mUser.getAvatarURL().equals("")) {
             Picasso.with(getActivity())
                     .load(mUser.getAvatarURL())
                     .placeholder(R.drawable.mavatar_placeholder)
@@ -123,8 +130,6 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
         apiCall = "Selling";
         apiManager.userSellingProducts(mUser, this);
         configureMap();
-
-        return view;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -136,13 +141,22 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
 
             map = mMapFragment.getMap();
 
-            User user = SharedPreferencesManager.getPrefUserData(getActivity());
+            //User user = SharedPreferencesManager.getPrefUserData(getActivity());
             LatLng center;
-            if (user.getLatitude() == "" || user.getLongitude() == "") {
-                center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", user.getCity(), user.getState()));
-            } else {
-                center = new LatLng(Double.parseDouble(user.getLatitude()), Double.parseDouble(user.getLongitude()));
+            if (mUser.getLatitude() != null || mUser.getLongitude() != null) {
+                if (mUser.getLatitude().equals("") || mUser.getLongitude().equals("")) {
+                    if (mUser.getCity() == "" || mUser.getState() == "") {
+                        center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", mUser.getCity(), mUser.getState()));
+                    } else {
+                        center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", DEFAULT_CITY, DEFAULT_STATE));
+                    }
+                } else {
+                    center = new LatLng(Double.parseDouble(mUser.getLatitude()), Double.parseDouble(mUser.getLongitude()));
+                }
+            }else {
+                center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", DEFAULT_CITY, DEFAULT_STATE));
             }
+
             MapUtils.centerMap(map, center.latitude, center.longitude, 12);
             // create marker
             MarkerOptions marker = new MarkerOptions().position(center);

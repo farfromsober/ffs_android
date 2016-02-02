@@ -85,7 +85,8 @@
                 android:paddingLeft="15dp"
                 android:paddingStart="15dp"
                 android:paddingRight="15dp"
-                android:paddingEnd="15dp">
+                android:paddingEnd="15dp"
+                android:background="@android:color/white">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/detail_seller_image"
@@ -181,7 +182,8 @@
                     android:layout_marginLeft="15dp"
                     ffs:fontName="Raleway-Regular.ttf"
                     style="@style/product_detail_description_text_style"
-                    android:text="@string/product_detail_location_label"/>
+                    android:text="@string/product_detail_location_label"
+                    android:background="@android:color/white"/>
 
                 <fragment
                     android:id="@+id/detail_product_map"
