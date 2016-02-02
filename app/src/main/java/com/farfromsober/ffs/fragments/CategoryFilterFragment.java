@@ -1,25 +1,31 @@
 package com.farfromsober.ffs.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.callbacks.FiltersFragmentListener;
 
+import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.HashMap;
 
-/**
- */
-public class CategoryFilterFragment extends Fragment implements View.OnClickListener {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class CategoryFilterFragment extends Fragment {
 
     public static final String ARG_FILTER_VALUES = "com.farfromsober.ffs.fragments.CategoryFilterFragment.ARG_FILTER_VALUES";
 
@@ -27,15 +33,16 @@ public class CategoryFilterFragment extends Fragment implements View.OnClickList
     public static final String DISTANCE_KEY = "distance";
     public static final int NO_ITEM_SELECTED = -1;
 
-    Button button;
-    public FiltersFragmentListener mListener;
-
-    private ListView mListView1, mListView2;
+    public WeakReference<FiltersFragmentListener> mListener;
 
     private HashMap<String, Integer> mFilterSelectedItems;
-    private HashMap<String,Integer> mLastFilterSelectedItems;
 
-    public static CategoryFilterFragment newInstance(HashMap<String,Integer> lastFilterSelectedItems) {
+    @Bind(R.id.categoryList)
+    ListView categoriesListView;
+    @Bind(R.id.distanceList)
+    ListView distanceListView;
+
+    public static CategoryFilterFragment newInstance(HashMap<String, Integer> lastFilterSelectedItems) {
         CategoryFilterFragment fragment = new CategoryFilterFragment();
 
         // 2) Nos creamos los argumentos y los empaquetamos
@@ -53,43 +60,83 @@ public class CategoryFilterFragment extends Fragment implements View.OnClickList
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mLastFilterSelectedItems = (HashMap<String,Integer>) getArguments().getSerializable(ARG_FILTER_VALUES);
+            mFilterSelectedItems = (HashMap<String, Integer>) getArguments().getSerializable(ARG_FILTER_VALUES);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_category_filter, container, false);
-        return view;
+        View root = inflater.inflate(R.layout.fragment_category_filter, container, false);
+        ButterKnife.bind(this, root);
+        return root;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_filters, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
-        findViewsById();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-        final String[] catetogories = getResources().getStringArray(R.array.CategoryList);
+        switch (item.getItemId()) {
+
+            case R.id.action_save_filters: {
+                if (mListener != null && mListener.get() != null) {
+                    mListener.get().onProductFiltersSelected(mFilterSelectedItems);
+                }
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        setCallbacks(context);
+        super.onAttach(context);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onAttach(Activity activity) {
+        setCallbacks(activity);
+        super.onAttach(activity);
+    }
+
+    private void setCallbacks(Context context) {
+        try {
+            mListener = new WeakReference<>((FiltersFragmentListener) getActivity());
+        } catch (Exception e) {
+            throw new ClassCastException(context.toString() + " must implement FiltersFragmentListener in Activity");
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setHasOptionsMenu(true);
+
+        final String[] categories = getResources().getStringArray(R.array.CategoryList);
         final String[] distances = getResources().getStringArray(R.array.DistanceList);
 
-        mListView1 = (ListView) getView().findViewById(R.id.categoryList);
-        mListView2 = (ListView) getView().findViewById(R.id.distanceList);
+        categoriesListView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_checked, categories));
+        distanceListView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_checked, distances));
 
-        mListView1.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_checked, catetogories));
-        mListView2.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_checked, distances));
+        ListUtils.setDynamicHeight(categoriesListView);
+        ListUtils.setDynamicHeight(distanceListView);
 
-        ListUtils.setDynamicHeight(mListView1);
-        ListUtils.setDynamicHeight(mListView2);
-
-        mFilterSelectedItems = new HashMap<>();
-        mListView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        categoriesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long id) {
 
                 if (mFilterSelectedItems.containsKey(CATEGORY_KEY)) {
                     if (mFilterSelectedItems.get(CATEGORY_KEY) == position) {
-                        mListView1.setItemChecked(position, false);
+                        categoriesListView.setItemChecked(position, false);
                         mFilterSelectedItems.remove(CATEGORY_KEY);
                     } else {
                         mFilterSelectedItems.put(CATEGORY_KEY, position);
@@ -100,15 +147,14 @@ public class CategoryFilterFragment extends Fragment implements View.OnClickList
             }
         });
 
-
-        mListView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        distanceListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                                     long id) {
 
                 if (mFilterSelectedItems.containsKey(DISTANCE_KEY)) {
                     if (mFilterSelectedItems.get(DISTANCE_KEY) == Integer.valueOf(distances[position])) {
-                        mListView2.setItemChecked(position, false);
+                        distanceListView.setItemChecked(position, false);
                         mFilterSelectedItems.remove(DISTANCE_KEY);
                     } else {
                         mFilterSelectedItems.put(DISTANCE_KEY, Integer.valueOf(distances[position]));
@@ -119,44 +165,28 @@ public class CategoryFilterFragment extends Fragment implements View.OnClickList
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-                mListener.onProductFiltersSelected(mFilterSelectedItems);
-            }
-        });
-
         int categoryFilterSelectedIndex = NO_ITEM_SELECTED;
         int distanceFilterSelectedIndex = NO_ITEM_SELECTED;
-        if (mLastFilterSelectedItems != null) {
-            if (mLastFilterSelectedItems.containsKey(CATEGORY_KEY)) {
-                categoryFilterSelectedIndex = mLastFilterSelectedItems.get(CATEGORY_KEY);
+        if (mFilterSelectedItems == null) {
+            mFilterSelectedItems = new HashMap<>();
+        }
+        if (mFilterSelectedItems != null) {
+            if (mFilterSelectedItems.containsKey(CATEGORY_KEY)) {
+                categoryFilterSelectedIndex = mFilterSelectedItems.get(CATEGORY_KEY);
             }
-            if (mLastFilterSelectedItems.containsKey(DISTANCE_KEY)) {
-                distanceFilterSelectedIndex = mLastFilterSelectedItems.get(DISTANCE_KEY);
+            if (mFilterSelectedItems.containsKey(DISTANCE_KEY)) {
+                distanceFilterSelectedIndex = mFilterSelectedItems.get(DISTANCE_KEY);
             }
         }
         if (categoryFilterSelectedIndex != NO_ITEM_SELECTED) {
-            mListView1.setItemChecked(categoryFilterSelectedIndex, true);
+            categoriesListView.setItemChecked(categoryFilterSelectedIndex, true);
         }
         if (distanceFilterSelectedIndex != NO_ITEM_SELECTED) {
             int index = Arrays.asList(distances).indexOf(String.valueOf(distanceFilterSelectedIndex));
-            mListView2.setItemChecked(index, true);
+            distanceListView.setItemChecked(index, true);
         }
-    }
-
-    private void findViewsById() {
-
-        button = (Button) getActivity().findViewById(R.id.filter1_submit);
-    }
-
-
-    @Override
-    public void onClick(View v) {
 
     }
-
-
 }
 
 class ListUtils {

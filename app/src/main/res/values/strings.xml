@@ -103,5 +103,8 @@
     <string name="profile_fragment_products_selling">%1$d en venta</string>
     <string name="profile_fragment_products_sold">%1$d vendidos</string>
     <string name="profile_fragment_products_bought">%1$d comprados</string>
+    <string name="section_header_categories">Categorías</string>
+    <string name="section_header_distances">Distancia</string>
+    <string name="accept">Aceptar</string>
 
 </resources>

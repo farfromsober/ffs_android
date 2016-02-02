@@ -302,7 +302,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_bottom, R.anim.slide_out_top);
         fragmentTransaction.add(R.id.content_frame, fragment, "newProductFragment");
-        fragmentTransaction.addToBackStack("fragBack");
+        fragmentTransaction.addToBackStack("AddProductFragment");
         fragmentTransaction.commit();
     }
 
@@ -326,7 +326,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
         fragmentTransaction.add(R.id.content_frame, fragment);
-        fragmentTransaction.addToBackStack("fragBack");
+        fragmentTransaction.addToBackStack("DetailProductFragment");
         fragmentTransaction.commit();
     }
 
@@ -336,12 +336,10 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         // Create fragment and give it an argument for the selected article
         mCurrentFragment.setHasOptionsMenu(false);
         CategoryFilterFragment fragment = CategoryFilterFragment.newInstance(lastFilterSelectedItems);
-        fragment.mListener = this;
-
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
         transaction.add(R.id.content_frame, fragment);
-        transaction.addToBackStack("fragBack");
+        transaction.addToBackStack("CategoryFilterFragment");
         transaction.commit();
     }
 
