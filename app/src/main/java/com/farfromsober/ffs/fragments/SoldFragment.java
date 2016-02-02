@@ -2,6 +2,7 @@ package com.farfromsober.ffs.fragments;
 
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.model.User;
@@ -42,6 +43,12 @@ public class SoldFragment extends ProductsListFragment {
             return;
         }
         mUser = SharedPreferencesManager.getPrefUserData(getActivity());
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(false);
     }
 
     public void askServerForProducts() {

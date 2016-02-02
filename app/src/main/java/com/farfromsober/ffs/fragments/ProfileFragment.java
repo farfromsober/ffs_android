@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,22 +31,31 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.farfromsober.ffs.fragments.FullProfileFragment.ARG_USER;
+import static com.farfromsober.ffs.fragments.ProductDetailFragment.*;
 
 public class ProfileFragment extends Fragment implements OnDataParsedCallback<Object> {
 
-    private User mUser;
+    public User mUser;
     protected APIManager apiManager;
     private String apiCall;
 
     private SupportMapFragment mMapFragment;
     private GoogleMap map;
 
-    @Bind(R.id.profile_image) CircleImageView mProfileImage;
-    @Bind(R.id.profile_selling_number) CustomFontTextView mProfileSelling;
-    @Bind(R.id.profile_sales_number) CustomFontTextView mProfileSales;
-    @Bind(R.id.profile_bought_number) CustomFontTextView mProfileBought;
-    @Bind(R.id.profile_name) CustomFontTextView mProfileName;
-    @Bind(R.id.profile_location) CustomFontTextView mProfileLocation;
+    private static View view;
+
+    @Bind(R.id.profile_image)
+    CircleImageView mProfileImage;
+    @Bind(R.id.profile_selling_number)
+    CustomFontTextView mProfileSelling;
+    @Bind(R.id.profile_sales_number)
+    CustomFontTextView mProfileSales;
+    @Bind(R.id.profile_bought_number)
+    CustomFontTextView mProfileBought;
+    @Bind(R.id.profile_name)
+    CustomFontTextView mProfileName;
+    @Bind(R.id.profile_location)
+    CustomFontTextView mProfileLocation;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -70,7 +80,7 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
 
         if (getArguments() != null) {
             mUser = (User) getArguments().getSerializable(ARG_USER);
-            if ((mUser == null) ) {
+            if ((mUser == null)) {
                 mUser = SharedPreferencesManager.getPrefUserData(getActivity());
             }
             return;
@@ -82,13 +92,26 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        ButterKnife.bind(this, root);
+        if (view != null) {
+            ViewGroup parent = (ViewGroup) view.getParent();
+            if (parent != null)
+                parent.removeView(view);
+        }
+        try {
+            view = inflater.inflate(R.layout.fragment_profile, container, false);
+        } catch (InflateException e) {
+            /* map is already there, just return view as it is */
+        }
+        ButterKnife.bind(this, view);
         setHasOptionsMenu(false);
 
-        //TODO: pintar los datos del usuario en pantalla: usar @Bind para "findViewById"
+        configScreenValuesWithUser(mUser);
+        return view;
+    }
 
-        if (mUser.getAvatarURL() != null && mUser.getAvatarURL() != "") {
+    public void configScreenValuesWithUser(User user) {
+        mUser = user;
+        if (mUser.getAvatarURL() != null && !mUser.getAvatarURL().equals("")) {
             Picasso.with(getActivity())
                     .load(mUser.getAvatarURL())
                     .placeholder(R.drawable.mavatar_placeholder)
@@ -107,26 +130,33 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
         apiCall = "Selling";
         apiManager.userSellingProducts(mUser, this);
         configureMap();
-
-        return root;
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void configureMap() {
 
-        mMapFragment =   ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.profile_map));
+        mMapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.profile_map));
 
         if (mMapFragment != null) {
 
             map = mMapFragment.getMap();
 
-            User user = SharedPreferencesManager.getPrefUserData(getActivity());
+            //User user = SharedPreferencesManager.getPrefUserData(getActivity());
             LatLng center;
-            if (user.getLatitude() == "" || user.getLongitude() == "") {
-                center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", user.getCity(), user.getState()));
-            } else {
-                center = new LatLng(Double.parseDouble(user.getLatitude()), Double.parseDouble(user.getLongitude()));
+            if (mUser.getLatitude() != null || mUser.getLongitude() != null) {
+                if (mUser.getLatitude().equals("") || mUser.getLongitude().equals("")) {
+                    if (mUser.getCity() == "" || mUser.getState() == "") {
+                        center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", mUser.getCity(), mUser.getState()));
+                    } else {
+                        center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", DEFAULT_CITY, DEFAULT_STATE));
+                    }
+                } else {
+                    center = new LatLng(Double.parseDouble(mUser.getLatitude()), Double.parseDouble(mUser.getLongitude()));
+                }
+            }else {
+                center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", DEFAULT_CITY, DEFAULT_STATE));
             }
+
             MapUtils.centerMap(map, center.latitude, center.longitude, 12);
             // create marker
             MarkerOptions marker = new MarkerOptions().position(center);
@@ -138,7 +168,7 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
         }
     }
 
-    public void getNextApiCall (ArrayList<Object> data) {
+    public void getNextApiCall(ArrayList<Object> data) {
         switch (apiCall) {
             case "Selling":
                 if (data != null) {

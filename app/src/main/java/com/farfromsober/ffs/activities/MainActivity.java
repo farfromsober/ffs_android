@@ -59,8 +59,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     public static final int NOTIFICATIONS_FRAGMENT_INDEX = 2;
     public static final int PROFILE_FRAGMENT_INDEX = 3;
     private static final int INITIAL_FRAGMENT_INDEX = PRODUCTS_FRAGMENT_INDEX;
-    public static final int FILTER1_FRAGMENT_INDEX = 10;
-    public static final int FILTER2_FRAGMENT_INDEX = 10;
 
     @Bind(R.id.toolbar) Toolbar mToolbar;
     @Bind(R.id.scrimInsetsFrameLayout) ScrimInsetsFrameLayout mScrimInsetsFrameLayout;
@@ -139,14 +137,19 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             if (mCurrentFragment.getClass().equals(FullProductsFragment.class)) {
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    goBackToProductDetail();
+                    return;
+                }
                 goBackToProductList(null);
+                return;
             }
             if (mCurrentFragment.getClass().equals(FullProfileFragment.class)) {
                 goBackToProfile();
+                return;
             }
-        } else {
-            super.onBackPressed();
         }
+        super.onBackPressed();
     }
 
     private void showLoginScreen() {
@@ -179,7 +182,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         mDrawerUseLocation.setText(user.getCity());
         mDrawerUseNumberOfTransactions.setText(String.format(getResources().getString(R.string.drawer_number_of_transactions_format), (int) user.getSales()));
 
-        if (user.getAvatarURL() != null && user.getAvatarURL() != "") {
+        if (user.getAvatarURL() != null && !user.getAvatarURL().equals("")) {
             Picasso.with(this)
                     .load(user.getAvatarURL())
                     .placeholder(R.drawable.mavatar_placeholder)
@@ -226,7 +229,9 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
         selectMenuItem(position);
 
-        getSupportActionBar().setTitle(menuItems.get(position).getTitle());
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(menuItems.get(position).getTitle());
+        }
     }
 
     private Fragment getFragmentToNavigateTo(int position) {
@@ -249,6 +254,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         return mCurrentFragment;
     }
 
+    @SuppressWarnings("deprecation")
     private void initializeDrawerLayout() {
         mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.color_primary_dark));
     }
@@ -279,7 +285,9 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
                 .add(R.id.content_frame, fragment)
                 .commit();
 
-        getSupportActionBar().setTitle(menuItems.get(position).getTitle());
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(menuItems.get(position).getTitle());
+        }
     }
 
     public void selectMenuItem(int position) {
@@ -297,13 +305,12 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     @Override
     public void onProductsFragmentAddProductClicked() {
         mCurrentFragment.setHasOptionsMenu(false);
-        NewProductFragment fragment = new NewProductFragment();
-        fragment.mListener = this;
+        NewProductFragment fragment = NewProductFragment.newInstance();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_bottom, R.anim.slide_out_top);
-        fragmentTransaction.add(R.id.content_frame, fragment, "newProductFragment");
-        fragmentTransaction.addToBackStack("fragBack");
+        fragmentTransaction.add(R.id.content_frame, fragment);
+        fragmentTransaction.addToBackStack("NewProductFragment");
         fragmentTransaction.commit();
     }
 
@@ -323,12 +330,11 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     public void onProductsFragmentProductClicked(Product product) {
         mCurrentFragment.setHasOptionsMenu(false);
         ProductDetailFragment fragment = ProductDetailFragment.newInstance(product);
-        fragment.mListener = this;
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
         fragmentTransaction.add(R.id.content_frame, fragment);
-        fragmentTransaction.addToBackStack("fragBack");
+        fragmentTransaction.addToBackStack("ProductDetailFragment");
         fragmentTransaction.commit();
     }
 
@@ -338,12 +344,10 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         // Create fragment and give it an argument for the selected article
         mCurrentFragment.setHasOptionsMenu(false);
         CategoryFilterFragment fragment = CategoryFilterFragment.newInstance(lastFilterSelectedItems);
-        fragment.mListener = this;
-
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
         transaction.add(R.id.content_frame, fragment);
-        transaction.addToBackStack("fragBack");
+        transaction.addToBackStack("CategoryFilterFragment");
         transaction.commit();
     }
 
@@ -359,6 +363,21 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     @Override
+    public void onProductsDetailProfilePressed(User seller) {
+        if (seller.getUserId().equals(SharedPreferencesManager.getPrefUserData(this).getUserId())) {
+            loadFragment(PROFILE_FRAGMENT_INDEX);
+            return;
+        }
+        FullProfileFragment fragment = FullProfileFragment.newInstance(seller);
+        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_bottom, R.anim.slide_out_top);
+        fragmentTransaction.add(R.id.content_frame, fragment);
+        fragmentTransaction.addToBackStack("FullProfileFragment");
+        fragmentTransaction.commit();
+    }
+
+    @Override
     public void onProductFilter(String word){
         ((FullProductsFragment)mCurrentFragment).filterByWord(word);
     }
@@ -366,15 +385,17 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     @Override
     public void onProductFiltersSelected(HashMap<String, Integer> filterSelectedItems) {
         goBackToProductList(filterSelectedItems);
-
-//        getFragmentManager().beginTransaction().remove(f).commit();
-//        ((FullProductsFragment)mCurrentFragment).filterBycategoryAndDistance(selectedItems, mLocation);
     }
 
     private void goBackToProductList(HashMap<String,Integer> filterSelectedItems) {
         getFragmentManager().popBackStack();
         mCurrentFragment.setHasOptionsMenu(true);
         ((FullProductsFragment) mCurrentFragment).reloadProductsList(filterSelectedItems, mLocation);
+    }
+
+    private void goBackToProductDetail() {
+        getSupportFragmentManager().popBackStack();
+        getSupportFragmentManager().getBackStackEntryAt(1);
     }
 
     private void goBackToProfile() {
@@ -404,10 +425,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     public void onConnected(Bundle bundle) {
 
         android.location.Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (location == null) {
-            // Blank for the moment...
-        }
-        else {
+        if (location != null) {
             handleNewLocation(location);
         }
     }

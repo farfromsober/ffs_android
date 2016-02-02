@@ -6,7 +6,8 @@
     android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:showIn="@layout/fragment_products">
+    tools:showIn="@layout/fragment_products"
+    android:background="@color/app_light_orange">
 
     <com.farfromsober.customviews.CustomFontTextView
         android:id="@+id/no_products_label"
@@ -27,7 +28,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/products_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="@color/app_light_orange"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

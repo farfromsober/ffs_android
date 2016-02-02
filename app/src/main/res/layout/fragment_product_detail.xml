@@ -85,7 +85,8 @@
                 android:paddingLeft="15dp"
                 android:paddingStart="15dp"
                 android:paddingRight="15dp"
-                android:paddingEnd="15dp">
+                android:paddingEnd="15dp"
+                android:background="@android:color/white">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/detail_seller_image"
@@ -95,6 +96,16 @@
                     android:src="@drawable/mavatar_placeholder"
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="0dp"/>
+
+                <Button
+                    android:id="@+id/detail_seller_profile_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignTop="@id/detail_seller_image"
+                    android:layout_alignBottom="@id/detail_seller_image"
+                    android:layout_alignLeft="@id/detail_seller_image"
+                    android:layout_alignRight="@id/detail_seller_image"
+                    android:background="@android:color/transparent"/>
 
                 <com.farfromsober.customviews.CustomFontTextView
                     android:id="@+id/detail_seller_name"
@@ -171,11 +182,12 @@
                     android:layout_marginLeft="15dp"
                     ffs:fontName="Raleway-Regular.ttf"
                     style="@style/product_detail_description_text_style"
-                    android:text="@string/product_detail_location_label"/>
+                    android:text="@string/product_detail_location_label"
+                    android:background="@android:color/white"/>
 
                 <fragment
                     android:id="@+id/detail_product_map"
-                    android:name="com.google.android.gms.maps.MapFragment"
+                    class="com.google.android.gms.maps.MapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_below="@id/detail_location_title"

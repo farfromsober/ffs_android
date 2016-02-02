@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ffs</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Ajustes</string>
 
     <string-array name="DrawerMenuTitles">
         <item>Productos</item>
@@ -45,10 +45,10 @@
     <string name="map_fragment">Mapa fragment</string>
     <string name="notifications_fragment">Notificaciones fragment</string>
     <string name="profile_fragment">Perfil fragment</string>
-    <string name="openDrawer">Drawer opened</string>
-    <string name="closeDrawer">Drawer closed</string>
-    <string name="navigation_drawer_item_icon_content_description">Drawer Menu Icon</string>
-    <string name="drawer_item_example_text">Navigation drawer item</string>
+    <string name="openDrawer">Drawer abierto</string>
+    <string name="closeDrawer">Drawer cerrado</string>
+    <string name="navigation_drawer_item_icon_content_description">Icono del menu</string>
+    <string name="drawer_item_example_text">Texto de ejemplo</string>
     <string name="drawer_number_of_transactions_format">%1$d ventas</string>
 
     <string name="products_loading_message">Descargando productos,\npor favor espere.</string>
@@ -63,25 +63,19 @@
     <string name="title_activity_edit_product">EditProduct</string>
     <string name="transaction_creation_message">Realizando la transacción,\npor favor espere.</string>
 
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="product_detail_fragment">Product detail fragment</string>
     <string name="product_detail_location_label">LOCALIZACIÓN</string>
     <string name="published">publicado</string>
     <string name="selling">En venta</string>
     <string name="sold">Vendido</string>
     <string name="photos">fotos</string>
     <string name="filter_submit">Aceptar</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="profile_fragment_text">To be done by Mixi     ;-)</string>
-    <string name="title_activity_maps">Mapa</string>
     <string name="purchase">Comprar</string>
     <string name="login_accessing">Accediendo</string>
-    <string name="new_product_hint_title">Title</string>
-    <string name="new_product_hint_description">Description</string>
-    <string name="new_product_hint_category">Category</string>
-    <string name="new_product_hint_price">Price</string>
+    <string name="new_product_hint_title">Titulo</string>
+    <string name="new_product_hint_description">Descripcion</string>
+    <string name="new_product_hint_category">Categoría</string>
+    <string name="new_product_hint_price">Precio</string>
+
     <string name="transaction_succeed">Transacción completada</string>
     <string name="enjoy_new_product">Disfruta tu nuevo producto</string>
     <string name="button_ok">OK</string>
@@ -90,14 +84,14 @@
     <string name="find_product">Buscar producto</string>
     <string name="filter_product_name">Filtrar productos</string>
     <string name="no_products_label_text">No se han encontrado productos</string>
-    <string name="product_image_dialog_title">Product Photo</string>
-    <string name="product_image_dialog_message">What do you want to do with this picture?</string>
-    <string name="product_image_dialog_remove">Remove</string>
-    <string name="product_image_dialog_replace">Replace</string>
-    <string name="new_product_uploading_images">Uploading Product Images</string>
-    <string name="new_product_uploading_product_info">Uploading product info</string>
-    <string name="product_image_content_description">Product image</string>
-    <string name="product_name_mock_text">Product name</string>
+    <string name="product_image_dialog_title">Foto de producto</string>
+    <string name="product_image_dialog_message">¿Que desea hacer con esta imagen?</string>
+    <string name="product_image_dialog_remove">Borrarla</string>
+    <string name="product_image_dialog_replace">Reemplazarla</string>
+    <string name="new_product_uploading_images">Subiendo imágenes de producto</string>
+    <string name="new_product_uploading_product_info">Subiendo datos de producto</string>
+    <string name="product_image_content_description">Imagen de producto</string>
+    <string name="product_name_mock_text">Nombre de producto</string>
     <string name="product_price_mock_text">00.00</string>
     <string name="search_product_hint_text">Buscar productos</string>
     <string name="profile_tab_title">Perfil</string>
@@ -106,8 +100,11 @@
     <string name="bought_tab_title">Comprados</string>
     <string name="profile_fragment_user_name">%1$s %2$s</string>
     <string name="profile_fragment_user_location">%1$s (%2$s)</string>
-    <string name="profile_fragment_products_selling">%1$d sales</string>
-    <string name="profile_fragment_products_sold">%1$d purchases</string>
-    <string name="profile_fragment_products_bought">%1$d bought</string>
+    <string name="profile_fragment_products_selling">%1$d en venta</string>
+    <string name="profile_fragment_products_sold">%1$d vendidos</string>
+    <string name="profile_fragment_products_bought">%1$d comprados</string>
+    <string name="section_header_categories">Categorías</string>
+    <string name="section_header_distances">Distancia</string>
+    <string name="accept">Aceptar</string>
 
 </resources>

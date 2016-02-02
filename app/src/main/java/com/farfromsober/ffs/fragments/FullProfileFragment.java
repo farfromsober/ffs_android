@@ -2,15 +2,15 @@ package com.farfromsober.ffs.fragments;
 
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,11 +34,15 @@ public class FullProfileFragment extends Fragment {
     private FragmentActivity mContext;
     public WeakReference<ProductsFragmentListener> mProductsFragmentListener;
 
+    private ViewPagerAdapter adapter;
+
     private User mUser;
 
     //@Bind(R.id.toolbar) Toolbar mToolbar;
-    @Bind(R.id.tabs) TabLayout mTabLayout;
-    @Bind(R.id.viewpager) ViewPager mViewPager;
+    @Bind(R.id.tabs)
+    TabLayout mTabLayout;
+    @Bind(R.id.viewpager)
+    ViewPager mViewPager;
 
     public FullProfileFragment() {
         // Required empty public constructor
@@ -63,7 +67,7 @@ public class FullProfileFragment extends Fragment {
 
         if (getArguments() != null) {
             mUser = (User) getArguments().getSerializable(ARG_USER);
-            if ((mUser == null) ) {
+            if ((mUser == null)) {
                 mUser = SharedPreferencesManager.getPrefUserData(getActivity());
             }
             return;
@@ -75,11 +79,15 @@ public class FullProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_full_profile, container, false);
         ButterKnife.bind(this, root);
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         setupViewPager(mViewPager);
         mTabLayout.setupWithViewPager(mViewPager);
-
-        return root;
     }
 
     @Override
@@ -88,6 +96,7 @@ public class FullProfileFragment extends Fragment {
         super.onAttach(context);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         setCallbacks(activity);
@@ -98,13 +107,15 @@ public class FullProfileFragment extends Fragment {
         try {
             mProductsFragmentListener = new WeakReference<>((ProductsFragmentListener) getActivity());
         } catch (Exception e) {
-            throw new ClassCastException(context.toString()+" must implement OnMenuSelectedCallback in Activity");
+            throw new ClassCastException(context.toString() + " must implement OnMenuSelectedCallback in Activity");
         }
-        mContext = (FragmentActivity)context;
+        mContext = (FragmentActivity) context;
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(mContext.getSupportFragmentManager());
+        if (adapter == null) {
+            adapter = new ViewPagerAdapter(mContext.getSupportFragmentManager());
+        }
         adapter.addFragment(ProfileFragment.newInstance(mUser), mContext.getString(R.string.profile_tab_title));
         adapter.addFragment(SellingFragment.newInstance(mUser), mContext.getString(R.string.selling_tab_title));
         adapter.addFragment(SoldFragment.newInstance(mUser), mContext.getString(R.string.sold_tab_title));
@@ -121,7 +132,7 @@ public class FullProfileFragment extends Fragment {
         }
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position) {
+        public Fragment getItem(int position) {
             return mFragmentList.get(position);
         }
 
@@ -133,6 +144,14 @@ public class FullProfileFragment extends Fragment {
         public void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            FragmentManager manager = ((Fragment) object).getFragmentManager();
+            FragmentTransaction trans = manager.beginTransaction();
+            trans.remove((Fragment) object);
+            trans.commit();
         }
 
         @Override

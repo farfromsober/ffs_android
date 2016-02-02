@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">ffs</string>
 
     <string name="action_settings">Settings</string>
 
@@ -26,7 +25,10 @@
     <string name="login_signin_hint">Entrar</string>
     <string name="login_register_hint">Registrarse</string>
     <string name="login_error_message_title">Access error</string>
-    <string name="login_error_message">Access error occurred. Please, check data provided..</string>
+    <string name="login_error_message">Access error occurred. Please, check data provided.</string>
+    <string name="title_activity_edit_product">EditProduct</string>
+    <string name="transaction_creation_message">Wait a moment please,\nprocessing transaction.</string>
+
     <string name="product_detail_location_label">LOCATION</string>
     <string name="published">published</string>
     <string name="selling">For sale</string>
@@ -39,5 +41,35 @@
     <string name="new_product_hint_category">Category</string>
     <string name="new_product_hint_price">Price</string>
 
+    <string name="transaction_succeed">Transaction completed</string>
+    <string name="enjoy_new_product">Enjoy your new product</string>
+    <string name="button_ok">OK</string>
+    <string name="please_try_again">Please, try again.</string>
+    <string name="transaction_failed">Ops, incomplete transaction.</string>
+    <string name="find_product">Search product</string>
+    <string name="filter_product_name">Filter products</string>
+    <string name="no_products_label_text">No products founds</string>
+    <string name="product_image_dialog_title">Product Photo</string>
+    <string name="product_image_dialog_message">What do you want to do with this picture?</string>
+    <string name="product_image_dialog_remove">Remove</string>
+    <string name="product_image_dialog_replace">Replace</string>
+    <string name="new_product_uploading_images">Uploading Product Images</string>
+    <string name="new_product_uploading_product_info">Uploading product info</string>
+    <string name="product_image_content_description">Product image</string>
+    <string name="product_name_mock_text">Product name</string>
+    <string name="product_price_mock_text">00.00</string>
+    <string name="search_product_hint_text">Search product</string>
+    <string name="profile_tab_title">Profile</string>
+    <string name="selling_tab_title">Selling</string>
+    <string name="sold_tab_title">Sold</string>
+    <string name="bought_tab_title">Bought</string>
+    <string name="profile_fragment_user_name">%1$s %2$s</string>
+    <string name="profile_fragment_user_location">%1$s (%2$s)</string>
+    <string name="profile_fragment_products_selling">%1$d sales</string>
+    <string name="profile_fragment_products_sold">%1$d purchases</string>
+    <string name="profile_fragment_products_bought">%1$d bought</string>
+    <string name="section_header_categories">Categories</string>
+    <string name="section_header_distances">Distance</string>
+    <string name="accept">Aceptar</string>
 
 </resources>

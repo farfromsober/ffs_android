@@ -20,9 +20,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.farfromsober.customviews.CustomFontTextView;
@@ -54,33 +51,29 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
     public WeakReference<ProductsFragmentListener> mProductsListener;
     public WeakReference<OnOptionsFilterListener> mOptionslistener;
 
-    HashMap<String,Integer> mFilterSelectedItems;
+    HashMap<String, Integer> mFilterSelectedItems;
 
-    //private RecyclerView mProductsList;
-    @Bind(R.id.no_products_label) CustomFontTextView mNoProductsLabel;
-    @Bind(R.id.products_list) RecyclerView mProductsList;
-    @Bind(R.id.add_product_button) FloatingActionButton mAddProduct;
-    @Bind(R.id.products_swipe_refresh_layout) SwipeRefreshLayout mSwipeRefreshLayout;
-    @Bind(R.id.searchGroup) RelativeLayout mSearchGroup;
-    @Bind(R.id.searchView) SearchView mSearchView;
-    @Bind(R.id.searchViewLabel) CustomFontTextView mSearchLabel;
+    @Bind(R.id.no_products_label)
+    CustomFontTextView mNoProductsLabel;
+    @Bind(R.id.products_list)
+    RecyclerView mProductsList;
+    @Bind(R.id.add_product_button)
+    FloatingActionButton mAddProduct;
+    @Bind(R.id.products_swipe_refresh_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    @Bind(R.id.searchGroup)
+    RelativeLayout mSearchGroup;
+    @Bind(R.id.searchView)
+    SearchView mSearchView;
+    @Bind(R.id.searchViewLabel)
+    CustomFontTextView mSearchLabel;
 
     public FullProductsFragment() {
         // Required empty public constructor
     }
 
     public static FullProductsFragment newInstance() {
-        FullProductsFragment fragment = new FullProductsFragment();
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-
-        }
+        return new FullProductsFragment();
     }
 
     @Override
@@ -88,7 +81,6 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
         View root = inflater.inflate(R.layout.fragment_full_products, container, false);
         ButterKnife.bind(this, root);
-
         return root;
     }
 
@@ -182,25 +174,25 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
         try {
             mOnNetworkActivityCallback = new WeakReference<>((OnNetworkActivityCallback) getActivity());
         } catch (Exception e) {
-            throw new ClassCastException(context.toString()+" must implement OnNetworkActivityCallback in Activity");
+            throw new ClassCastException(context.toString() + " must implement OnNetworkActivityCallback in Activity");
         }
         try {
             mProductsListener = new WeakReference<>((ProductsFragmentListener) getActivity());
         } catch (Exception e) {
-            throw new ClassCastException(context.toString()+" must implement ProductsFragmentListener in Activity");
+            throw new ClassCastException(context.toString() + " must implement ProductsFragmentListener in Activity");
         }
         try {
             mOptionslistener = new WeakReference<>((OnOptionsFilterListener) getActivity());
         } catch (Exception e) {
-            throw new ClassCastException(context.toString()+" must implement ProductsFragmentListener in Activity");
+            throw new ClassCastException(context.toString() + " must implement ProductsFragmentListener in Activity");
         }
     }
 
-    public void reloadProductsList(HashMap<String,Integer> filterSelectedItems, Location location) {
+    public void reloadProductsList(HashMap<String, Integer> filterSelectedItems, Location location) {
         mFilterSelectedItems = filterSelectedItems;
         if (filterSelectedItems == null) {
             askServerForProducts();
-        }else{
+        } else {
             filterBycategoryAndDistance(mFilterSelectedItems, location);
         }
     }
@@ -232,7 +224,7 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
     }
 
 
-    public void filterBycategoryAndDistance(HashMap<String,Integer> categories, Location location) {
+    public void filterBycategoryAndDistance(HashMap<String, Integer> categories, Location location) {
         showPreloader(getActivity().getString(R.string.products_loading_message));
         apiManager.allProductsFilterByCategoriesAndDistance(categories, this, location);
     }
@@ -244,10 +236,9 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
 
     @Override
-    public void onCreateOptionsMenu(Menu menu,MenuInflater inflater)
-    {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_products_list, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -255,7 +246,7 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
         switch (item.getItemId()) {
 
-            case R.id.action_filter:{
+            case R.id.action_filter: {
                 if (mOptionslistener != null && mOptionslistener.get() != null) {
                     mOptionslistener.get().onFilterMenuSelected(mFilterSelectedItems);
                 }
@@ -281,20 +272,19 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
                 mProductsList.setVisibility(View.VISIBLE);
                 mNoProductsLabel.setVisibility(View.INVISIBLE);
                 products.deleteProducts();
-            }
-            else {
+            } else {
                 mProductsList.setVisibility(View.INVISIBLE);
                 mNoProductsLabel.setVisibility(View.VISIBLE);
             }
             for (int i = 0; i < data.size(); i++) {
-                if (data.get(i).getClass().equals(Product.class)){
-                    Product product = (Product)data.get(i);
+                if (data.get(i).getClass().equals(Product.class)) {
+                    Product product = (Product) data.get(i);
                     products.addProduct(product);
                     // ONLY Products that have selling = true will be shown
                     //if (product.getIsSelling() == true) {products.addProduct(product); }
                 }
-                if (data.get(i).getClass().equals(Transaction.class)){
-                    Transaction transaction = (Transaction)data.get(i);
+                if (data.get(i).getClass().equals(Transaction.class)) {
+                    Transaction transaction = (Transaction) data.get(i);
                     products.addProduct(transaction.getProduct());
                 }
             }

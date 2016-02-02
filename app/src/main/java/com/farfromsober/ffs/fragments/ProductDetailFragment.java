@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.farfromsober.customviews.CustomFontButton;
@@ -50,23 +51,38 @@ import static com.farfromsober.ffs.activities.MainActivity.*;
 public class ProductDetailFragment extends Fragment implements OnDataParsedCallback<Transaction> {
 
     public static final String ARG_PRODUCT = "com.farfromsober.ffs.fragments.ProductDetailFragment.ARG_PRODUCT";
+    public static final String DEFAULT_CITY = "Madrid";
+    public static final String DEFAULT_STATE = "Spain";
     private Product mProduct;
-    public ProductDetailFragmentListener mListener;
+    public WeakReference<ProductDetailFragmentListener>  mListener;
 
     private APIManager apiManager;
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
 
-    @Bind(R.id.detail_images_viewpager) ViewPager mViewPager;
-    @Bind(R.id.detail_images_viewpager_indicator) CirclePageIndicator mCirclePageIndicator;
-    @Bind(R.id.detail_product_number_of_photos) CustomFontTextView mNumberOfPhotos;
-    @Bind(R.id.detail_product_for_sale) CustomFontTextView mForSale;
-    @Bind(R.id.detail_seller_image) CircleImageView mSellerImageView;
-    @Bind(R.id.detail_seller_name) CustomFontTextView mSellerName;
-    @Bind(R.id.detail_published_date) CustomFontTextView mPublishedDate;
-    @Bind(R.id.detail_product_price) CustomFontTextView mProductPrice;
-    @Bind(R.id.detail_product_title) CustomFontTextView mProductTitle;
-    @Bind(R.id.detail_product_description) CustomFontTextView mProductDescription;
-    @Bind(R.id.purchase_button) CustomFontButton mPurchaseButton;
+    @Bind(R.id.detail_images_viewpager)
+    ViewPager mViewPager;
+    @Bind(R.id.detail_images_viewpager_indicator)
+    CirclePageIndicator mCirclePageIndicator;
+    @Bind(R.id.detail_product_number_of_photos)
+    CustomFontTextView mNumberOfPhotos;
+    @Bind(R.id.detail_product_for_sale)
+    CustomFontTextView mForSale;
+    @Bind(R.id.detail_seller_image)
+    CircleImageView mSellerImageView;
+    @Bind(R.id.detail_seller_name)
+    CustomFontTextView mSellerName;
+    @Bind(R.id.detail_published_date)
+    CustomFontTextView mPublishedDate;
+    @Bind(R.id.detail_product_price)
+    CustomFontTextView mProductPrice;
+    @Bind(R.id.detail_product_title)
+    CustomFontTextView mProductTitle;
+    @Bind(R.id.detail_product_description)
+    CustomFontTextView mProductDescription;
+    @Bind(R.id.purchase_button)
+    CustomFontButton mPurchaseButton;
+    @Bind(R.id.detail_seller_profile_button)
+    Button mProfileButton;
 
     private MapFragment mMapFragment;
     private GoogleMap map;
@@ -126,6 +142,13 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
                 requestPurchaseProduct();
             }
         });
+
+        mProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSellerProfile();
+            }
+        });
     }
 
     @Override
@@ -134,6 +157,7 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
         super.onAttach(context);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         setCallbacks(activity);
@@ -144,20 +168,26 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
         try {
             mOnMenuSelectedCallback = new WeakReference<>((OnMenuSelectedCallback) getActivity());
         } catch (Exception e) {
-            throw new ClassCastException(context.toString()+" must implement OnMenuSelectedCallback in Activity");
+            throw new ClassCastException(context.toString() + " must implement OnMenuSelectedCallback in Activity");
         }
 
         try {
             mOnNetworkActivityCallback = new WeakReference<>((OnNetworkActivityCallback) getActivity());
         } catch (Exception e) {
-            throw new ClassCastException(context.toString()+" must implement OnNetworkActivityCallback in Activity");
+            throw new ClassCastException(context.toString() + " must implement OnNetworkActivityCallback in Activity");
+        }
+
+        try {
+            mListener = new WeakReference<>((ProductDetailFragmentListener) getActivity());
+        } catch (Exception e) {
+            throw new ClassCastException(context.toString() + " must implement ProductDetailFragmentListener in Activity");
         }
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void configureMap() {
 
-        mMapFragment =   ((MapFragment) getChildFragmentManager().findFragmentById(R.id.detail_product_map));
+        mMapFragment = ((MapFragment) getChildFragmentManager().findFragmentById(R.id.detail_product_map));
 
         if (mMapFragment != null) {
 
@@ -170,12 +200,15 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
                 }
             });
 
-            User user = SharedPreferencesManager.getPrefUserData(getActivity());
             LatLng center;
-            if (user.getLatitude() == "" || user.getLongitude() == "") {
-                center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", user.getCity(), user.getState()));
+            if (mProduct.getSeller().getLatitude() == "" || mProduct.getSeller().getLongitude() == "") {
+                if (mProduct.getSeller().getCity() == "" || mProduct.getSeller().getState() == "") {
+                    center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", mProduct.getSeller().getCity(), mProduct.getSeller().getState()));
+                } else {
+                    center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", DEFAULT_CITY, DEFAULT_STATE));
+                }
             } else {
-                center = new LatLng(Double.parseDouble(user.getLatitude()), Double.parseDouble(user.getLongitude()));
+                center = new LatLng(Double.parseDouble(mProduct.getSeller().getLatitude()), Double.parseDouble(mProduct.getSeller().getLongitude()));
             }
             MapUtils.centerMap(map, center.latitude, center.longitude, 12);
             // create marker
@@ -228,7 +261,13 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
         Log.i("ffs", "requestPurchaseProduct");
         showPreloader(getActivity().getString(R.string.transaction_creation_message));
         User user = SharedPreferencesManager.getPrefUserData(getActivity());
-        apiManager.createTransaction(mProduct.getId(),user.getUserId(), this);
+        apiManager.createTransaction(mProduct.getId(), user.getUserId(), this);
+    }
+
+    private void showSellerProfile() {
+        if (mListener != null && mListener.get() != null) {
+            mListener.get().onProductsDetailProfilePressed(mProduct.getSeller());
+        }
     }
 
     private void showPreloader(String message) {
@@ -254,10 +293,14 @@ public class ProductDetailFragment extends Fragment implements OnDataParsedCallb
         }
         if (data != null) {
             Log.i("ffs", "Transaction succeed");
-            mListener.onProductsDetailFragmentPurchaseSucceed();
-        } else if (data==null){
+            if (mListener != null && mListener.get() != null) {
+                mListener.get().onProductsDetailFragmentPurchaseSucceed();
+            }
+        } else if (data == null) {
             Log.i("ffs", "Transaction failed");
-            mListener.onProductsDetailFragmentPurchaseFailed();
+            if (mListener != null && mListener.get() != null) {
+                mListener.get().onProductsDetailFragmentPurchaseFailed();
+            }
         }
         hidePreloader();
     }
