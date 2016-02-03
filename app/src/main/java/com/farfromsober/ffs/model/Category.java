@@ -16,7 +16,7 @@ public class Category implements Serializable {
     private int mIndex;
 
     public Category(String name, int index) {
-        super();
+        //super();
         mName = name;
         mIndex = index;
     }
@@ -24,7 +24,7 @@ public class Category implements Serializable {
     public Category(JSONObject json) {
         if (hasNeededFields(json)) {
             mName = json.optString(NAME_KEY);
-            mIndex = json.optDouble(INDEX_KEY);
+            mIndex = json.optInt(INDEX_KEY);
         }
     }
 

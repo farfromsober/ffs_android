@@ -14,7 +14,7 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c319f27a-66d1-4d63-969a-cb40567f5ed1" name="Default" comment="" />
@@ -44,23 +44,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ProductTests.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ProductTests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/ProductTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2768166">
-              <caret line="16" column="48" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CategoryTests.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/CategoryTests.java">
-          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="44" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="44" />
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -68,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FakeModelObjectsHelper.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="FakeModelObjectsHelper.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/FakeModelObjectsHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="123" column="30" selection-start-line="123" selection-start-column="30" selection-end-line="123" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.33457944">
+              <caret line="170" column="0" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -80,12 +68,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/User.java">
+      <file leaf-file-name="ProfileFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/fragments/ProfileFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
-              <folding />
+              <caret line="181" column="0" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
+              <folding>
+                <element signature="e#6831#6894#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -592,9 +582,9 @@
                 <option name="name" value="prepareComAndroidSupportMultidex101Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:percent:23.0.1" />
+                <option name="description" value="Prepare com.android.support:percent:23.1.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComAndroidSupportPercent2301Library" />
+                <option name="name" value="prepareComAndroidSupportPercent2311Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.android.support:recyclerview-v7:23.1.1" />
@@ -602,34 +592,44 @@
                 <option name="name" value="prepareComAndroidSupportRecyclerviewV72311Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-v13:23.1.1" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComAndroidSupportSupportV132311Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Prepare com.android.support:support-v4:23.1.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="prepareComAndroidSupportSupportV42311Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.google.android.gms:play-services-base:8.1.0" />
+                <option name="description" value="Prepare com.google.android.gms:play-services-base:8.3.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesBase810Library" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesBase830Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.google.android.gms:play-services-basement:8.1.0" />
+                <option name="description" value="Prepare com.google.android.gms:play-services-basement:8.3.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesBasement810Library" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesBasement830Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.google.android.gms:play-services-location:8.1.0" />
+                <option name="description" value="Prepare com.google.android.gms:play-services-location:8.3.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesLocation810Library" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesLocation830Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.google.android.gms:play-services-maps:8.1.0" />
+                <option name="description" value="Prepare com.google.android.gms:play-services-maps:8.3.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesMaps810Library" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesMaps830Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.makeramen:roundedimageview:2.2.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="prepareComMakeramenRoundedimageview221Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.microsoft.azure.android:azure-storage-android:0.7.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComMicrosoftAzureAndroidAzureStorageAndroid070Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.viewpagerindicator:library:2.4.1" />
@@ -1301,9 +1301,9 @@
                 <option name="name" value="prepareComAndroidSupportMultidex101Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support:percent:23.0.1" />
+                <option name="description" value="Prepare com.android.support:percent:23.1.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComAndroidSupportPercent2301Library" />
+                <option name="name" value="prepareComAndroidSupportPercent2311Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.android.support:recyclerview-v7:23.1.1" />
@@ -1311,34 +1311,44 @@
                 <option name="name" value="prepareComAndroidSupportRecyclerviewV72311Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.android.support:support-v13:23.1.1" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComAndroidSupportSupportV132311Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Prepare com.android.support:support-v4:23.1.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="prepareComAndroidSupportSupportV42311Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.google.android.gms:play-services-base:8.1.0" />
+                <option name="description" value="Prepare com.google.android.gms:play-services-base:8.3.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesBase810Library" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesBase830Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.google.android.gms:play-services-basement:8.1.0" />
+                <option name="description" value="Prepare com.google.android.gms:play-services-basement:8.3.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesBasement810Library" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesBasement830Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.google.android.gms:play-services-location:8.1.0" />
+                <option name="description" value="Prepare com.google.android.gms:play-services-location:8.3.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesLocation810Library" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesLocation830Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.google.android.gms:play-services-maps:8.1.0" />
+                <option name="description" value="Prepare com.google.android.gms:play-services-maps:8.3.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesMaps810Library" />
+                <option name="name" value="prepareComGoogleAndroidGmsPlayServicesMaps830Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.makeramen:roundedimageview:2.2.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="prepareComMakeramenRoundedimageview221Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.microsoft.azure.android:azure-storage-android:0.7.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComMicrosoftAzureAndroidAzureStorageAndroid070Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare com.viewpagerindicator:library:2.4.1" />
@@ -3763,7 +3773,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="15945131186000" />
+        <entry key="$PROJECT_DIR$" value="15946044150000" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -3942,20 +3952,22 @@
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.3/lombok-ast-0.2.3-sources.jar" />
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/com/android/tools/external/lombok/lombok-ast/0.2.3/lombok-ast-0.2.3.jar" />
                             <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/android/m2repository/com/android/support/appcompat-v7/23.1.1/appcompat-v7-23.1.1.aar" />
+                            <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/android/m2repository/com/android/support/support-v13/23.1.1/support-v13-23.1.1.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/7.0.1/d5d13ea991eab0252e3710e5df3d6a9d4b21d461/butterknife-7.0.1.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.makeramen/roundedimageview/2.2.1/2488468737fbb6a4bb8adf763ae6cd9688a6c6d7/roundedimageview-2.2.1.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.hdodenhof/circleimageview/2.0.0/24c2714c9107b98d3b7113332b70e3245b2405bf/circleimageview-2.0.0.aar" />
                             <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/android/m2repository/com/android/support/design/23.1.1/design-23.1.1.aar" />
                             <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/android/m2repository/com/android/support/recyclerview-v7/23.1.1/recyclerview-v7-23.1.1.aar" />
-                            <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/android/m2repository/com/android/support/percent/23.0.1/percent-23.0.1.aar" />
+                            <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/android/m2repository/com/android/support/percent/23.1.1/percent-23.1.1.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar" />
-                            <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/google/m2repository/com/google/android/gms/play-services-maps/8.1.0/play-services-maps-8.1.0.aar" />
-                            <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/google/m2repository/com/google/android/gms/play-services-location/8.1.0/play-services-location-8.1.0.aar" />
+                            <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/google/m2repository/com/google/android/gms/play-services-maps/8.3.0/play-services-maps-8.3.0.aar" />
+                            <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/google/m2repository/com/google/android/gms/play-services-location/8.3.0/play-services-location-8.3.0.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.viewpagerindicator/library/2.4.1/6dfa2706e7b5f9f5e235fb05522e28da44103bd8/library-2.4.1.aar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.microsoft.azure.android/azure-storage-android/0.7.0/b440c95eac5a9e4b253492d30c55d100961fbee2/azure-storage-android-0.7.0.aar" />
                             <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/android/m2repository/com/android/support/support-v4/23.1.1/support-v4-23.1.1.aar" />
                             <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar" />
-                            <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/google/m2repository/com/google/android/gms/play-services-base/8.1.0/play-services-base-8.1.0.aar" />
-                            <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/google/m2repository/com/google/android/gms/play-services-basement/8.1.0/play-services-basement-8.1.0.aar" />
+                            <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/google/m2repository/com/google/android/gms/play-services-base/8.3.0/play-services-base-8.3.0.aar" />
+                            <option value="$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/extras/google/m2repository/com/google/android/gms/play-services-basement/8.3.0/play-services-basement-8.3.0.aar" />
                             <option value="$MODULE_DIR$/libs/picasso-2.5.2.jar" />
                           </list>
                         </option>
@@ -4459,8 +4471,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/network/src/main/java/com/farfromsober/network/APIAsyncTask.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/LoginData.java" />
         <option value="$PROJECT_DIR$/general_utils/src/main/java/com/farfromsober/generalutils/DateManager.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/network/APIManager.java" />
@@ -4505,11 +4515,13 @@
         <option value="$PROJECT_DIR$/general_utils/src/main/java/com/farfromsober/generalutils/SharedPreferencesGeneralManager.java" />
         <option value="$PROJECT_DIR$/general_utils/src/androidTest/java/com/farfromsober/generalutils/SharedPreferencesTests.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/ProductTests.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/Category.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/Product.java" />
-        <option value="$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/CategoryTests.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/ProductTests.java" />
+        <option value="$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/CategoryTests.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/Category.java" />
+        <option value="$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/UserTests.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/FakeModelObjectsHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/User.java" />
       </list>
     </option>
   </component>
@@ -4524,10 +4536,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="4" />
+    <option name="x" value="5" />
     <option name="y" value="23" />
-    <option name="width" value="1916" />
-    <option name="height" value="1011" />
+    <option name="width" value="1910" />
+    <option name="height" value="964" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -4552,6 +4564,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -4974,6 +4987,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -5015,15 +5029,13 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="emulator-5554" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="01a4205415536b4a" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_23" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
@@ -5053,7 +5065,7 @@
       <recent name="com.farfromsober.ffs.utils" />
     </key>
   </component>
-  <component name="RunManager" selected="Android Tests.CategoryTests">
+  <component name="RunManager" selected="Android Application.app">
     <configuration default="false" name="FormattingTests" type="AndroidTestRunConfigurationType" factoryName="Android Tests" temporary="true" nameIsGenerated="true">
       <module name="general_utils" />
       <option name="TESTING_TYPE" value="2" />
@@ -5150,6 +5162,36 @@
       <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="CLASS_NAME" value="com.farfromsober.ffs.model.CategoryTests" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="SELECTED_CLOUD_DEVICE_CONFIGURATION_ID" value="0" />
+      <option name="SELECTED_CLOUD_DEVICE_PROJECT_ID" value="" />
+      <option name="IS_VALID_CLOUD_MATRIX_SELECTION" value="false" />
+      <option name="INVALID_CLOUD_MATRIX_SELECTION_ERROR" value="" />
+      <option name="IS_VALID_CLOUD_DEVICE_SELECTION" value="false" />
+      <option name="INVALID_CLOUD_DEVICE_SELECTION_ERROR" value="" />
+      <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
+      <method />
+    </configuration>
+    <configuration default="false" name="UserTests" type="AndroidTestRunConfigurationType" factoryName="Android Tests" temporary="true" nameIsGenerated="true">
+      <module name="app" />
+      <option name="TESTING_TYPE" value="2" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="com.farfromsober.ffs.model.UserTests" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
       <option name="USE_LAST_SELECTED_DEVICE" value="false" />
@@ -5352,19 +5394,21 @@
       <option name="CLOUD_DEVICE_SERIAL_NUMBER" value="" />
       <method />
     </configuration>
-    <list size="5">
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Android Application.app" />
       <item index="1" class="java.lang.String" itemvalue="Android Tests.FormattingTests" />
       <item index="2" class="java.lang.String" itemvalue="Android Tests.SharedPreferencesTes..." />
       <item index="3" class="java.lang.String" itemvalue="Android Tests.ProductTests" />
       <item index="4" class="java.lang.String" itemvalue="Android Tests.CategoryTests" />
+      <item index="5" class="java.lang.String" itemvalue="Android Tests.UserTests" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Android Tests.CategoryTests" />
-        <item index="1" class="java.lang.String" itemvalue="Android Tests.ProductTests" />
-        <item index="2" class="java.lang.String" itemvalue="Android Tests.SharedPreferencesTes..." />
-        <item index="3" class="java.lang.String" itemvalue="Android Tests.FormattingTests" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Android Tests.UserTests" />
+        <item index="1" class="java.lang.String" itemvalue="Android Tests.CategoryTests" />
+        <item index="2" class="java.lang.String" itemvalue="Android Tests.ProductTests" />
+        <item index="3" class="java.lang.String" itemvalue="Android Tests.SharedPreferencesTes..." />
+        <item index="4" class="java.lang.String" itemvalue="Android Tests.FormattingTests" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="Applet" default="true" selected="false">
@@ -5403,26 +5447,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="23" width="1916" height="1011" extended-state="6" />
+    <frame x="5" y="23" width="1910" height="964" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.406993" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40642458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45081967" sideWeight="0.22583081" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21933962" sideWeight="0.5976801" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33614627" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3360849" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21344717" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17933619" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33254716" sideWeight="0.7087912" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -5430,12 +5476,10 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33423546" sideWeight="0.7087912" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25981057" sideWeight="0.5976801" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42334738" sideWeight="0.497558" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -5470,13 +5514,25 @@
           <properties />
           <option name="timeStamp" value="81" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/CategoryTests.java</url>
+          <line>36</line>
+          <properties />
+          <option name="timeStamp" value="96" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/FakeModelObjectsHelper.java</url>
+          <line>170</line>
+          <properties />
+          <option name="timeStamp" value="113" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</url>
           <line>85</line>
           <option name="timeStamp" value="57" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="96" />
+      <option name="time" value="115" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="app">
@@ -5494,21 +5550,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/network/APIManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="59" column="29" selection-start-line="59" selection-start-column="29" selection-end-line="59" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/network/src/main/java/com/farfromsober/network/NetworkUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="120" column="5" selection-start-line="120" selection-start-column="5" selection-end-line="120" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/Product.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -5793,15 +5834,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.20675105">
           <caret line="67" column="9" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/fragments/ProductsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -5816,16 +5848,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33189654">
           <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/Category.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.83815026">
-          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -5849,30 +5871,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/Transaction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06920415">
+        <state vertical-scroll-proportion="0.06940063">
           <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/User.java">
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/ProductTests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
-          <folding />
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/FakeModelObjectsHelper.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/Category.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="123" column="30" selection-start-line="123" selection-start-column="30" selection-end-line="123" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.30757096">
+          <caret line="24" column="36" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -5882,17 +5905,51 @@
     <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/CategoryTests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="44" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="44" />
+          <caret line="40" column="5" selection-start-line="32" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/ProductTests.java">
+    <entry file="file://$PROJECT_DIR$/../../../../../../../4.- Software/0.- Eclipse ADT/adt-bundle-mac-x86_64-20130917/sdk/sources/android-23/java/util/ArrayList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2768166">
-          <caret line="16" column="48" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
+        <state vertical-scroll-proportion="0.33271375">
+          <caret line="263" column="26" selection-start-line="263" selection-start-column="26" selection-end-line="263" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/fragments/ProfileFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="181" column="0" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
+          <folding>
+            <element signature="e#6831#6894#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/farfromsober/ffs/model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5607477">
+          <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/UserTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.8859813">
+          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/farfromsober/ffs/model/FakeModelObjectsHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33457944">
+          <caret line="170" column="0" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
