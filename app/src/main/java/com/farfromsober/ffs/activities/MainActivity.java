@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -72,7 +72,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
     private ActionBarDrawerToggle mDrawerToggle;
     private ArrayList<DrawerMenuItem> menuItems;
-    private DrawerListAdapter mDrawerListAdapter;
 
     private Fragment mCurrentFragment;
 
@@ -115,10 +114,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -137,7 +133,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     public void onBackPressed() {
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             if (mCurrentFragment.getClass().equals(FullProductsFragment.class)) {
-                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                if (getFragmentManager().getBackStackEntryCount() > 1) {
                     goBackToProductDetail();
                     return;
                 }
@@ -203,8 +199,8 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
                     getResources().getIdentifier(menuIconsOn[i], "drawable", getPackageName())
             ));
         }
-        mDrawerListAdapter = new DrawerListAdapter(this, menuItems);
-        mDrawerMenuListView.setAdapter(mDrawerListAdapter);
+        DrawerListAdapter drawerListAdapter = new DrawerListAdapter(this, menuItems);
+        mDrawerMenuListView.setAdapter(drawerListAdapter);
 
         mDrawerMenuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -223,7 +219,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         }
         Fragment fragment = getFragmentToNavigateTo(position);
 
-        getSupportFragmentManager().beginTransaction()
+        getFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, fragment)
                 .commit();
 
@@ -281,7 +277,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
         Fragment fragment = getFragmentToNavigateTo(position);
 
-        getSupportFragmentManager().beginTransaction()
+        getFragmentManager().beginTransaction()
                 .add(R.id.content_frame, fragment)
                 .commit();
 
@@ -369,8 +365,10 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
             return;
         }
         FullProfileFragment fragment = FullProfileFragment.newInstance(seller);
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //fragmentTransaction.setCustomAnimations(R.anim.slide_in_from_top, R.anim.slide_out_to_top, R.anim.slide_in_from_top, R.anim.slide_out_to_top);
+        //fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
         //fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_bottom, R.anim.slide_out_top);
         fragmentTransaction.add(R.id.content_frame, fragment);
         fragmentTransaction.addToBackStack("FullProfileFragment");
@@ -394,8 +392,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     private void goBackToProductDetail() {
-        getSupportFragmentManager().popBackStack();
-        getSupportFragmentManager().getBackStackEntryAt(0);
+        getFragmentManager().popBackStack();
     }
 
     private void goBackToProfile() {

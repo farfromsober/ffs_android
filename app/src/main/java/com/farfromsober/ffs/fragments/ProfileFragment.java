@@ -2,9 +2,9 @@ package com.farfromsober.ffs.fragments;
 
 
 import android.annotation.TargetApi;
+import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +19,7 @@ import com.farfromsober.ffs.utils.MapUtils;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.network.callbacks.OnDataParsedCallback;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
@@ -31,7 +31,8 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.farfromsober.ffs.fragments.FullProfileFragment.ARG_USER;
-import static com.farfromsober.ffs.fragments.ProductDetailFragment.*;
+import static com.farfromsober.ffs.fragments.ProductDetailFragment.DEFAULT_CITY;
+import static com.farfromsober.ffs.fragments.ProductDetailFragment.DEFAULT_STATE;
 
 public class ProfileFragment extends Fragment implements OnDataParsedCallback<Object> {
 
@@ -39,7 +40,6 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
     protected APIManager apiManager;
     private String apiCall;
 
-    private SupportMapFragment mMapFragment;
     private GoogleMap map;
 
     private static View view;
@@ -135,18 +135,22 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void configureMap() {
 
-        mMapFragment = ((SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.profile_map));
+        MapFragment mapFragment = ((MapFragment) getChildFragmentManager().findFragmentById(R.id.profile_map));
 
-        if (mMapFragment != null) {
+        if (mapFragment != null) {
 
-            map = mMapFragment.getMap();
+            map = mapFragment.getMap();
 
             //User user = SharedPreferencesManager.getPrefUserData(getActivity());
             LatLng center;
-            if (mUser.getLatitude() != null || mUser.getLongitude() != null) {
+            if (mUser.getLatitude() != null && mUser.getLongitude() != null) {
                 if (mUser.getLatitude().equals("") || mUser.getLongitude().equals("")) {
-                    if (mUser.getCity() == "" || mUser.getState() == "") {
-                        center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", mUser.getCity(), mUser.getState()));
+                    if (mUser.getCity() != null && mUser.getState() != null) {
+                        if (mUser.getCity().equals("") || mUser.getState().equals("")) {
+                            center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", mUser.getCity(), mUser.getState()));
+                        } else {
+                            center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", DEFAULT_CITY, DEFAULT_STATE));
+                        }
                     } else {
                         center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", DEFAULT_CITY, DEFAULT_STATE));
                     }
@@ -157,11 +161,13 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
                 center = MapUtils.getLocationFromAddress(getActivity(), String.format("%s, %s", DEFAULT_CITY, DEFAULT_STATE));
             }
 
-            MapUtils.centerMap(map, center.latitude, center.longitude, 12);
-            // create marker
-            MarkerOptions marker = new MarkerOptions().position(center);
-            // adding marker
-            map.addMarker(marker);
+            if (center != null) {
+                MapUtils.centerMap(map, center.latitude, center.longitude, 12);
+                // create marker
+                MarkerOptions marker = new MarkerOptions().position(center);
+                // adding marker
+                map.addMarker(marker);
+            }
         }
         if (map == null) {
             Toast.makeText(getActivity(), "Map died", Toast.LENGTH_LONG).show();

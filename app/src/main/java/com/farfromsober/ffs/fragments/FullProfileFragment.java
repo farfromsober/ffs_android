@@ -5,12 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class FullProfileFragment extends Fragment {
 
     public static final String ARG_USER = "com.farfromsober.ffs.fragments.FullProfileFragment.ARG_USER";
 
-    private FragmentActivity mContext;
+    private AppCompatActivity mContext;
     public WeakReference<ProductsFragmentListener> mProductsFragmentListener;
 
     private ViewPagerAdapter adapter;
@@ -109,21 +110,22 @@ public class FullProfileFragment extends Fragment {
         } catch (Exception e) {
             throw new ClassCastException(context.toString() + " must implement OnMenuSelectedCallback in Activity");
         }
-        mContext = (FragmentActivity) context;
+        mContext = (AppCompatActivity) context;
     }
 
     private void setupViewPager(ViewPager viewPager) {
         if (adapter == null) {
-            adapter = new ViewPagerAdapter(mContext.getSupportFragmentManager());
+            adapter = new ViewPagerAdapter(getChildFragmentManager());
         }
         adapter.addFragment(ProfileFragment.newInstance(mUser), mContext.getString(R.string.profile_tab_title));
         adapter.addFragment(SellingFragment.newInstance(mUser), mContext.getString(R.string.selling_tab_title));
         adapter.addFragment(SoldFragment.newInstance(mUser), mContext.getString(R.string.sold_tab_title));
         adapter.addFragment(BoughtFragment.newInstance(mUser), mContext.getString(R.string.bought_tab_title));
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(4);
     }
 
-    class ViewPagerAdapter extends FragmentStatePagerAdapter {
+    class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
