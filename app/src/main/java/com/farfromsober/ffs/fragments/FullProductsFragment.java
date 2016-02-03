@@ -90,6 +90,7 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
         mProductsList.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mProductsList.setItemAnimator(new DefaultItemAnimator());
+        mProductsList.swapAdapter(new ProductsAdapter(new ArrayList<Product>(), getActivity(), this), false);
         setHasOptionsMenu(true);
 
         mAddProduct.setOnClickListener(new View.OnClickListener() {
