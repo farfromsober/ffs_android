@@ -24,6 +24,19 @@ import java.util.Map;
 
 public class NetworkUtils {
 
+    private static final String FIRST_URL_PARAM_APPEND_CHARACTER = "?";
+    private static final String OTHER_URL_PARAM_APPEND_CHARACTER = "&";
+    private static final String EQUAL_URL_PARAM_ASSIGN_CHARACTER = "=";
+    private static final String UTF_8_ENCODING = "UTF-8";
+    private static final String JSON_START_CHARACTER = "{";
+    private static final String JSON_END_CHARACTER = "}";
+    private static final String JSON_ARRAY_START_CHARACTER = "[";
+    private static final String JSON_ARRAY_END_CHARACTER = "]";
+    private static final String JSON_KEY_VALUE_SEPARATOR_CHARACTER = ":";
+    private static final String JSON_FIELD_SEPARATOR_CHARACTER = ",";
+    private static final String QUOTATION_CHARACTER = "\"";
+    private static final String NEW_LINE_CHARACTER = "\n";
+
     @NonNull
     public static URL urlFromString(String urlStr) throws MalformedURLException, URISyntaxException {
         URL url;
@@ -42,16 +55,16 @@ public class NetworkUtils {
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             if (first) {
                 first = false;
-                result.append("?");
+                result.append(FIRST_URL_PARAM_APPEND_CHARACTER);
             } else {
-                result.append("&");
+                result.append(OTHER_URL_PARAM_APPEND_CHARACTER);
             }
 
-            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-            result.append("=");
+            result.append(URLEncoder.encode(entry.getKey(), UTF_8_ENCODING));
+            result.append(EQUAL_URL_PARAM_ASSIGN_CHARACTER);
 
             if (entry.getValue().getClass().equals(String.class)) {
-                result.append(URLEncoder.encode((String) entry.getValue(), "UTF-8"));
+                result.append(URLEncoder.encode((String) entry.getValue(), UTF_8_ENCODING));
             } else {
                 result.append(entry.getValue());
             }
@@ -65,30 +78,30 @@ public class NetworkUtils {
             return "";
         }
         StringBuilder result = new StringBuilder();
-        result.append("{");
+        result.append(JSON_START_CHARACTER);
         boolean first = true;
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             if (first)
                 first = false;
             else
-                result.append(",\n");
+                result.append(JSON_FIELD_SEPARATOR_CHARACTER + NEW_LINE_CHARACTER);
 
-            result.append("\"");
+            result.append(QUOTATION_CHARACTER);
             result.append(entry.getKey());
-            result.append("\"");
-            result.append(":");
+            result.append(QUOTATION_CHARACTER);
+            result.append(JSON_KEY_VALUE_SEPARATOR_CHARACTER);
             if (entry.getValue() instanceof HashMap) {
                 // Si se trata de un Hashmap dentro de otro
                 result.append(getBodyDataString((HashMap<String, Object>) entry.getValue()));
             } else if (entry.getValue() instanceof Object[]) {
                 result.append(getBodyDataStringFromArray((Object[]) entry.getValue()));
             } else {
-                result.append("\"");
+                result.append(QUOTATION_CHARACTER);
                 result.append(entry.getValue());
-                result.append("\"");
+                result.append(QUOTATION_CHARACTER);
             }
         }
-        result.append("}");
+        result.append(JSON_END_CHARACTER);
         return result.toString();
     }
 
@@ -98,19 +111,19 @@ public class NetworkUtils {
         }
 
         StringBuilder result = new StringBuilder();
-        result.append("[");
+        result.append(JSON_ARRAY_START_CHARACTER);
         boolean first = true;
         for (Object objectInArray : array) {
             if (first)
                 first = false;
             else
-                result.append(",\n");
-            result.append("\"");
+                result.append(JSON_FIELD_SEPARATOR_CHARACTER + NEW_LINE_CHARACTER);
+            result.append(QUOTATION_CHARACTER);
             result.append(objectInArray.toString());
-            result.append("\"");
+            result.append(QUOTATION_CHARACTER);
         }
 
-        result.append("]");
+        result.append(JSON_ARRAY_END_CHARACTER);
         return result.toString();
     }
 

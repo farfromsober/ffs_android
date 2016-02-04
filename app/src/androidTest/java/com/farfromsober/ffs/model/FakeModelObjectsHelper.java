@@ -17,7 +17,6 @@ public class FakeModelObjectsHelper {
 
     public static final int INT_DEFAULT_VALUE = 0;
     public static final double DOUBLE_DEFAULT_VALUE = 0;
-    public static final boolean BOOLEAN_DEFAULT_VALUE = false;
 
     private static String stringValue (String value) {
         return "\"" + value + "\"";

@@ -314,7 +314,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
     @Override
     public void onProductsFragmentNewProductImagesUploaded(ArrayList<ProductImage> productImages) {
-        NewProductFragment newProductFragment = ((NewProductFragment) getFragmentManager().findFragmentByTag("newProductFragment"));
+        NewProductFragment newProductFragment = ((NewProductFragment) getFragmentManager().findFragmentByTag("NewProductFragment"));
         newProductFragment.mProductImages = productImages;
         newProductFragment.uploadNewProduct();
     }
