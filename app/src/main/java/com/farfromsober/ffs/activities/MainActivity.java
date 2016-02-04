@@ -1,12 +1,12 @@
 package com.farfromsober.ffs.activities;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +19,7 @@ import com.farfromsober.customviews.CustomFontTextView;
 import com.farfromsober.ffs.R;
 import com.farfromsober.ffs.adapters.DrawerListAdapter;
 import com.farfromsober.ffs.callbacks.FiltersFragmentListener;
+import com.farfromsober.ffs.callbacks.NewProductFragmentListener;
 import com.farfromsober.ffs.callbacks.OnMenuSelectedCallback;
 import com.farfromsober.ffs.callbacks.OnOptionsFilterListener;
 import com.farfromsober.ffs.callbacks.ProductDetailFragmentListener;
@@ -26,14 +27,13 @@ import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.fragments.CategoryFilterFragment;
 import com.farfromsober.ffs.fragments.FullMapFragment;
 import com.farfromsober.ffs.fragments.FullProductsFragment;
+import com.farfromsober.ffs.fragments.FullProfileFragment;
 import com.farfromsober.ffs.fragments.NewProductFragment;
 import com.farfromsober.ffs.fragments.NotificationsFragment;
 import com.farfromsober.ffs.fragments.ProductDetailFragment;
-import com.farfromsober.ffs.fragments.FullProfileFragment;
 import com.farfromsober.ffs.model.DrawerMenuItem;
 import com.farfromsober.ffs.model.LoginData;
 import com.farfromsober.ffs.model.Product;
-import com.farfromsober.ffs.model.ProductImage;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 import com.farfromsober.networkviews.NetworkPreloaderActivity;
@@ -51,8 +51,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback, OnOptionsFilterListener,FiltersFragmentListener,ProductDetailFragmentListener, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends NetworkPreloaderActivity implements ProductsFragmentListener, OnMenuSelectedCallback, OnOptionsFilterListener,
+        FiltersFragmentListener,ProductDetailFragmentListener, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, NewProductFragmentListener {
 
     public static final int PRODUCTS_FRAGMENT_INDEX = 0;
     public static final int MAP_FRAGMENT_INDEX = 1;
@@ -313,14 +314,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     }
 
     @Override
-    public void onProductsFragmentNewProductImagesUploaded(ArrayList<ProductImage> productImages) {
-        NewProductFragment newProductFragment = ((NewProductFragment) getFragmentManager().findFragmentByTag("NewProductFragment"));
-        newProductFragment.mProductImages = productImages;
-        newProductFragment.uploadNewProduct();
-    }
-
-    @Override
-    public void onProductsFragmentNewProductCreated() {
+    public void onNewProductCreated() {
         goBackToProductList(null);
     }
 

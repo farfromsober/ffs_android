@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,8 @@ import android.widget.Spinner;
 
 import com.farfromsober.customviews.CustomFontEditText;
 import com.farfromsober.ffs.R;
-import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
+import com.farfromsober.ffs.callbacks.BlobUploaderListener;
+import com.farfromsober.ffs.callbacks.NewProductFragmentListener;
 import com.farfromsober.ffs.fragments.dialogs.ProductImageDialogFragment;
 import com.farfromsober.ffs.model.Category;
 import com.farfromsober.ffs.model.Product;
@@ -37,7 +37,6 @@ import com.farfromsober.networkviews.callbacks.OnNetworkActivityCallback;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -45,11 +44,11 @@ import javax.net.ssl.HttpsURLConnection;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class NewProductFragment extends Fragment implements OnDataParsedCallback<Product>, AdapterView.OnItemSelectedListener {
+public class NewProductFragment extends Fragment implements OnDataParsedCallback<Product>, AdapterView.OnItemSelectedListener, BlobUploaderListener {
 
     private APIManager apiManager;
     private WeakReference<OnNetworkActivityCallback> mOnNetworkActivityCallback;
-    public WeakReference<ProductsFragmentListener> mListener;
+    public WeakReference<NewProductFragmentListener> mListener;
     private ProductImage mActualProductImage;
     private int mActualImagePosition;
     public ArrayList<ProductImage> mProductImages = new ArrayList<>();
@@ -120,7 +119,7 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
             public void onClick(View v) {
                 showPreloader(getResources().getString(R.string.new_product_uploading_images));
                 if (mListener != null && mListener.get() != null) {
-                    new BlobUploadTask(mProductImages, mListener.get(), SharedPreferencesManager.getPrefUserData(getActivity()))
+                    new BlobUploadTask(mProductImages, NewProductFragment.this, SharedPreferencesManager.getPrefUserData(getActivity()))
                             .execute();
                 }
             }
@@ -273,9 +272,9 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
             throw new ClassCastException(context.toString() + " must implement OnNetworkActivityCallback in Activity");
         }
         try {
-            mListener = new WeakReference<>((ProductsFragmentListener) getActivity());
+            mListener = new WeakReference<>((NewProductFragmentListener) getActivity());
         } catch (Exception e) {
-            throw new ClassCastException(context.toString() + " must implement ProductsFragmentListener in Activity");
+            throw new ClassCastException(context.toString() + " must implement NewProductFragmentListener in Activity");
         }
     }
 
@@ -347,7 +346,7 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
             removeImagesFromStorage();
             hidePreloader();
             if (mListener != null && mListener.get() != null) {
-                mListener.get().onProductsFragmentNewProductCreated();
+                mListener.get().onNewProductCreated();
             }
         }
     }
@@ -355,5 +354,13 @@ public class NewProductFragment extends Fragment implements OnDataParsedCallback
     @Override
     public void onExceptionReceived(Exception e) {
         e.printStackTrace();
+    }
+
+    @Override
+    public void onProductsFragmentNewProductImagesUploaded(ArrayList<ProductImage> productImages) {
+        if (isAdded()) {
+            mProductImages = productImages;
+            uploadNewProduct();
+        }
     }
 }

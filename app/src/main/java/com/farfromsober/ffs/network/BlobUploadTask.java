@@ -16,12 +16,11 @@ package com.farfromsober.ffs.network;
 
 import android.os.AsyncTask;
 
-import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
+import com.farfromsober.ffs.callbacks.BlobUploaderListener;
 import com.farfromsober.ffs.model.ProductImage;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.generalutils.DateManager;
 import com.microsoft.azure.storage.CloudStorageAccount;
-import com.microsoft.azure.storage.blob.BlobProperties;
 import com.microsoft.azure.storage.blob.CloudBlobClient;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import com.microsoft.azure.storage.blob.CloudBlockBlob;
@@ -38,7 +37,7 @@ import java.util.Date;
  */
 public class BlobUploadTask extends AsyncTask<String, Void, ArrayList<ProductImage>> {
 
-    private WeakReference<ProductsFragmentListener> mListener;
+    private WeakReference<BlobUploaderListener> mListener;
     private ArrayList<ProductImage> imagesToUpload;
     private User mCurrentUser;
     private static final String AZURE_CONTAINER = "farfromsober-images-container";
@@ -47,7 +46,7 @@ public class BlobUploadTask extends AsyncTask<String, Void, ArrayList<ProductIma
             + "AccountName=farfromsober;"
             + "AccountKey=tv2oqlfCxzFUm7/dYgBGD6YW5K1eQOROVGqqDVm3ijaJpdhxwpkW5OttAFS70++IAcEReSdc0fR/zc06CKrkWQ==";
 
-    public BlobUploadTask(ArrayList<ProductImage> imageFiles, ProductsFragmentListener listener, User currentUser) {
+    public BlobUploadTask(ArrayList<ProductImage> imageFiles, BlobUploaderListener listener, User currentUser) {
         this.imagesToUpload = imageFiles;
         this.mListener = new WeakReference<>(listener);
         this.mCurrentUser = currentUser;
