@@ -7,7 +7,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class User implements Serializable {
 
@@ -52,26 +54,65 @@ public class User implements Serializable {
     }
 
     public User(JSONObject json) {
-        mUserId = json.optString(ID_KEY);
-        String userString = json.optString(USER_KEY);
-        JSONObject userJson = null;
+        if (hasNeededFields(json)) {
+            String userString = json.optString(USER_KEY);
+            JSONObject userJson = null;
+            try {
+                userJson = new JSONObject(userString);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            mUserId = userJson.optString(ID_KEY);
+            mFirstName = userJson.optString(FIRST_NAME_KEY);
+            mLastName = userJson.optString(LAST_NAME_KEY);
+            mEmail = userJson.optString(EMAIL_KEY);
+            mUsername = userJson.optString(USERNAME_KEY);
+            mLatitude = json.optString(LATITUDE_KEY);
+            mLongitude = json.optString(LONGITUDE_KEY);
+            mAvatarURL = json.optString(AVATAR_KEY);
+            mCity = json.optString(CITY_KEY);
+            mState = json.optString(STATE_KEY);
+            mSales = json.optDouble(SALES_KEY);
+            if (Double.isNaN(mSales))
+                mSales = 0;
+        }
+    }
+
+
+    private boolean hasNeededFields(JSONObject json) {
+
+        if (json == null) {
+            return false;
+        }
+
+        JSONObject userJSON;
         try {
-            userJson = new JSONObject(userString);
+            userJSON = json.getJSONObject(USER_KEY);
         } catch (JSONException e) {
             e.printStackTrace();
+            return false;
         }
-        mFirstName = userJson.optString(FIRST_NAME_KEY);
-        mLastName = userJson.optString(LAST_NAME_KEY);
-        mEmail = userJson.optString(EMAIL_KEY);
-        mUsername = userJson.optString(USERNAME_KEY);
-        mLatitude = json.optString(LATITUDE_KEY);
-        mLongitude = json.optString(LONGITUDE_KEY);
-        mAvatarURL = json.optString(AVATAR_KEY);
-        mCity = json.optString(CITY_KEY);
-        mState = json.optString(STATE_KEY);
-        mSales = json.optDouble(SALES_KEY);
-        if (Double.isNaN(mSales))
-            mSales = 0;
+
+        Iterator iterator = userJSON.keys();
+        ArrayList<String> keysList = new ArrayList<>();
+
+        ArrayList<String> neededFields = new ArrayList<>();
+        neededFields.add(ID_KEY);
+        neededFields.add(EMAIL_KEY);
+        neededFields.add(USERNAME_KEY);
+
+        while(iterator.hasNext()) {
+            String key = (String) iterator.next();
+            keysList.add(key);
+        }
+
+        for (String neededField:neededFields) {
+            if (!keysList.contains(neededField)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public String getUserId() {
