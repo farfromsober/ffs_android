@@ -55,21 +55,30 @@ public class Product implements Serializable {
         mImages = images;
     }
 
-    public Product(JSONObject json) throws JSONException, ParseException {
+    public Product(JSONObject json) {
         if (hasNeededFields(json)) {
             mId = json.optString(ID_KEY);
             mName = json.optString(NAME_KEY);
             mDetail = json.optString(DESCRIPTION_KEY);
-            mPublished = DateManager.dateFromString(json.optString(PUBLISHED_DATE_KEY), DATE_FORMAT);
+            try {
+                mPublished = DateManager.dateFromString(json.optString(PUBLISHED_DATE_KEY), DATE_FORMAT);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             mIsSelling = json.optBoolean(SELLING_KEY);
             mPrice = json.optString(PRICE_KEY);
             mSeller = new User((JSONObject) json.opt(SELLER_KEY));
             mCategory = new Category((JSONObject) json.opt(CATEGORY_KEY));
-
             mImages = new ArrayList<>();
             JSONArray objectsArray = json.optJSONArray(IMAGES_KEY);
-            for (int i = 0; i < objectsArray.length(); i++) {
-                mImages.add(objectsArray.getString(i));
+            if (objectsArray != null) {
+                for (int i = 0; i < objectsArray.length(); i++) {
+                    try {
+                        mImages.add(objectsArray.getString(i));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
@@ -81,13 +90,8 @@ public class Product implements Serializable {
         ArrayList<String> neededFields = new ArrayList<>();
         neededFields.add(ID_KEY);
         neededFields.add(NAME_KEY);
-        neededFields.add(DESCRIPTION_KEY);
-        neededFields.add(PUBLISHED_DATE_KEY);
-        neededFields.add(SELLING_KEY);
         neededFields.add(PRICE_KEY);
         neededFields.add(SELLER_KEY);
-        neededFields.add(CATEGORY_KEY);
-        neededFields.add(IMAGES_KEY);
 
         Iterator iterator = json.keys();
         ArrayList<String> keysList = new ArrayList<>();

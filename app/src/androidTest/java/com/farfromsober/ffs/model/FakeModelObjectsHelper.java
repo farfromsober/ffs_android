@@ -25,9 +25,9 @@ public class FakeModelObjectsHelper {
 
 
 
-    private static final String CATEGORY_INDEX_KEY = "\"index\"";
+    private static final String CATEGORY_INDEX_KEY = "index";
     public static final int CATEGORY_INDEX_VALUE = 0;
-    private static final String CATEGORY_NAME_KEY = "\"name\"";
+    private static final String CATEGORY_NAME_KEY = "name";
     public static final String CATEGORY_NAME_VALUE = "Category 1";
 
     private static final String CATEGORY_INDEX_JSON_STRING = CATEGORY_INDEX_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + CATEGORY_INDEX_VALUE;
@@ -214,7 +214,7 @@ public class FakeModelObjectsHelper {
     private static final String PRODUCT_PRICE_KEY = "price";
     public static final String PRODUCT_PRICE_VALUE = "54";
     private static final String PRODUCT_SELLER_KEY = "seller";
-    public static final String PRODUCT_SELLER_VALUE = "";
+    public static final String PRODUCT_SELLER_VALUE = jsonUser;
     private static final String PRODUCT_CATEGORY_KEY = "category";
     public static final String PRODUCT_CATEGORY_VALUE = jsonCategory;
     private static final String PRODUCT_IMAGES_KEY = "images";
@@ -228,7 +228,7 @@ public class FakeModelObjectsHelper {
     private static final String PRODUCT_SELLING_JSON_STRING = PRODUCT_SELLING_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + PRODUCT_SELLING_VALUE;
     private static final String PRODUCT_PRICE_JSON_STRING = PRODUCT_PRICE_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(PRODUCT_PRICE_VALUE);
     private static final String PRODUCT_SELLER_JSON_STRING = PRODUCT_SELLER_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + PRODUCT_SELLER_VALUE;
-    private static final String PRODUCT_CATEGORY_JSON_STRING = PRODUCT_CATEGORY_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(PRODUCT_CATEGORY_VALUE);
+    private static final String PRODUCT_CATEGORY_JSON_STRING = PRODUCT_CATEGORY_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + PRODUCT_CATEGORY_VALUE;
     private static final String PRODUCT_IMAGES_JSON_STRING = PRODUCT_IMAGES_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(PRODUCT_IMAGES_VALUE);
 
     private static final String jsonProduct =   JSON_STARTING_STRING +
@@ -240,9 +240,102 @@ public class FakeModelObjectsHelper {
                                                 PRODUCT_PRICE_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
                                                 PRODUCT_SELLER_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
                                                 PRODUCT_CATEGORY_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
-                                                PRODUCT_IMAGES_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                PRODUCT_IMAGES_JSON_STRING +
                                                 JSON_ENDING_STRING;
 
+    private static final String jsonProductWithNoProductId =    JSON_STARTING_STRING +
+                                                                //PRODUCT_ID_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                                PRODUCT_NAME_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                                PRODUCT_DETAIL_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                                PRODUCT_PUBLISHED_DATE_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                                PRODUCT_SELLING_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                                PRODUCT_PRICE_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                                PRODUCT_SELLER_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                                PRODUCT_CATEGORY_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                                PRODUCT_IMAGES_JSON_STRING +
+                                                                JSON_ENDING_STRING;
 
+    private static final String jsonProductWithNoName = JSON_STARTING_STRING +
+                                                        PRODUCT_ID_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                        //PRODUCT_NAME_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                        PRODUCT_DETAIL_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                        PRODUCT_PUBLISHED_DATE_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                        PRODUCT_SELLING_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                        PRODUCT_PRICE_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                        PRODUCT_SELLER_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                        PRODUCT_CATEGORY_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                        PRODUCT_IMAGES_JSON_STRING +
+                                                        JSON_ENDING_STRING;
+
+    private static final String jsonProductWithNoPrice =    JSON_STARTING_STRING +
+                                                            PRODUCT_ID_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_NAME_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_DETAIL_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_PUBLISHED_DATE_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_SELLING_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            //PRODUCT_PRICE_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_SELLER_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_CATEGORY_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_IMAGES_JSON_STRING +
+                                                            JSON_ENDING_STRING;
+
+    private static final String jsonProductWithNoSeller =   JSON_STARTING_STRING +
+                                                            PRODUCT_ID_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_NAME_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_DETAIL_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_PUBLISHED_DATE_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_SELLING_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_PRICE_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            //PRODUCT_SELLER_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_CATEGORY_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
+                                                            PRODUCT_IMAGES_JSON_STRING +
+                                                            JSON_ENDING_STRING;
+
+
+
+    public static JSONObject fakeJSONProduct() {
+        try {
+            return new JSONObject(jsonProduct);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static JSONObject fakeJSONProductWithNoProductId() {
+        try {
+            return new JSONObject(jsonProductWithNoProductId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static JSONObject fakeJSONProductWithNoName() {
+        try {
+            return new JSONObject(jsonProductWithNoName);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static JSONObject fakeJSONProductWithNoPrice() {
+        try {
+            return new JSONObject(jsonProductWithNoPrice);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static JSONObject fakeJSONProductWithNoSeller() {
+        try {
+            return new JSONObject(jsonProductWithNoSeller);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }

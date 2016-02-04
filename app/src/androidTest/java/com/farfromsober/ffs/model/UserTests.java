@@ -2,10 +2,6 @@ package com.farfromsober.ffs.model;
 
 import android.test.AndroidTestCase;
 
-import org.json.JSONException;
-
-import java.text.ParseException;
-
 public class UserTests extends AndroidTestCase {
 
     public void testUserInitializedWithNilJSONObjectShouldBeUserWithNullAttributes() {
@@ -76,7 +72,7 @@ public class UserTests extends AndroidTestCase {
         assertEquals(FakeModelObjectsHelper.DOUBLE_DEFAULT_VALUE, user.getSales());
     }
 
-    public void testUserInitializedWithJSONObjectShouldBeFullUser() throws JSONException, ParseException {
+    public void testUserInitializedWithJSONObjectShouldBeFullUser() {
 
         User user = new User(FakeModelObjectsHelper.fakeJSONUser());
 

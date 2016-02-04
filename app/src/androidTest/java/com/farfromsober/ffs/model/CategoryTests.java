@@ -2,10 +2,6 @@ package com.farfromsober.ffs.model;
 
 import android.test.AndroidTestCase;
 
-import org.json.JSONException;
-
-import java.text.ParseException;
-
 public class CategoryTests extends AndroidTestCase {
 
     public void testCategoryInitializedWithNilJSONObjectShouldBeCategoryWithNullAttributes() {
@@ -32,7 +28,7 @@ public class CategoryTests extends AndroidTestCase {
         assertEquals(FakeModelObjectsHelper.INT_DEFAULT_VALUE, category.getIndex());
     }
 
-    public void testCategoryInitializedWithJSONObjectShouldBeFullCategory() throws JSONException, ParseException {
+    public void testCategoryInitializedWithJSONObjectShouldBeFullCategory() {
 
         Category category = new Category(FakeModelObjectsHelper.fakeJSONCategory());
 
