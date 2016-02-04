@@ -228,6 +228,8 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(menuItems.get(position).getTitle());
         }
+
+        mCurrentFragment = fragment;
     }
 
     private Fragment getFragmentToNavigateTo(int position) {
