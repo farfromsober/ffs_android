@@ -3,6 +3,7 @@ package com.farfromsober.ffs.fragments;
 
 import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.InflateException;
@@ -201,7 +202,9 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
 
     @Override
     public void onDataArrayParsed(int responseCode, ArrayList<Object> data) {
-        getNextApiCall(data);
+        if (isAdded()) {
+            getNextApiCall(data);
+        }
     }
 
     @Override

@@ -83,7 +83,6 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //SharedPreferencesManager.removePrefLoginUser(getApplicationContext());
 
         LoginData data = SharedPreferencesManager.getPrefLoginUser(getApplicationContext());
 
@@ -131,6 +130,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
 
     @Override
     public void onBackPressed() {
+        hidePreloader();
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             if (mCurrentFragment.getClass().equals(FullProductsFragment.class)) {
                 if (getFragmentManager().getBackStackEntryCount() > 1) {
@@ -328,7 +328,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         ProductDetailFragment fragment = ProductDetailFragment.newInstance(product);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_right);
         fragmentTransaction.add(R.id.content_frame, fragment);
         fragmentTransaction.addToBackStack("ProductDetailFragment");
         fragmentTransaction.commit();
@@ -341,7 +341,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         mCurrentFragment.setHasOptionsMenu(false);
         CategoryFilterFragment fragment = CategoryFilterFragment.newInstance(lastFilterSelectedItems);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
+        transaction.setCustomAnimations(R.anim.slide_in_left, 0, 0, R.anim.slide_out_right);
         transaction.add(R.id.content_frame, fragment);
         transaction.addToBackStack("CategoryFilterFragment");
         transaction.commit();
@@ -367,9 +367,7 @@ public class MainActivity extends NetworkPreloaderActivity implements ProductsFr
         FullProfileFragment fragment = FullProfileFragment.newInstance(seller);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        //fragmentTransaction.setCustomAnimations(R.anim.slide_in_from_top, R.anim.slide_out_to_top, R.anim.slide_in_from_top, R.anim.slide_out_to_top);
-        //fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_right);
-        //fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_bottom, R.anim.slide_out_top);
+        fragmentTransaction.setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top, R.anim.slide_in_bottom, R.anim.slide_out_top);
         fragmentTransaction.add(R.id.content_frame, fragment);
         fragmentTransaction.addToBackStack("FullProfileFragment");
         fragmentTransaction.commit();

@@ -103,7 +103,6 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
         apiManager = new APIManager(getActivity());
         askServerForProducts();
-        //mProductsList.swapAdapter(new ProductsAdapter(Products.getInstance(getActivity()).getProducts(), getActivity(), this), false);
 
         mSwipeRefreshLayout.setColorSchemeResources(R.color.app_dark_orange);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -210,18 +209,20 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
     }
 
     private void hidePreloader() {
-        Handler mainHandler = new Handler(getActivity().getMainLooper());
+        if (getActivity() != null) {
+            Handler mainHandler = new Handler(getActivity().getMainLooper());
 
-        Runnable myRunnable = new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(false);
-                if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
-                    mOnNetworkActivityCallback.get().onNetworkActivityFinished();
+            Runnable myRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                    if (mOnNetworkActivityCallback != null && mOnNetworkActivityCallback.get() != null) {
+                        mOnNetworkActivityCallback.get().onNetworkActivityFinished();
+                    }
                 }
-            }
-        };
-        mainHandler.post(myRunnable);
+            };
+            mainHandler.post(myRunnable);
+        }
     }
 
 

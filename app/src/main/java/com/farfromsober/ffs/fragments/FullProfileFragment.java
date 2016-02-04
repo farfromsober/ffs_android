@@ -117,7 +117,8 @@ public class FullProfileFragment extends Fragment {
         if (adapter == null) {
             adapter = new ViewPagerAdapter(getChildFragmentManager());
         }
-        adapter.addFragment(ProfileFragment.newInstance(mUser), mContext.getString(R.string.profile_tab_title));
+        ProfileFragment profileFragment = ProfileFragment.newInstance(mUser);
+        adapter.addFragment(profileFragment, mContext.getString(R.string.profile_tab_title));
         adapter.addFragment(SellingFragment.newInstance(mUser), mContext.getString(R.string.selling_tab_title));
         adapter.addFragment(SoldFragment.newInstance(mUser), mContext.getString(R.string.sold_tab_title));
         adapter.addFragment(BoughtFragment.newInstance(mUser), mContext.getString(R.string.bought_tab_title));
@@ -146,14 +147,6 @@ public class FullProfileFragment extends Fragment {
         public void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            FragmentManager manager = ((Fragment) object).getFragmentManager();
-            FragmentTransaction trans = manager.beginTransaction();
-            trans.remove((Fragment) object);
-            trans.commit();
         }
 
         @Override
