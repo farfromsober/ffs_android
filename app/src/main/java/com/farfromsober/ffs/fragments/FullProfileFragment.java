@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.farfromsober.ffs.R;
-import com.farfromsober.ffs.callbacks.OnTabItemClickedCallback;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
@@ -27,7 +26,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class FullProfileFragment extends Fragment implements OnTabItemClickedCallback {
+public class FullProfileFragment extends Fragment {
 
     public static final String ARG_USER = "com.farfromsober.ffs.fragments.FullProfileFragment.ARG_USER";
 
@@ -119,11 +118,8 @@ public class FullProfileFragment extends Fragment implements OnTabItemClickedCal
         }
         ProfileFragment profileFragment = ProfileFragment.newInstance(mUser);
         SellingFragment sellingFragment = SellingFragment.newInstance(mUser);
-        sellingFragment.mListener = this;
         SoldFragment soldFragment = SoldFragment.newInstance(mUser);
-        soldFragment.mListener = this;
         BoughtFragment boughtFragment = BoughtFragment.newInstance(mUser);
-        boughtFragment.mListener = this;
         adapter.addFragment(profileFragment, mContext.getString(R.string.profile_tab_title));
         adapter.addFragment(sellingFragment, mContext.getString(R.string.selling_tab_title));
         adapter.addFragment(soldFragment, mContext.getString(R.string.sold_tab_title));
@@ -146,9 +142,10 @@ public class FullProfileFragment extends Fragment implements OnTabItemClickedCal
         });
     }
 
-    @Override
     public void onProductClicked(int position) {
-        ((FullProductsFragment)mFragmentOnScreen).showDetailForProductInPosition(position);
+        if (FullProductsFragment.class.isAssignableFrom(mFragmentOnScreen.getClass())) {
+            ((FullProductsFragment)mFragmentOnScreen).showDetailForProductInPosition(position);
+        }
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
