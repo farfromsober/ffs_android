@@ -62,7 +62,7 @@ public class User implements Serializable {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            mUserId = userJson.optString(ID_KEY);
+            mUserId = json.optString(ID_KEY);
             mFirstName = userJson.optString(FIRST_NAME_KEY);
             mLastName = userJson.optString(LAST_NAME_KEY);
             mEmail = userJson.optString(EMAIL_KEY);
@@ -85,6 +85,25 @@ public class User implements Serializable {
             return false;
         }
 
+        Iterator iterator = json.keys();
+        ArrayList<String> keysList = new ArrayList<>();
+
+        ArrayList<String> neededFields = new ArrayList<>();
+        neededFields.add(ID_KEY);
+
+        while(iterator.hasNext()) {
+            String key = (String) iterator.next();
+            keysList.add(key);
+        }
+
+        for (String neededField:neededFields) {
+            if (!keysList.contains(neededField)) {
+                return false;
+            }
+        }
+
+
+
         JSONObject userJSON;
         try {
             userJSON = json.getJSONObject(USER_KEY);
@@ -93,11 +112,10 @@ public class User implements Serializable {
             return false;
         }
 
-        Iterator iterator = userJSON.keys();
-        ArrayList<String> keysList = new ArrayList<>();
+        iterator = userJSON.keys();
+        keysList.clear();
 
-        ArrayList<String> neededFields = new ArrayList<>();
-        neededFields.add(ID_KEY);
+        neededFields.clear();
         neededFields.add(EMAIL_KEY);
         neededFields.add(USERNAME_KEY);
 

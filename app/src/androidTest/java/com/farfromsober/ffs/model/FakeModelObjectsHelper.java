@@ -74,8 +74,8 @@ public class FakeModelObjectsHelper {
 
 
     private static final String USER_USER_KEY = "user";
-    private static final String USER_ID_KEY = "id";
-    public static final int USER_ID_VALUE = 5;
+    private static final String USER_USER_ID_KEY = "id";
+    public static final int USER_USER_ID_VALUE = 5;
     private static final String USER_FIRST_NAME_KEY = "first_name";
     public static final String USER_FIRST_NAME_VALUE = "Javier";
     private static final String USER_LAST_NAME_KEY = "last_name";
@@ -85,6 +85,8 @@ public class FakeModelObjectsHelper {
     private static final String USER_USERNAME_KEY = "username";
     public static final String USER_USERNAME_VALUE = "javi";
 
+    private static final String USER_PROFILE_ID_KEY = "id";
+    public static final int USER_PROFILE_ID_VALUE = 3;
     private static final String USER_LATITUDE_KEY = "latitude";
     public static final String USER_LATITUDE_VALUE = "42.813604";
     private static final String USER_LONGITUDE_KEY = "longitude";
@@ -100,41 +102,34 @@ public class FakeModelObjectsHelper {
 
 
     private static final String USER_USER_VALUE =   JSON_STARTING_STRING +
-                                                    USER_ID_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_ID_VALUE + JSON_FIELD_SEPARATOR_STRING +
+                                                    USER_USER_ID_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_USER_ID_VALUE + JSON_FIELD_SEPARATOR_STRING +
                                                     USER_USERNAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_USERNAME_VALUE) + JSON_FIELD_SEPARATOR_STRING +
                                                     USER_FIRST_NAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_FIRST_NAME_VALUE) + JSON_FIELD_SEPARATOR_STRING +
                                                     USER_LAST_NAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_LAST_NAME_VALUE) + JSON_FIELD_SEPARATOR_STRING +
                                                     USER_EMAIL_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_EMAIL_VALUE) +
                                                     JSON_ENDING_STRING;
 
-    private static final String USER_USER_VALUE_WITH_NO_USER_ID =   JSON_STARTING_STRING +
-                                                                    //USER_ID_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_ID_VALUE + JSON_FIELD_SEPARATOR_STRING +
-                                                                    USER_USERNAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_USERNAME_VALUE) + JSON_FIELD_SEPARATOR_STRING +
-                                                                    USER_FIRST_NAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_FIRST_NAME_VALUE) + JSON_FIELD_SEPARATOR_STRING +
-                                                                    USER_LAST_NAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_LAST_NAME_VALUE) + JSON_FIELD_SEPARATOR_STRING +
-                                                                    USER_EMAIL_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_EMAIL_VALUE) +
-                                                                    JSON_ENDING_STRING;
-
     private static final String USER_USER_VALUE_WITH_NO_USER_NAME =     JSON_STARTING_STRING +
-                                                                        USER_ID_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_ID_VALUE + JSON_FIELD_SEPARATOR_STRING +
-                                                                        USER_USERNAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + "" + JSON_FIELD_SEPARATOR_STRING +
+                                                                        USER_USER_ID_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_USER_ID_VALUE + JSON_FIELD_SEPARATOR_STRING +
+                                                                        //USER_USERNAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + "" + JSON_FIELD_SEPARATOR_STRING +
                                                                         USER_FIRST_NAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_FIRST_NAME_VALUE) + JSON_FIELD_SEPARATOR_STRING +
                                                                         USER_LAST_NAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_LAST_NAME_VALUE) + JSON_FIELD_SEPARATOR_STRING +
                                                                         USER_EMAIL_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_EMAIL_VALUE) +
                                                                         JSON_ENDING_STRING;
 
     private static final String USER_USER_VALUE_WITH_NO_EMAIL =     JSON_STARTING_STRING +
-                                                                    USER_ID_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_ID_VALUE + JSON_FIELD_SEPARATOR_STRING +
+                                                                    USER_USER_ID_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_USER_ID_VALUE + JSON_FIELD_SEPARATOR_STRING +
                                                                     USER_USERNAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_USERNAME_VALUE) + JSON_FIELD_SEPARATOR_STRING +
                                                                     USER_FIRST_NAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_FIRST_NAME_VALUE) + JSON_FIELD_SEPARATOR_STRING +
                                                                     USER_LAST_NAME_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_LAST_NAME_VALUE) + JSON_FIELD_SEPARATOR_STRING +
-                                                                    USER_EMAIL_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + "" +
+                                                                    //USER_EMAIL_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + "" +
                                                                     JSON_ENDING_STRING;
 
     private static final String USER_USER_JSON_STRING = USER_USER_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_USER_VALUE;
-    private static final String USER_USER_JSON_STRING_WITH_NO_USER_ID = USER_USER_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_USER_VALUE_WITH_NO_USER_ID;
     private static final String USER_USER_JSON_STRING_WITH_NO_USER_NAME = USER_USER_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_USER_VALUE_WITH_NO_USER_NAME;
     private static final String USER_USER_JSON_STRING_WITH_NO_EMAIL = USER_USER_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_USER_VALUE_WITH_NO_EMAIL;
+
+    private static final String USER_ID_JSON_STRING = USER_PROFILE_ID_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_PROFILE_ID_VALUE;
     private static final String USER_AVATAR_JSON_STRING = USER_AVATAR_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_AVATAR_VALUE);
     private static final String USER_LATITUDE_JSON_STRING = USER_LATITUDE_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_LATITUDE_VALUE);
     private static final String USER_LONGITUDE_JSON_STRING = USER_LONGITUDE_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + stringValue(USER_LONGITUDE_VALUE);
@@ -143,6 +138,7 @@ public class FakeModelObjectsHelper {
     private static final String USER_SALES_JSON_STRING = USER_SALES_KEY + JSON_KEY_VALUE_SEPARATOR_STRING + USER_SALES_VALUE;
 
     private static final String jsonUser =   JSON_STARTING_STRING +
+            USER_ID_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
             USER_USER_JSON_STRING +
 //            USER_AVATAR_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
 //            USER_LATITUDE_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
@@ -153,14 +149,16 @@ public class FakeModelObjectsHelper {
             JSON_ENDING_STRING;
 
     private static final String jsonUserWithNoUserId =   JSON_STARTING_STRING +
-            USER_USER_JSON_STRING_WITH_NO_USER_ID +
+            USER_USER_JSON_STRING +
             JSON_ENDING_STRING;
 
     private static final String jsonUserWithNoUserName =   JSON_STARTING_STRING +
+            USER_ID_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
             USER_USER_JSON_STRING_WITH_NO_USER_NAME +
             JSON_ENDING_STRING;
 
     private static final String jsonUserWithNoEmail =   JSON_STARTING_STRING +
+            USER_ID_JSON_STRING + JSON_FIELD_SEPARATOR_STRING +
             USER_USER_JSON_STRING_WITH_NO_EMAIL +
             JSON_ENDING_STRING;
 

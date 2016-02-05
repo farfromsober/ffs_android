@@ -51,6 +51,9 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
     public WeakReference<ProductsFragmentListener> mProductsListener;
     public WeakReference<OnOptionsFilterListener> mOptionslistener;
 
+    private Products mProducts;
+    private ArrayList<Product> mProductsArray;
+
     HashMap<String, Integer> mFilterSelectedItems;
 
     @Bind(R.id.no_products_label)
@@ -269,11 +272,17 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
         if (data != null) {
             Log.i("ffs", data.toString());
 
-            Products products = Products.getInstance(getActivity());
+            if (mProducts == null) {
+                mProducts = new Products();
+            }
+            if (mProductsArray == null) {
+                mProductsArray = new ArrayList<>();
+            }
             if (data.size() > 0) {
                 mProductsList.setVisibility(View.VISIBLE);
                 mNoProductsLabel.setVisibility(View.INVISIBLE);
-                products.deleteProducts();
+                mProducts.deleteProducts();
+                mProductsArray.clear();
             } else {
                 mProductsList.setVisibility(View.INVISIBLE);
                 mNoProductsLabel.setVisibility(View.VISIBLE);
@@ -281,15 +290,18 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
             for (int i = 0; i < data.size(); i++) {
                 if (data.get(i).getClass().equals(Product.class)) {
                     Product product = (Product) data.get(i);
-                    products.addProduct(product);
+                    mProducts.addProduct(product);
+                    mProductsArray.add(product);
                 }
                 if (data.get(i).getClass().equals(Transaction.class)) {
                     Transaction transaction = (Transaction) data.get(i);
-                    products.addProduct(transaction.getProduct());
+                    mProducts.addProduct(transaction.getProduct());
+                    mProductsArray.add(transaction.getProduct());
                 }
             }
             //Update Adapter
-            mProductsList.swapAdapter(new ProductsAdapter(products.getProducts(), getActivity(), this), false);
+            //mProductsList.swapAdapter(new ProductsAdapter(mProducts.getProducts(), getActivity(), this), false);
+            mProductsList.swapAdapter(new ProductsAdapter(mProductsArray, getActivity(), this), false);
             hidePreloader();
         }
     }
@@ -309,8 +321,13 @@ public class FullProductsFragment extends Fragment implements OnDataParsedCallba
 
     @Override
     public void recyclerViewListClicked(View v, int position) {
-        Products products = Products.getInstance(getActivity());
-        Product product = products.getProducts().get(position);
+        showDetailForProductInPosition(position);
+    }
+
+    public void showDetailForProductInPosition (int position) {
+        //Products products = Products.getInstance(getActivity());
+        //Product product = mProducts.getProducts().get(position);
+        Product product = mProductsArray.get(position);
         if (mProductsListener != null && mProductsListener.get() != null) {
             mProductsListener.get().onProductsFragmentProductClicked(product);
         }

@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -17,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.farfromsober.ffs.R;
+import com.farfromsober.ffs.callbacks.OnTabItemClickedCallback;
 import com.farfromsober.ffs.callbacks.ProductsFragmentListener;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
@@ -28,7 +27,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class FullProfileFragment extends Fragment {
+public class FullProfileFragment extends Fragment implements OnTabItemClickedCallback {
 
     public static final String ARG_USER = "com.farfromsober.ffs.fragments.FullProfileFragment.ARG_USER";
 
@@ -36,6 +35,7 @@ public class FullProfileFragment extends Fragment {
     public WeakReference<ProductsFragmentListener> mProductsFragmentListener;
 
     private ViewPagerAdapter adapter;
+    private Fragment mFragmentOnScreen;
 
     private User mUser;
 
@@ -113,17 +113,42 @@ public class FullProfileFragment extends Fragment {
         mContext = (AppCompatActivity) context;
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(final ViewPager viewPager) {
         if (adapter == null) {
             adapter = new ViewPagerAdapter(getChildFragmentManager());
         }
         ProfileFragment profileFragment = ProfileFragment.newInstance(mUser);
+        SellingFragment sellingFragment = SellingFragment.newInstance(mUser);
+        sellingFragment.mListener = this;
+        SoldFragment soldFragment = SoldFragment.newInstance(mUser);
+        soldFragment.mListener = this;
+        BoughtFragment boughtFragment = BoughtFragment.newInstance(mUser);
+        boughtFragment.mListener = this;
         adapter.addFragment(profileFragment, mContext.getString(R.string.profile_tab_title));
-        adapter.addFragment(SellingFragment.newInstance(mUser), mContext.getString(R.string.selling_tab_title));
-        adapter.addFragment(SoldFragment.newInstance(mUser), mContext.getString(R.string.sold_tab_title));
-        adapter.addFragment(BoughtFragment.newInstance(mUser), mContext.getString(R.string.bought_tab_title));
+        adapter.addFragment(sellingFragment, mContext.getString(R.string.selling_tab_title));
+        adapter.addFragment(soldFragment, mContext.getString(R.string.sold_tab_title));
+        adapter.addFragment(boughtFragment, mContext.getString(R.string.bought_tab_title));
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(4);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mFragmentOnScreen = adapter.getItem(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+    }
+
+    @Override
+    public void onProductClicked(int position) {
+        ((FullProductsFragment)mFragmentOnScreen).showDetailForProductInPosition(position);
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

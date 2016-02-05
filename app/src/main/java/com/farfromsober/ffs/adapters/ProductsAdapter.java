@@ -58,10 +58,13 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
         public void bindProduct(Product product) {
             mProductView.setProductName(product.getName());
             mProductView.setProductPrice(product.getPrice());
-            if (product.getImages().size() > 0)
-                mProductView.setProductImage(product.getImages().get(0));
-            else
-                mProductView.setProductImage(null);
+            if (product.getImages() != null) {
+                if (product.getImages().size() > 0) {
+                    mProductView.setProductImage(product.getImages().get(0));
+                    return;
+                }
+            }
+            mProductView.setProductImage(null);
         }
 
         @Override

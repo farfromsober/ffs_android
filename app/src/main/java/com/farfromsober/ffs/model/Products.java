@@ -18,12 +18,12 @@ import java.util.Set;
 public class Products {
 
     public static final String PREF_CITIES = "com.farfromsober.ffs.model.Products.";
-    private static Products ourInstance;
+    //private static Products ourInstance;
 
     private ArrayList<Product> mProducts;
-    private WeakReference<Context> mContext;
+    //private WeakReference<Context> mContext;
 
-    public static Products getInstance(Context context) {
+    /*public static Products getInstance(Context context) {
         if (ourInstance == null || ourInstance.mContext.get() == null) {
             if (ourInstance == null) {
                 ourInstance = new Products(context);
@@ -32,12 +32,13 @@ public class Products {
                 ourInstance.mContext = new WeakReference<Context>(context);
             }
         }
-        return ourInstance;
-    }
+        return new Products(context);
+    }*/
 
-    private Products(Context context) {
+    //private Products(Context context) {
+    public Products() {
         mProducts = new ArrayList<>();
-        mContext = new WeakReference<Context>(context);
+        //mContext = new WeakReference<Context>(context);
     }
 
     public void addProduct(Product product) {
