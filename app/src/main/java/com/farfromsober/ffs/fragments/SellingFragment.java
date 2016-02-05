@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.farfromsober.ffs.R;
-import com.farfromsober.ffs.callbacks.OnTabItemClickedCallback;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
 
@@ -14,7 +13,6 @@ import static com.farfromsober.ffs.fragments.FullProfileFragment.*;
 public class SellingFragment extends ProductsListFragment {
 
     private User mUser;
-    public OnTabItemClickedCallback mListener;
 
     public SellingFragment() {
         // Required empty public constructor
@@ -60,7 +58,12 @@ public class SellingFragment extends ProductsListFragment {
 
     @Override
     public void recyclerViewListClicked(View v, int position) {
-        //super.recyclerViewListClicked(v, position);
-        mListener.onProductClicked(position);
+        if (getParentFragment() != null) {
+            if (getParentFragment().getClass().equals(FullProfileFragment.class)) {
+                ((FullProfileFragment)getParentFragment()).onProductClicked(position);
+                return;
+            }
+        }
+        super.recyclerViewListClicked(v, position);
     }
 }
