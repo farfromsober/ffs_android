@@ -152,7 +152,9 @@ public class NetworkUtils {
                     Object object = constructor.newInstance(jsonObject);
                     objects.add(object);
                 }
-                onDataParsedCallbackWeakReference.get().onDataArrayParsed(responseCode, objects);
+                if (onDataParsedCallbackWeakReference != null && onDataParsedCallbackWeakReference.get() != null) {
+                    onDataParsedCallbackWeakReference.get().onDataArrayParsed(responseCode, objects);
+                }
             }
         } catch (JSONException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();

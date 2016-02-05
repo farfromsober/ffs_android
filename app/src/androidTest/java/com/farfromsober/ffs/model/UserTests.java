@@ -76,7 +76,7 @@ public class UserTests extends AndroidTestCase {
 
         User user = new User(FakeModelObjectsHelper.fakeJSONUser());
 
-        assertEquals(String.valueOf(FakeModelObjectsHelper.USER_ID_VALUE), user.getUserId());
+        assertEquals(String.valueOf(FakeModelObjectsHelper.USER_PROFILE_ID_VALUE), user.getUserId());
         assertEquals(FakeModelObjectsHelper.USER_USERNAME_VALUE, user.getUsername());
         assertEquals(FakeModelObjectsHelper.USER_EMAIL_VALUE, user.getEmail());
     }

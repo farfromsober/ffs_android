@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class DateManager {
 
@@ -18,8 +19,18 @@ public class DateManager {
         return formattedDate;
     }
 
-    public static Date dateFromString(String string, String stringFormat) throws ParseException {
-        return new SimpleDateFormat(stringFormat).parse(string);
+    public static Date dateFromString(String string, String stringFormat) {
+        String newStringFormat = stringFormat.replaceAll("'Z'", "");
+        String newString = string.replaceAll("Z", "");
+
+        SimpleDateFormat df = new SimpleDateFormat(newStringFormat, new Locale("es", "ES"));
+        df.setTimeZone(TimeZone.getTimeZone("UTC+1"));
+        try {
+            return df.parse(newString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return new Date();
+        }
     }
 
     public static String timestampFromDate(Date date) {

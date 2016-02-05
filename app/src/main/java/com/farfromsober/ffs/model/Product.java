@@ -60,11 +60,7 @@ public class Product implements Serializable {
             mId = json.optString(ID_KEY);
             mName = json.optString(NAME_KEY);
             mDetail = json.optString(DESCRIPTION_KEY);
-            try {
-                mPublished = DateManager.dateFromString(json.optString(PUBLISHED_DATE_KEY), DATE_FORMAT);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            mPublished = DateManager.dateFromString(json.optString(PUBLISHED_DATE_KEY), DATE_FORMAT);
             mIsSelling = json.optBoolean(SELLING_KEY);
             mPrice = json.optString(PRICE_KEY);
             mSeller = new User((JSONObject) json.opt(SELLER_KEY));

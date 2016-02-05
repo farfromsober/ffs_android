@@ -32,6 +32,7 @@ public class APIManager implements OnResponseReceivedCallback {
     private static final String ALL_USERS_URL = "http://beta.json-generator.com/api/json/get/NJsNmZgQe";
     private static final String LOGIN_URL = "http://forsale.cloudapp.net/api/1.0/login/";
     private static final String TRANSACTIONS_URL = "http://forsale.cloudapp.net/api/1.0/transactions";
+    private static final String NEW_TRANSACTION_URL = "http://forsale.cloudapp.net/api/1.0/transactions/";
 
 
     public APIManager(Context context) {
@@ -83,7 +84,7 @@ public class APIManager implements OnResponseReceivedCallback {
     public void userBoughtProducts(User user, OnDataParsedCallback<Object> onDataParsedCallback){
         LoginData loginData = SharedPreferencesManager.getPrefLoginUser(mContext);
         APIRequest apiRequest = new APIRequest(PRODUCTS_BOUGHT_URL, ApiRequestType.GET, loginData.getHeaders(), null, null, 10000, 10000);
-        APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Transaction.class);
+        APIAsyncTask allProductsAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Product.class);
         allProductsAsyncTask.execute();
     }
 
@@ -138,7 +139,7 @@ public class APIManager implements OnResponseReceivedCallback {
             postParameters.put("productId", productId);
             postParameters.put("buyerId", buyerId);
         }
-        APIRequest apiRequest = new APIRequest(TRANSACTIONS_URL, ApiRequestType.POST, loginData.getHeaders(),null, postParameters, 10000, 10000);
+        APIRequest apiRequest = new APIRequest(NEW_TRANSACTION_URL, ApiRequestType.POST, loginData.getHeaders(),null, postParameters, 10000, 10000);
         APIAsyncTask transactionAsyncTask = new APIAsyncTask(apiRequest, this, onDataParsedCallback, Transaction.class);
         transactionAsyncTask.execute();
     }

@@ -27,9 +27,6 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
 
         private final String text;
 
-        /**
-         * @param text
-         */
         private ApiRequestType(final String text) {
             this.text = text;
         }
@@ -128,6 +125,4 @@ public class APIAsyncTask extends AsyncTask<String, Integer, HashMap<String, Obj
         }
         super.onPostExecute(values);
     }
-
-
 }
