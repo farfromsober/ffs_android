@@ -106,8 +106,15 @@ public class ProfileFragment extends Fragment implements OnDataParsedCallback<Ob
         ButterKnife.bind(this, view);
         setHasOptionsMenu(false);
 
-        configScreenValuesWithUser(mUser);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        configScreenValuesWithUser(mUser);
+
+        super.onViewCreated(view, savedInstanceState);
     }
 
     public void configScreenValuesWithUser(User user) {
