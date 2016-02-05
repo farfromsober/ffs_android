@@ -2,14 +2,12 @@ package com.farfromsober.ffs.fragments;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.farfromsober.ffs.R;
+import com.farfromsober.ffs.callbacks.OnTabItemClickedCallback;
 import com.farfromsober.ffs.model.User;
 import com.farfromsober.ffs.utils.SharedPreferencesManager;
-
-import java.util.ArrayList;
 
 import static com.farfromsober.ffs.fragments.FullProfileFragment.ARG_USER;
 
@@ -17,6 +15,7 @@ import static com.farfromsober.ffs.fragments.FullProfileFragment.ARG_USER;
 public class BoughtFragment extends ProductsListFragment {
 
     private User mUser;
+    public OnTabItemClickedCallback mListener;
 
     public BoughtFragment() {
         // Required empty public constructor
@@ -61,8 +60,8 @@ public class BoughtFragment extends ProductsListFragment {
     }
 
     @Override
-    public void onDataArrayParsed(int responseCode, ArrayList<Object> data) {
-        Log.i("", "data");
-        super.onDataArrayParsed(responseCode, data);
+    public void recyclerViewListClicked(View v, int position) {
+        //super.recyclerViewListClicked(v, position);
+        mListener.onProductClicked(position);
     }
 }
